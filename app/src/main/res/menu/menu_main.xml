@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jjv.proyectointegradorv1.UI.MainActivity">
+    <item
+        android:id="@+id/action_Closesession"
+        android:orderInCategory="100"
+        android:title="@string/action_closesession"
+        app:showAsAction="never" />
+</menu>
