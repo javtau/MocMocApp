@@ -45,6 +45,4 @@ public class DatepickerFragment extends DialogFragment implements DatePickerDial
         String mes = month>9 ? ""+month:"0"+month;
         tv1.setText(dia+"/"+mes+"/"+year);
     }
-
-
 }
