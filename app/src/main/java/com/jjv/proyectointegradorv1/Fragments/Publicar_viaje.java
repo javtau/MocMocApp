@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -120,24 +121,35 @@ public class Publicar_viaje extends Fragment {
                 String hora = txt_hora.getText().toString();
                 int plazas = sp_plazas.getSelectedItemPosition();
                 String precio = txt_precio.getText().toString();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
-                String key = mDatabase.child("posts").push().getKey();
-                Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio).toMap();
-                Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/trip/" + key, viaje);
-                childUpdates.put("/user-trips/" + user.getUid() + "/" + key, viaje);
-                mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getContext(),getString(R.string.publicacion_enviada),Toast.LENGTH_SHORT).show();
-                        txt_origen.setText("");
-                        txt_destino.setText("");
-                        txt_hora.setText(stf.format(new Date()));
-                        txt_fecha.setText(sdf.format(new Date()));
-                        txt_precio.setText("0");
-                    }
-                });
+
+                if (destino.equals("")) {
+                    Snackbar.make(v, getString(R.string.snackbar_sin_origen), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else if (destino.equals("")) {
+                    Snackbar.make(v, getString(R.string.snackbar_sin_destino), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
+                    String key = mDatabase.child("posts").push().getKey();
+                    assert user != null;
+                    Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio).toMap();
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/trip/" + key, viaje);
+                    childUpdates.put("/user-trips/" + user.getUid() + "/" + key, viaje);
+                    mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getContext(), getString(R.string.publicacion_enviada), Toast.LENGTH_SHORT).show();
+                            txt_origen.setText("");
+                            txt_destino.setText("");
+                            txt_hora.setText(stf.format(new Date()));
+                            txt_fecha.setText(sdf.format(new Date()));
+                            txt_precio.setText("0");
+                        }
+                    });
+                }
+
             }
         });
 

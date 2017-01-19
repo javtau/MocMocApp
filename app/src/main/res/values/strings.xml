@@ -33,6 +33,8 @@
     <string name="auth_incorrect">Contraseña incorrecta</string>
     <string name="toast_sin_login">Iniciar sesión previamente</string>
     <string name="snackbar_sin_implementar">Botón pendiente de implementar</string>
+    <string name="snackbar_sin_origen">Debe de introducir un destino</string>
+    <string name="snackbar_sin_destino">Debe de introducir un origen</string>
     <string name="toast_campos_vacios">Se deben rellenar todos los campos</string>
     <string name="toast_usuario_creado">El usuario se a creado correctamente</string>
     <string name="toast_pwd_incorrecta">La contraseña no puede tener menos de 6 caracteres</string>
