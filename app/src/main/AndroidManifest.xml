@@ -25,7 +25,7 @@
             android:label="@string/activiti2_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.register"
+            android:name=".UI.Register"
             android:label="@string/activiti3_name"
             android:screenOrientation="portrait"></activity>
     </application>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MocmocLoggin_pruebas.iml" filepath="$PROJECT_DIR$/MocmocLoggin_pruebas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MocMocApp.iml" filepath="$PROJECT_DIR$/MocMocApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
