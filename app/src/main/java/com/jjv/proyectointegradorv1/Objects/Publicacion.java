@@ -1,5 +1,8 @@
 package com.jjv.proyectointegradorv1.Objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +12,7 @@ import static android.R.attr.author;
  * Created by javi0 on 17/01/2017.
  */
 
-public class Publicacion {
+public class Publicacion implements Parcelable{
     private String user;
     private String origen ;
     private String destino;
@@ -98,5 +101,33 @@ public class Publicacion {
 
     public void setPrecio(String precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(user);
+        dest.writeString(origen);
+        dest.writeString(destino);
+        dest.writeString(fecha);
+        dest.writeString(hora);
+        dest.writeInt(plazas);
+        dest.writeString(precio);
+    }
+    private Publicacion(Parcel in){
+        user = in.readString();
+        origen=in.readString();
+        destino=in.readString();
+        fecha=in.readString();
+        hora=in.readString();
+        plazas=in.readInt();
+        precio=in.readString();
+
+
     }
 }
