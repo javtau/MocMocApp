@@ -11,25 +11,27 @@ import android.widget.TextView;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
 
+import java.util.ArrayList;
+
 public class Publicaciones_Adapter extends BaseAdapter {
 
     Context contexto;
-    Publicacion[]publicaciones;
+    ArrayList<Publicacion> publicaciones;
 
 
-    public Publicaciones_Adapter(Context contexto, Publicacion[] publicaciones) {
+    public Publicaciones_Adapter(Context contexto, ArrayList<Publicacion> publicaciones) {
         this.contexto = contexto;
         this.publicaciones = publicaciones;
     }
 
     @Override
     public int getCount() {
-        return publicaciones.length;
+        return publicaciones.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return publicaciones[i];
+        return publicaciones.get(i);
     }
 
     @Override
@@ -58,12 +60,12 @@ public class Publicaciones_Adapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.nombreUsuario.setText(publicaciones[position].getUser());
-        holder.origenViaje.setText(publicaciones[position].getOrigen());
-        holder.destinoViaje.setText(publicaciones[position].getDestino());
-        holder.precioViaje.setText(publicaciones[position].getPrecio());
-        holder.horaViaje.setText(publicaciones[position].getHora());
-        holder.plazas.setText(publicaciones[position].getPlazas()+"");
+        holder.nombreUsuario.setText(publicaciones.get(position).getUser());
+        holder.origenViaje.setText(publicaciones.get(position).getOrigen());
+        holder.destinoViaje.setText(publicaciones.get(position).getDestino());
+        holder.precioViaje.setText(publicaciones.get(position).getPrecio());
+        holder.horaViaje.setText(publicaciones.get(position).getHora());
+        holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
 
         /* TODO : RECUPERAR LAS IMAGENES
         holder.starsImage
