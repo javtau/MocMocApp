@@ -4,6 +4,7 @@ package com.jjv.proyectointegradorv1.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,9 @@ import java.util.ArrayList;
 
 public class Buscar_viaje extends Fragment {
 
+    private final String TAG = Buscar_viaje.class.getSimpleName();
     private ListView listaPublicaciones;
-    private ArrayList<Publicacion> publicaciones;
+    private ArrayList<Publicacion> publicaciones = new ArrayList<>();
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef;
     private ChildEventListener childEvent;
@@ -45,16 +47,16 @@ public class Buscar_viaje extends Fragment {
         listaPublicaciones = (ListView) view.findViewById(R.id.lista_publicaciones);
 
         myRef = database.getReference("trip");// hacemos referencia a la rama donde se almacenan todos los viajes
-        Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
+
         childEvent = new ChildEventListener() {
             Publicaciones_Adapter adapt;
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 publica = dataSnapshot.getValue(Publicacion.class);
                 publicaciones.add(publica);
                 adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
                 listaPublicaciones.setAdapter(adapt);
+                Log.d(TAG, publica.getOrigen());
             }
 
             @Override
@@ -80,10 +82,10 @@ public class Buscar_viaje extends Fragment {
 
             }
         };
+        myRef.addChildEventListener(childEvent);
 
 
-
-
+        Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
         listaPublicaciones.setAdapter(adapter);
 
     }
