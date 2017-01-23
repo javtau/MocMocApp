@@ -6,7 +6,7 @@
     android:viewportHeight="110">
 
     <path
-        android:fillColor="url(#radialGradient1886)"
+        android:fillColor="#808080"
         android:fillType="evenOdd"
         android:strokeWidth="10"
         android:strokeLineJoin="round"
@@ -16,7 +16,7 @@
 24.396334,105.00001 L 36.809848,66.80253 L 4.3151906,43.196598 L
 44.479138,43.198877 L 56.888312,4.99999 z" />
     <path
-        android:fillColor="url(#radialGradient1886)"
+        android:fillColor="#808080"
         android:fillType="evenOdd"
         android:strokeWidth="10"
         android:strokeLineJoin="round"
@@ -26,7 +26,7 @@
 24.396334,105.00001 L 36.809848,66.80253 L 4.3151906,43.196598 L
 44.479138,43.198877 L 56.888312,4.99999 z" />
     <path
-        android:fillColor="url(#radialGradient1886)"
+        android:fillColor="#808080"
         android:fillType="evenOdd"
         android:strokeWidth="10"
         android:strokeLineJoin="round"

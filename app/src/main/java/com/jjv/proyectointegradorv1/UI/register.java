@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.jjv.proyectointegradorv1.R;
 
-public class Register extends AppCompatActivity {
+public class register extends AppCompatActivity {
     private static final String ERROR_FORMATO = "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The email address is badly formatted.";
     private static final String ERROR_MAIL_EXISTENTE = "com.google.firebase.auth.FirebaseAuthUserCollisionException: The email address is already in use by another account.";
     private EditText txt_newuser;
