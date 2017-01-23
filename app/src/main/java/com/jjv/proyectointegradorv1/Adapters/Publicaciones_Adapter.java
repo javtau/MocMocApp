@@ -63,7 +63,7 @@ public class Publicaciones_Adapter extends BaseAdapter {
         holder.nombreUsuario.setText(publicaciones.get(position).getUser());
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
-        holder.precioViaje.setText(publicaciones.get(position).getPrecio());
+        holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
         holder.horaViaje.setText(publicaciones.get(position).getHora());
         holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
 
