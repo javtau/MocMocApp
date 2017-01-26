@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      *
-     * Branch: javtau
+     * Branch: Devel
      * Last change: 18/01/2017
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;

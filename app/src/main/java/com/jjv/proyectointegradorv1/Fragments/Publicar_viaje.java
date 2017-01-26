@@ -150,6 +150,24 @@ public class Publicar_viaje extends Fragment {
                     });
                 }
 
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
+                String key = mDatabase.child("posts").push().getKey();
+                Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio).toMap();
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/trip/" + key, viaje);
+                childUpdates.put("/user-trips/" + user.getUid() + "/" + key, viaje);
+                mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getContext(),getString(R.string.publicacion_enviada),Toast.LENGTH_SHORT).show();
+                        txt_origen.setText("");
+                        txt_destino.setText("");
+                        txt_hora.setText(stf.format(new Date()));
+                        txt_fecha.setText(sdf.format(new Date()));
+                        txt_precio.setText("");
+                    }
+                });
             }
         });
 
