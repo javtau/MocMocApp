@@ -69,7 +69,12 @@ public class Buscar_viaje extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                publica = dataSnapshot.getValue(Publicacion.class);
+                int pos = publicaciones.indexOf(publica);
+                Log.d(TAG,"borrado: "+pos+"  "+ publica.getDestino()+"  "+publica.getusuario()+"  "+publica.getOrigen()+"  "+publica.getPlazas()+"  "+publica.getPrecio()+"  "+publica.getFecha()+"  "+publica.getHora());
 
+                adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
+                listaPublicaciones.setAdapter(adapt);
             }
 
             @Override

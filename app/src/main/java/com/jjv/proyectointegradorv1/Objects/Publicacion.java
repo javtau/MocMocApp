@@ -13,7 +13,7 @@ import static android.R.attr.author;
  */
 
 public class Publicacion implements Parcelable{
-    private String user;
+    private String usuario;
     private String origen ;
     private String destino;
     private String fecha;
@@ -24,8 +24,8 @@ public class Publicacion implements Parcelable{
     public Publicacion() {
     }
 
-    public Publicacion(String user,String origen, String destino, String fecha, String hora, int plazas, String precio) {
-        this.user = user;
+    public Publicacion(String usuario,String origen, String destino, String fecha, String hora, int plazas, String precio) {
+        this.usuario = usuario;
         this.origen = origen;
         this.destino = destino;
         this.fecha = fecha;
@@ -36,7 +36,7 @@ public class Publicacion implements Parcelable{
 
     public Map<String, Object> toMap() { //creamos una lista con cada uno de los atibustos del objeto
         HashMap<String, Object> result = new HashMap<>();
-        result.put("usuario", user);
+        result.put("usuario", usuario);
         result.put("origen", origen);
         result.put("destino", destino);
         result.put("fecha", fecha);
@@ -47,12 +47,12 @@ public class Publicacion implements Parcelable{
         return result;
     }
 
-    public String getUser() {
-        return user;
+    public String getusuario() {
+        return usuario;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setusuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getOrigen() {
@@ -111,7 +111,7 @@ public class Publicacion implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeString(user);
+        dest.writeString(usuario);
         dest.writeString(origen);
         dest.writeString(destino);
         dest.writeString(fecha);
@@ -120,7 +120,7 @@ public class Publicacion implements Parcelable{
         dest.writeString(precio);
     }
     private Publicacion(Parcel in){
-        user = in.readString();
+        usuario = in.readString();
         origen=in.readString();
         destino=in.readString();
         fecha=in.readString();
