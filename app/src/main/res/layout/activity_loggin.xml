@@ -6,68 +6,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jjv.proyectointegradorv1.UI.Loggin">
-
     <ImageView
         app:srcCompat="@drawable/background"
         android:id="@+id/imagenFondo"
         style="@style/BackgroundStyle" />
+
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:padding="@dimen/padding_linear"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
-        android:layout_marginTop="@dimen/topMargin_linear"
-        android:layout_marginLeft="@dimen/leftMargin_linear"
-        android:layout_marginRight="@dimen/rightMargin_linear"
-        android:background="@color/colorBlanco"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/txt_name"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:textAlignment="center"
-            android:hint="@string/hint_user"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:layout_below="@+id/txt_name"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/txt_contraseña"
-            android:textAlignment="center"
-            android:hint="@string/hint_pass" />
-    </LinearLayout>
-
-    <Button
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/rightMargin_linear"
-        android:layout_marginLeft="@dimen/leftMargin_linear"
-        android:id="@+id/btn_login"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btn_login"
-        android:background="@drawable/button_custom"
-        android:onClick="ingresar" />
-
-    <TextView
-        android:text="@string/msg_sin_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:id="@+id/tvMsgSinRegistro"
-        android:onClick="registrar"/>
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="60dp"
+        android:weightSum="1">
+        <ImageView
+            app:srcCompat="@drawable/logorojosinmoc"
+            android:id="@+id/logoSinMoc"
+            android:layout_width="match_parent"
+            android:layout_height="74dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/padding_linear"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            android:layout_marginTop="@dimen/topMargin_linear"
+            android:layout_marginLeft="@dimen/leftMargin_linear"
+            android:layout_marginRight="@dimen/rightMargin_linear"
+            android:background="@color/colorBlanco"
+            >
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/txt_name"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:textAlignment="center"
+                android:hint="@string/hint_user"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:layout_below="@+id/txt_name"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txt_contraseña"
+                android:textAlignment="center"
+                android:hint="@string/hint_pass" />
+
+
+        </LinearLayout>
+        <Button
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/rightMargin_linear"
+            android:layout_marginLeft="@dimen/leftMargin_linear"
+            android:id="@+id/btn_login"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:text="@string/btn_login"
+            android:background="@drawable/button_custom"
+            android:onClick="ingresar" />
+
+        <TextView
+            android:text="@string/msg_sin_registro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_login"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_marginTop="60dp"
+            android:id="@+id/tvMsgSinRegistro"
+            android:onClick="registrar"
+            android:layout_weight="0.10" />
+
+
+
+
+
+    </LinearLayout>
+
+
+
 </RelativeLayout>
