@@ -1,13 +1,21 @@
 package com.jjv.proyectointegradorv1.Fragments;
 
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jjv.proyectointegradorv1.Adapters.DialogReserva;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_Adapter;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
@@ -26,7 +35,7 @@ import java.util.ArrayList;
  * Created by javi0 on 11/01/2017.
  */
 
-public class Buscar_viaje extends Fragment {
+public class Buscar_viaje extends Fragment implements AdapterView.OnItemClickListener {
 
     private final String TAG = Buscar_viaje.class.getSimpleName();
     private ListView listaPublicaciones;
@@ -95,5 +104,21 @@ public class Buscar_viaje extends Fragment {
         Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
         listaPublicaciones.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        showDialog(i);
+
+
+    }
+
+    private void showDialog(int pos){
+
+
+        FragmentManager fm = getFragmentManager();
+        DialogFragment diag = DialogReserva.newInstance(publicaciones.get(pos));
+
+       // diag.show();
     }
 }
