@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +30,7 @@ public class Loggin extends AppCompatActivity {
     private EditText txt_pass;
     private Button btn_login;
     private Button btn_register;
+    private ImageView ivBocinaCirculo,ivMocs,ivParentesis,ivBocinaCono;
 
     //variables usadas para el control de usuario
     private FirebaseAuth mAuth;
@@ -61,6 +65,17 @@ public class Loggin extends AppCompatActivity {
         txt_pass = (EditText) findViewById(R.id.txt_contraseña);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_register = (Button) findViewById(R.id.btn_login);
+        ivBocinaCirculo = (ImageView) findViewById(R.id.ivbocina_circulo);
+        ivMocs = (ImageView) findViewById(R.id.ivmocs);
+        ivParentesis = (ImageView) findViewById(R.id.ivparantesis);
+        ivBocinaCono = (ImageView) findViewById(R.id.ivbocina_cono);
+        Animation animCirc = AnimationUtils.loadAnimation(this, R.anim.animacion_circ);
+        //ivMocs.startAnimation(animMocs);
+        ivBocinaCirculo.startAnimation(animCirc);
+        //ivParentesis.startAnimation(animMocs);
+        //ivBocinaCono.startAnimation(animMocs);
+
+
     }
 
     // recoge la contraseña y el mail introducido y comprueba si es un usuario registrado en FireBase
