@@ -1,12 +1,17 @@
 package com.jjv.proyectointegradorv1.UI;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,10 +32,13 @@ public class Loggin extends AppCompatActivity {
     private EditText txt_pass;
     private Button btn_login;
     private Button btn_register;
+    private ImageView ivBocinaCirculo,ivMocs,ivParentesis,ivBocinaCono;
+    private LinearLayout linearLayoutLog;
 
     //variables usadas para el control de usuario
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Animation animCirc,animMocs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,48 @@ public class Loggin extends AppCompatActivity {
         txt_pass = (EditText) findViewById(R.id.txt_contraseña);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_register = (Button) findViewById(R.id.btn_login);
+        ivBocinaCirculo = (ImageView) findViewById(R.id.ivbocina_circulo);
+        ivMocs = (ImageView) findViewById(R.id.ivmocs);
+        ivParentesis = (ImageView) findViewById(R.id.ivparantesis);
+        ivBocinaCono = (ImageView) findViewById(R.id.ivbocina_cono);
+        linearLayoutLog = (LinearLayout) findViewById(R.id.linearLayoutLogs);
+       Animation animElemLog = AnimationUtils.loadAnimation(this,R.anim.animacion_elementos_log);
+        animCirc = AnimationUtils.loadAnimation(getBaseContext(), R.anim.animacion_circ);
+        animMocs = AnimationUtils.loadAnimation(getBaseContext(), R.anim.animacion_mocs);
+
+        linearLayoutLog.startAnimation(animElemLog);
+        ivBocinaCirculo.startAnimation(animCirc);
+        ivMocs.startAnimation(animMocs);
+        ivParentesis.startAnimation(animMocs);
+        initAnim();
+
+        //ivParentesis.startAnimation(animMocs);
+        //ivBocinaCono.startAnimation(animMocs);
+
+
+    }
+
+    private void initAnim() {
+        new CountDownTimer(9000, 1000) {
+            public void onTick(long millisUntilFinished) {
+
+
+
+            }
+
+            public void onFinish() {
+                ivBocinaCirculo.startAnimation(animCirc);
+                ivMocs.startAnimation(animMocs);
+                ivParentesis.startAnimation(animMocs);
+                initAnim();
+            }
+        }.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        finishAffinity();
     }
 
     // recoge la contraseña y el mail introducido y comprueba si es un usuario registrado en FireBase
