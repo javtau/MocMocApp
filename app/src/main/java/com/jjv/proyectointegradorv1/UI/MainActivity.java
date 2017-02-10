@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     // User is signed out
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Toast.makeText(getBaseContext(), getString(R.string.toast_sin_login), Toast.LENGTH_LONG).show();
+                   Toast.makeText(getBaseContext(), getString(R.string.toast_sin_login), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getBaseContext(), Loggin.class);
                     startActivity(i);
                 }

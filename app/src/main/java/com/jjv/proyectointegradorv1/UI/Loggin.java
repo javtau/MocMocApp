@@ -81,6 +81,12 @@ public class Loggin extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        finishAffinity();
+    }
+
     // recoge la contraseña y el mail introducido y comprueba si es un usuario registrado en FireBase
     public void ingresar(View v){
         String user,pass,mail;
