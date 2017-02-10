@@ -70,8 +70,11 @@ public class Loggin extends AppCompatActivity {
         ivParentesis = (ImageView) findViewById(R.id.ivparantesis);
         ivBocinaCono = (ImageView) findViewById(R.id.ivbocina_cono);
         Animation animCirc = AnimationUtils.loadAnimation(this, R.anim.animacion_circ);
+        Animation animMocs = AnimationUtils.loadAnimation(this, R.anim.animacion_mocs);
         //ivMocs.startAnimation(animMocs);
         ivBocinaCirculo.startAnimation(animCirc);
+        ivMocs.startAnimation(animMocs);
+
         //ivParentesis.startAnimation(animMocs);
         //ivBocinaCono.startAnimation(animMocs);
 
