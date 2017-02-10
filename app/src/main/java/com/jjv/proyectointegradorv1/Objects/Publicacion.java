@@ -34,6 +34,8 @@ public class Publicacion implements Parcelable{
         this.precio = precio;
     }
 
+
+
     public Map<String, Object> toMap() { //creamos una lista con cada uno de los atibustos del objeto
         HashMap<String, Object> result = new HashMap<>();
         result.put("usuario", usuario);
@@ -130,4 +132,16 @@ public class Publicacion implements Parcelable{
 
 
     }
+
+    public static final Creator<Publicacion> CREATOR = new Creator<Publicacion>() {
+        @Override
+        public Publicacion createFromParcel(Parcel in) {
+            return new Publicacion(in);
+        }
+
+        @Override
+        public Publicacion[] newArray(int size) {
+            return new Publicacion[size];
+        }
+    };
 }
