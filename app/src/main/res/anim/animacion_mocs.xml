@@ -18,6 +18,7 @@
         />
       -->
     <scale xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:duration="250"
         android:fromXScale="0.95"
         android:fromYScale="0.95"
