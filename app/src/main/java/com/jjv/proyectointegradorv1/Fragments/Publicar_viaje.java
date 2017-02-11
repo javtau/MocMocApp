@@ -135,7 +135,7 @@ public class Publicar_viaje extends Fragment {
                         txt_destino.setText("");
                         txt_hora.setText(stf.format(new Date()));
                         txt_fecha.setText(sdf.format(new Date()));
-                        txt_precio.setText("0");
+                        txt_precio.setText("");
                     }
                 });
             }

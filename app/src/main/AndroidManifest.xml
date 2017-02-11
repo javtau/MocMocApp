@@ -8,7 +8,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/activiti1_name"
@@ -27,7 +26,8 @@
         <activity
             android:name=".UI.register"
             android:label="@string/activiti3_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Splash"></activity>
     </application>
 
 </manifest>

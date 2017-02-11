@@ -1,5 +1,5 @@
 <resources>
-    <string name="activiti1_name">Mensajeria</string>
+    <string name="activiti1_name">MocMoc</string>
     <string name="activiti2_name">Inicio Sesion</string>
     <string name="activiti3_name">Registro</string>
     <string name="fragment1_name">Publicar</string>
@@ -8,11 +8,11 @@
     <string name="fragment4_name">Chatear</string>
     <string name="action_closesession">Cerrar sesion</string>
     <string name="section_format">Estas en: %1$d</string>
-     <string name="hint_user">Introduzca usuario</string>
-    <string name="hint_pass">Introduzca contraseña</string>
-    <string name="hint_newuser">Introduzca usuario</string>
-    <string name="hint_newpass">Introduzca contraseña</string>
-    <string name="hint_newmail">Introduzca e-mail</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_pass">Contraseña</string>
+    <string name="hint_newuser">Escribe un usuario</string>
+    <string name="hint_newpass">Escribe una contraseña</string>
+    <string name="hint_newmail">Introduce un e-mail</string>
     <string name="hint_origen">Seleccione origen</string>
     <string name="hint_destino">Seleccione destino</string>
     <string name="hint_precio">0</string>
@@ -37,4 +37,5 @@
     <string name="toast_usuario_creado">El usuario se a creado correctamente</string>
     <string name="toast_pwd_incorrecta">La contraseña no puede tener menos de 6 caracteres</string>
     <string name="publicacion_enviada">Tu viaje se ha publicado corectamente</string>
+    <string name="msg_sin_registro">Si no estas registrado pulsa aquí</string>
 </resources>
