@@ -13,21 +13,25 @@
             android:label="@string/activiti1_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".UI.Loggin"
+            android:label="@string/activiti2_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.register"
+            android:label="@string/activiti3_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".UI.Loggin"
-            android:label="@string/activiti2_name"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".UI.register"
-            android:label="@string/activiti3_name"
-            android:screenOrientation="portrait" />
-        <activity android:name=".UI.Splash"></activity>
     </application>
 
 </manifest>
