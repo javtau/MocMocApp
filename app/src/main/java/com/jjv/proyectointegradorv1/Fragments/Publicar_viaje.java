@@ -122,7 +122,7 @@ public class Publicar_viaje extends Fragment {
                 int plazas = sp_plazas.getSelectedItemPosition();
                 String precio = txt_precio.getText().toString();
 
-                if (destino.equals("")) {
+                if (origen.equals("")) {
                     Snackbar.make(v, getString(R.string.snackbar_sin_origen), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 } else if (destino.equals("")) {
