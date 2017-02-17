@@ -10,4 +10,8 @@
     <dimen name="leftMargin_linear">25dp</dimen>
     <dimen name="rightMargin_linear">25dp</dimen>
     <dimen name="padding_linear">15dp</dimen>
+    <dimen name="reservar_elems_sup">7dp</dimen>
+    <dimen name="reservar_elems_inf">7dp</dimen>
+    <dimen name="reservar_margen_sup">75dp</dimen>
+    <dimen name="reservar_margen_inf">75dp</dimen>
 </resources>

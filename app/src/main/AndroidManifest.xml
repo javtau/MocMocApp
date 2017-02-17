@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:label="@string/nombre_aplicacion"
         android:icon="@mipmap/ic_launcher"
         android:screenOrientation="portrait"
         android:supportsRtl="true"

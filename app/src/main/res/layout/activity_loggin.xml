@@ -29,26 +29,22 @@
             android:layout_marginTop="80dp">
 
             <ImageView
-                app:srcCompat="@drawable/bocina_circulo"
                 android:id="@+id/ivbocina_circulo"
                 android:layout_width="match_parent"
                 android:layout_height="74dp"
                 android:src="@drawable/bocina_circulo" />
             <ImageView
-                app:srcCompat="@drawable/bocina_cono"
                 android:id="@+id/ivbocina_cono"
                 android:layout_width="match_parent"
                 android:layout_height="74dp"
                 android:layout_marginLeft="6dp"
                 android:src="@drawable/bocina_cono" />
             <ImageView
-                app:srcCompat="@drawable/parentesisp"
                 android:id="@+id/ivparantesis"
                 android:layout_width="match_parent"
                 android:layout_height="74dp"
                 android:src="@drawable/parentesisp" />
             <ImageView
-                app:srcCompat="@drawable/mocsup"
                 android:id="@+id/ivmocs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
