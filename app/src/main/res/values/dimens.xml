@@ -12,6 +12,8 @@
     <dimen name="padding_linear">15dp</dimen>
     <dimen name="reservar_elems_sup">7dp</dimen>
     <dimen name="reservar_elems_inf">7dp</dimen>
-    <dimen name="reservar_margen_sup">75dp</dimen>
-    <dimen name="reservar_margen_inf">75dp</dimen>
+    <dimen name="reservar_margen_sup">70dp</dimen>
+    <dimen name="reservar_margen_inf">70dp</dimen>
+    <dimen name="img_w">75dp</dimen>
+    <dimen name="img_h">75dp</dimen>
 </resources>

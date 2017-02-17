@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/reservar_margen_sup"
     android:layout_marginBottom="@dimen/reservar_margen_inf"
-    android:background="@color/colorFondo"
+    android:background="@android:color/white"
     >
 
 
@@ -16,7 +17,6 @@
 
         <TextView
             android:text="@string/info_conductor"
-            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_conductor"
@@ -34,28 +34,13 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
-                <TextView
-                    android:text="@string/info_cond_nombre"
-                    android:textColor="@android:color/white"
-                    android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_cond_nombre"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:text="@string/info_cond_valoracion"
-                    android:layout_width="match_parent"
-                    android:textColor="@android:color/white"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_valoracion"
-                    android:layout_weight="1"
-                    android:textAlignment="center" />
-
+                <ImageView
+                    android:layout_width="@dimen/img_w"
+                    android:layout_height="@dimen/img_h"
+                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
+                    android:id="@+id/iv_usuario" />
             </LinearLayout>
 
             <LinearLayout
@@ -65,19 +50,23 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_cond_nombre_res"
-                    android:textColor="@android:color/white"
+                    android:text="@string/info_cond_nombre"
+                    android:layout_marginTop="@dimen/reservar_elems_inf"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:layout_weight="3" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_cond_nombre"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textAlignment="textStart" />
 
                 <TextView
+                    android:text="@string/info_cond_valoracion"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_cond_valoracion_res"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="3" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_valoracion"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart" />
 
             </LinearLayout>
 
@@ -86,7 +75,6 @@
         <TextView
             android:text="@string/info_vehiculo"
             android:layout_width="match_parent"
-            android:textColor="@android:color/white"
             android:layout_marginTop="@dimen/appbar_padding_top"
             android:layout_height="wrap_content"
             android:id="@+id/tv_vehiculo"
@@ -111,7 +99,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:textColor="@android:color/white"
                     android:id="@+id/tv_marca"
                     android:textAlignment="center" />
 
@@ -119,7 +106,6 @@
                     android:text="@string/info_vehiculo_matricula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
                     android:id="@+id/tv_matricula"
                     android:textAlignment="center" />
 
@@ -134,14 +120,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
                     android:id="@+id/tv_marca_res" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
                     android:id="@+id/tv_matricula_res" />
 
             </LinearLayout>
@@ -153,8 +137,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/tv_viaje"
-            android:textColor="@android:color/white"
             android:textSize="18sp"
+            android:layout_marginTop="@dimen/appbar_padding_top"
             android:layout_marginBottom="@dimen/reservar_elems_inf"
             android:textStyle="normal|bold" />
 
@@ -175,7 +159,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:textColor="@android:color/white"
                     android:id="@+id/tv_viaje_origen"
                     android:textAlignment="center" />
 
@@ -185,7 +168,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
                     android:id="@+id/tv_viaje_destino"
-                    android:textColor="@android:color/white"
                     android:layout_weight="1"
                     android:textAlignment="center" />
 
@@ -194,7 +176,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:textColor="@android:color/white"
                     android:id="@+id/tv_plazas"
                     android:textAlignment="center" />
 
@@ -204,7 +185,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_viaje_precio"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:textColor="@android:color/white"
                     android:layout_weight="1"
                     android:textAlignment="center" />
 
@@ -250,8 +230,6 @@
         android:text="@string/reservar_btn_reservar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_custom"
-        android:textColor="@android:color/white"
         android:id="@+id/btn_reservar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
