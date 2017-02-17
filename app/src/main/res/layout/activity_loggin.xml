@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.jjv.proyectointegradorv1.UI.Loggin">
     <ImageView
-        app:srcCompat="@drawable/background"
+        android:src="@drawable/background"
         android:id="@+id/imagenFondo"
         style="@style/BackgroundStyle" />
 
@@ -108,6 +108,7 @@
                 android:layout_below="@+id/linearLayoutLogs"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/button_custom"
+                android:textColor="@android:color/white"
                  />
 
             <TextView

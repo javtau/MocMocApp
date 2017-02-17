@@ -24,7 +24,7 @@
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:scaleType">fitStart</item>
-        <item name="android:background">@drawable/background_fill</item>
+        <item name="android:background">@color/colorPrimary2</item>
     </style>
 
     <style name="Theme_Dialog_Translucent" parent="android:Theme.Dialog">

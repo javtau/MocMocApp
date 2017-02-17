@@ -12,7 +12,7 @@
 
 
     <ImageView
-        app:srcCompat="@drawable/background"
+        android:src="@drawable/background"
         android:id="@+id/imagenFondo"
         style="@style/BackgroundStyle" />
 
@@ -122,9 +122,8 @@
                 android:layout_marginLeft="@dimen/leftMargin_linear"
                 android:layout_below="@+id/linearLayoutNewLogs"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/button_custom"/>
-
-
+                android:background="@drawable/button_custom"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
