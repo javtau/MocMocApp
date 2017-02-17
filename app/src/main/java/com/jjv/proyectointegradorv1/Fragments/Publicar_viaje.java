@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -155,6 +157,10 @@ public class Publicar_viaje extends Fragment {
                 }
             }
         });
+
+        Animation rotar;
+        rotar= AnimationUtils.loadAnimation(getContext(),R.anim.rotar);
+        fab.setAnimation(rotar);
 
     }
 

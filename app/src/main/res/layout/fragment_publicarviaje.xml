@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    >
+    android:weightSum="1">
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="418dp"
         android:paddingTop="@dimen/Publicar_horizontal_margin"
-        android:paddingBottom="175dp"
+        android:paddingBottom="100dp"
         android:paddingLeft="@dimen/Publicar_vertical_margin"
         android:paddingRight="@dimen/Publicar_vertical_margin"
 
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:layout_weight="0.68">
 
         <TextView
             android:text="@string/txt_origen"
@@ -91,8 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/lbl_hora"
-                    android:textSize="18sp"
-                    android:layout_weight="1" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -100,8 +100,7 @@
                     android:inputType="time"
                     android:ems="10"
                     android:textAlignment="center"
-                    android:id="@+id/txt_hora"
-                    android:layout_weight="1" />
+                    android:id="@+id/txt_hora" />
 
             </LinearLayout>
 
@@ -175,14 +174,16 @@
 
         </LinearLayout>
 
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="-28dp"
-        app:srcCompat="@drawable/ic_toys_white_48px" />
+        app:srcCompat="@drawable/ic_toys_white_48px"
+        android:layout_weight="0.42" />
 
 </LinearLayout>
