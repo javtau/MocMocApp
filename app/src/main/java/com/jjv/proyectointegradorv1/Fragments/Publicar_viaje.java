@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,13 +41,14 @@ public class Publicar_viaje extends Fragment {
     String[] plazas = {"1", "2", "3", "4"};
     TextView txt_origen, txt_destino, txt_fecha, txt_hora, txt_precio;
     Spinner sp_plazas;
-    Button btn_publicar;
+
     private DatabaseReference mDatabase;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_publicarviaje, container, false);
+
 
     }
 
@@ -63,7 +66,7 @@ public class Publicar_viaje extends Fragment {
         txt_precio = (TextView) view.findViewById(R.id.txt_precio);
         txt_hora = (TextView) view.findViewById(R.id.txt_hora);
         sp_plazas = (Spinner) view.findViewById(R.id.sp_plazas);
-        btn_publicar = (Button) view.findViewById(R.id.btn_publicar);
+
 
         txt_hora.setText(currentTime);
         txt_fecha.setText(currentDate);
@@ -110,9 +113,14 @@ public class Publicar_viaje extends Fragment {
             }
         });
 
-        btn_publicar.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String origen = txt_origen.getText().toString();
                 String destino = txt_destino.getText().toString();
@@ -120,24 +128,31 @@ public class Publicar_viaje extends Fragment {
                 String hora = txt_hora.getText().toString();
                 int plazas = sp_plazas.getSelectedItemPosition();
                 String precio = txt_precio.getText().toString();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
-                String key = mDatabase.child("posts").push().getKey();
-                Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio).toMap();
-                Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/trip/" + key, viaje);
-                childUpdates.put("/user-trips/" + user.getUid() + "/" + key, viaje);
-                mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getContext(),getString(R.string.publicacion_enviada),Toast.LENGTH_SHORT).show();
-                        txt_origen.setText("");
-                        txt_destino.setText("");
-                        txt_hora.setText(stf.format(new Date()));
-                        txt_fecha.setText(sdf.format(new Date()));
-                        txt_precio.setText("");
-                    }
-                });
+                if(origen.equals("")||destino.equals("")){
+                    Snackbar.make(getView(), getString(R.string.rellene_los_campos), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                }else{
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
+                    String key = mDatabase.child("posts").push().getKey();
+                    Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio).toMap();
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/trip/" + key, viaje);
+                    childUpdates.put("/user-trips/" + user.getUid() + "/" + key, viaje);
+                    mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Snackbar.make(getView(), getString(R.string.publicacion_enviada), Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            txt_origen.setText("");
+                            txt_destino.setText("");
+                            txt_hora.setText(stf.format(new Date()));
+                            txt_fecha.setText(sdf.format(new Date()));
+                            txt_precio.setText("");
+                        }
+                    });
+                }
             }
         });
 

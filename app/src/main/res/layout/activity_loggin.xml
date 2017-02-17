@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.jjv.proyectointegradorv1.UI.Loggin">
     <ImageView
-        app:srcCompat="@drawable/background"
+        android:src="@drawable/background"
         android:id="@+id/imagenFondo"
         style="@style/BackgroundStyle" />
 
@@ -98,16 +98,18 @@
                     android:hint="@string/hint_pass" />
             </LinearLayout>
             <Button
+                android:id="@+id/btn_login"
+                android:onClick="ingresar"
+                android:text="@string/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/rightMargin_linear"
                 android:layout_marginLeft="@dimen/leftMargin_linear"
-                android:id="@+id/btn_login"
                 android:layout_below="@+id/linearLayoutLogs"
                 android:layout_centerHorizontal="true"
-                android:text="@string/btn_login"
                 android:background="@drawable/button_custom"
-                android:onClick="ingresar" />
+                android:textColor="@android:color/white"
+                 />
 
             <TextView
                 android:text="@string/msg_sin_registro"

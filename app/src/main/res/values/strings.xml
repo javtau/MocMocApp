@@ -38,4 +38,5 @@
     <string name="toast_pwd_incorrecta">La contraseña no puede tener menos de 6 caracteres</string>
     <string name="publicacion_enviada">Tu viaje se ha publicado corectamente</string>
     <string name="msg_sin_registro">Si no estas registrado pulsa aquí</string>
+    <string name="rellene_los_campos">Por favor, rellena todos los campos</string>
 </resources>

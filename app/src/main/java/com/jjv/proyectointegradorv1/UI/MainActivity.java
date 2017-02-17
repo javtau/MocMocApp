@@ -112,15 +112,7 @@ public class MainActivity extends AppCompatActivity {
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mViewPager); //Configuramos el tab layaut con nuestro view pager
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, getString(R.string.snackbar_sin_implementar), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
 
-            }
-        });
 
     }
     // se crea el adaptador para nuestro viewpager, se crean los frafmentos necesarios incluyendolos
