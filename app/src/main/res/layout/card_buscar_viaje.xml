@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="200dp"
+    android:layout_margin="5dp"
+    android:elevation="10dp"
+    >
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="match_parent"
         android:weightSum="3"
         android:background="@android:color/white"
         android:layout_alignParentStart="true">
@@ -16,24 +19,24 @@
             android:weightSum="1">
 
             <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/userImage"
-            android:src="@drawable/claxonmini"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/userImage"
+                android:src="@drawable/claxonmini"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
-             />
+                />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:weightSum="1">
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="62dp">
 
                 <TextView
                     android:layout_width="165dp"
@@ -67,15 +70,15 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:weightSum="1">
+                android:layout_height="49dp"
+                android:layout_weight="0.33">
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
-                    android:id="@+id/unoDeCinco">
+                    android:id="@+id/unoDeCinco"
+                    android:layout_weight="0.20">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,13 +100,14 @@
                         android:textSize="14dp"
                         android:textStyle="normal|bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="75dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:id="@+id/dosDeCinco"
 
-                    android:layout_weight="0.58">
+                    android:layout_weight="0.37">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,15 +124,23 @@
                         android:textSize="14dp" />
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
 
-                    android:id="@+id/tresDeCinco"
-                    android:layout_weight="0.22">
+                    android:id="@+id/tresDeCinco">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="92dp"
                         android:layout_height="wrap_content"
                         android:text="Hora:"
                         android:id="@+id/txt_hora"
@@ -140,14 +152,21 @@
                         android:layout_height="wrap_content"
                         android:text="Precio:"
                         android:id="@+id/textView3"
-                         android:textSize="14dp"
+                        android:textSize="14dp"
+                        android:textStyle="normal|bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Plazas:"
+                        android:id="@+id/txt_plazas"
+                        android:textSize="14dp"
                         android:textStyle="normal|bold" />
 
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
                     android:id="@+id/cuatroDeCinco">
                     <TextView
@@ -163,36 +182,21 @@
                         android:text="100€"
                         android:id="@+id/txt_precio_viaje"
                         android:textSize="14dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="55dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/cincoDeCinco">
-                    <LinearLayout
-                        android:layout_width="86dp"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Plazas:"
-                            android:id="@+id/txt_plazas"
-                            android:textSize="14dp"
-                            android:textStyle="normal|bold" />
 
-                        <TextView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:text="6"
-                            android:id="@+id/txt_plazas_viaje"
-                            android:textSize="14dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_below="@+id/txt_plazas"
-                            />
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:text="6"
+                        android:id="@+id/txt_plazas_viaje"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_below="@+id/txt_plazas"
+                        android:layout_marginRight="10dp"
+                        />
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+</android.support.v7.widget.CardView>
