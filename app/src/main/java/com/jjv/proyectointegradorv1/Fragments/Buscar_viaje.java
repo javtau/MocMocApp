@@ -151,7 +151,6 @@ public class Buscar_viaje extends Fragment  {
 
     private void showDialog(Publicacion p){
 
-
         customDialog =  new Dialog(getContext(),R.style.Theme_Dialog_Translucent);
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -171,10 +170,6 @@ public class Buscar_viaje extends Fragment  {
                 return false;
             }
         });
-
-
-
-
         customDialog.show();
     }
 
