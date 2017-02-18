@@ -1,6 +1,7 @@
 package com.jjv.proyectointegradorv1.UI;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private final int[] ICONS = {R.drawable.ic_tab_publicar, R.drawable.ic_tab_buscar, R.drawable.ic_tab_mis_viajes, R.drawable.ic_tab_chatear};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mViewPager); //Configuramos el tab layaut con nuestro view pager
 
+        tabs.getTabAt(0).setIcon(ICONS[0]);
+        tabs.getTabAt(1).setIcon(ICONS[1]);
+        tabs.getTabAt(2).setIcon(ICONS[2]);
+        tabs.getTabAt(3).setIcon(ICONS[3]);
+
 
 
     }
@@ -119,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
     // en nuestro adaptador y se le pasa al view pager
     private void setupViewPager(ViewPager viewPager) {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Publicar_viaje(), getString(R.string.fragment1_name));
-        adapter.addFragment(new Buscar_viaje(), getString(R.string.fragment2_name));
-        adapter.addFragment(new Mis_viajes(), getString(R.string.fragment3_name));
-        adapter.addFragment(new Chat(), getString(R.string.fragment4_name));
+        adapter.addFragment(new Publicar_viaje(), getString(R.string.fragment1_name), ICONS[0]);
+        adapter.addFragment(new Buscar_viaje(), getString(R.string.fragment2_name), ICONS[1]);
+        adapter.addFragment(new Mis_viajes(), getString(R.string.fragment3_name), ICONS[2]);
+        adapter.addFragment(new Chat(), getString(R.string.fragment4_name), ICONS[3]);
         viewPager.setAdapter(adapter);
     }
 
@@ -162,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
+        private final List<Integer>mFragmentIconList = new ArrayList<>();
 
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -178,9 +187,10 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
         // metodo para añadir un nuevo fragmento al adapter
-        void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title, int iconId) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
+            mFragmentIconList.add(iconId);
         }
 
         @Override

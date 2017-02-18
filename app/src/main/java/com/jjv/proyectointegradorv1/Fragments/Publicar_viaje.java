@@ -117,8 +117,6 @@ public class Publicar_viaje extends Fragment {
 
 
 
-
-
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
