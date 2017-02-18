@@ -2,16 +2,12 @@ package com.jjv.proyectointegradorv1.Fragments;
 
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,17 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.jjv.proyectointegradorv1.Adapters.DialogReserva;
-import com.jjv.proyectointegradorv1.Adapters.Publicaciones_Adapter;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
@@ -53,6 +45,7 @@ public class Buscar_viaje extends Fragment  {
     private Dialog customDialog ;
     private RecyclerView rv;
     private Publicaciones_RV_adapter.OnItemClickListener listenerRv;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_buscar_viaje, container, false);
@@ -147,16 +140,19 @@ public class Buscar_viaje extends Fragment  {
 
 
     };
-        return l;}
+        return l;
+    }
 
     private void showDialog(Publicacion p){
 
-        customDialog =  new Dialog(getContext(),R.style.Theme_Dialog_Translucent);
+        customDialog =  new ReservarDialog(getContext(), R.style.Theme_Dialog_Translucent, p);
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //obligamos al usuario a pulsar los botones para cerrarlo
         customDialog.setCancelable(false);
         //establecemos el contenido de nuestro dialog
+        //LayoutInflater factory = LayoutInflater.from(getContext());
+        //View dView = factory.inflate(R.layout.dialog_fragment_reservar, null);
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
         customDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override

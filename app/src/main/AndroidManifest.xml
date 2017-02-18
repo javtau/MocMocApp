@@ -4,8 +4,8 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/nombre_aplicacion"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/nombre_aplicacion"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -23,13 +23,13 @@
         <activity
             android:name=".UI.Loggin"
             android:label="@string/activiti2_name"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.register"
             android:label="@string/activiti3_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Splash"></activity>
+        <activity android:name=".UI.Splash" />
+        <activity android:name=".Fragments.ReservarDialog"></activity>
     </application>
 
 </manifest>

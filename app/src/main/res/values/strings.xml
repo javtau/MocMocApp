@@ -44,12 +44,14 @@
     <string name="info_cond_nombre">Nombre</string>
     <string name="info_cond_valoracion">Valoracion</string>
     <string name="info_viaje">Viaje</string>
-    <string name="info_vehiculo">Vehiculo</string>
-    <string name="info_vehiculo_marca">Marca/Modelo</string>
-    <string name="info_vehiculo_matricula">Matricula</string>
-    <string name="info_viaje_origen">Origen</string>
-    <string name="info_viaje_destino">Destino</string>
-    <string name="info_viaje_precio">Precio</string>
-    <string name="info_viaje_plazas">Plazas</string>
-    <string name="reservar_btn_reservar">Reservar</string>
+    <string name="info_vehiculo">Vehículo</string>
+    <string name="info_vehiculo_marca">Marca/Modelo:</string>
+    <string name="info_vehiculo_matricula">Matricula:</string>
+    <string name="info_viaje_origen">Origen:</string>
+    <string name="info_viaje_destino">Destino:</string>
+    <string name="info_viaje_fecha">Fecha:</string>
+    <string name="info_viaje_hora">Hora:</string>
+    <string name="info_viaje_precio">Precio:</string>
+    <string name="info_viaje_plazas">Plazas:</string>
+    <string name="reservar_btn_reservar">¡Reservar!</string>
 </resources>
