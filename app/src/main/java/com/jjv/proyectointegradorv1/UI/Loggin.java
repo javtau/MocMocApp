@@ -40,6 +40,7 @@ public class Loggin extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Animation animCirc,animMocs;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
