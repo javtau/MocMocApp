@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class Buscar_viaje extends Fragment  {
 
     private final String TAG = Buscar_viaje.class.getSimpleName();
-    private ListView listaPublicaciones;
+    //private ListView listaPublicaciones;
     private ArrayList<Publicacion> publicaciones = new ArrayList<>();
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef;

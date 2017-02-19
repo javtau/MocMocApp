@@ -4,7 +4,7 @@
     tools:context="com.jjv.proyectointegradorv1.UI.MainActivity">
     <item
         android:id="@+id/action_Closesession"
-        android:orderInCategory="100"
+        android:orderInCategory="3"
         android:icon="@mipmap/ic_cerrar_sesion_grande"
         android:title="@string/action_closesession"
         app:showAsAction="always|withText" />

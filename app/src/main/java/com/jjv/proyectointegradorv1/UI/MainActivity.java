@@ -18,7 +18,6 @@ import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jjv.proyectointegradorv1.Fragments.Buscar_viaje;
@@ -86,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     //Toast.makeText(getBaseContext(), getString(R.string.welcome_msg, user.getDisplayName()), Toast.LENGTH_LONG).show();
-                    toolbar.setTitle(user.getDisplayName());
+                    toolbar.setTitle("\t\t\t\t" + user.getDisplayName());
                 } else {
                     // User is signed out
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
-                   Toast.makeText(getBaseContext(), getString(R.string.toast_sin_login), Toast.LENGTH_LONG).show();
+                   //Toast.makeText(getBaseContext(), getString(R.string.toast_sin_login), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getBaseContext(), Loggin.class);
                     startActivity(i);
                 }
@@ -137,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
         tabs.getTabAt(2).setIcon(ICONS[2]);
         tabs.getTabAt(3).setIcon(ICONS[3]);*/
 
-
+        // selecciona una pestaña por defecto cada vez que se llama a onCreate
+        // en este caso buscar
+        mViewPager.setCurrentItem(1);
 
     }
 
@@ -174,11 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -248,4 +244,5 @@ public class MainActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
 }
