@@ -5,6 +5,7 @@
     <item
         android:id="@+id/action_Closesession"
         android:orderInCategory="100"
+        android:icon="@mipmap/ic_cerrar_sesion_grande"
         android:title="@string/action_closesession"
-        app:showAsAction="never" />
+        app:showAsAction="always|withText" />
 </menu>

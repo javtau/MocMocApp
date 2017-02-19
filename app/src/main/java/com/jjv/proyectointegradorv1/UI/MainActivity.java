@@ -3,26 +3,22 @@ package com.jjv.proyectointegradorv1.UI;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jjv.proyectointegradorv1.Fragments.Buscar_viaje;
@@ -61,8 +57,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    // array de iconos para las pestañas
     private final int[] ICONS = {R.drawable.ic_tab_publicar, R.drawable.ic_tab_buscar, R.drawable.ic_tab_mis_viajes, R.drawable.ic_tab_chatear};
-
+    private final List<String> mFragmentTitleList = new ArrayList<>();
+    private SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,19 +112,38 @@ public class MainActivity extends AppCompatActivity {
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mViewPager); //Configuramos el tab layaut con nuestro view pager
+        // listener para determinar que pestaña esta activa
+        // dependiendo de cual este llama a un metodo u otro para mostrar icono y texto o solo icono
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setText(adapter.getPageTitleCompleto(tab.getPosition()));
+            }
 
-        tabs.getTabAt(0).setIcon(ICONS[0]);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setText(adapter.getPageTitle(tab.getPosition()));
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                tab.setText(adapter.getPageTitleCompleto(tab.getPosition()));
+            }
+        });
+
+        // de esta forma los iconos son mas pequeños y hay mas espacio entre titulo e icono
+        /*tabs.getTabAt(0).setIcon(ICONS[0]);
         tabs.getTabAt(1).setIcon(ICONS[1]);
         tabs.getTabAt(2).setIcon(ICONS[2]);
-        tabs.getTabAt(3).setIcon(ICONS[3]);
+        tabs.getTabAt(3).setIcon(ICONS[3]);*/
 
 
 
     }
+
     // se crea el adaptador para nuestro viewpager, se crean los frafmentos necesarios incluyendolos
     // en nuestro adaptador y se le pasa al view pager
     private void setupViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new Publicar_viaje(), getString(R.string.fragment1_name), ICONS[0]);
         adapter.addFragment(new Buscar_viaje(), getString(R.string.fragment2_name), ICONS[1]);
         adapter.addFragment(new Mis_viajes(), getString(R.string.fragment3_name), ICONS[2]);
@@ -169,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
         private final List<Integer>mFragmentIconList = new ArrayList<>();
 
         SectionsPagerAdapter(FragmentManager fm) {
@@ -186,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return mFragmentList.size();
         }
+
         // metodo para añadir un nuevo fragmento al adapter
         void addFragment(Fragment fragment, String title, int iconId) {
             mFragmentList.add(fragment);
@@ -194,8 +211,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        // devuelve solo el icono
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+            //return mFragmentTitleList.get(position);
+            // de esta forma los iconos son mas grandes y hay menos espacio entre titulo e icono
+            Drawable image = ContextCompat.getDrawable(getBaseContext(), ICONS[position]);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+            SpannableString sb = new SpannableString(" \n");
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
+        }
+        // devuelve icono + titulo (solo cuando la pestaña este seleccionada)
+        public CharSequence getPageTitleCompleto(int position){
+            Drawable image = ContextCompat.getDrawable(getBaseContext(), ICONS[position]);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+            SpannableString sb = new SpannableString(" \n" + mFragmentTitleList.get(position));
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
         }
     }
 
