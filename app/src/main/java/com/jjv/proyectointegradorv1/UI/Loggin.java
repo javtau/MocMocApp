@@ -92,11 +92,7 @@ public class Loggin extends AppCompatActivity {
 
     private void initAnim() {
         new CountDownTimer(9000, 1000) {
-            public void onTick(long millisUntilFinished) {
-
-
-
-            }
+            public void onTick(long millisUntilFinished) {}
 
             public void onFinish() {
                 ivBocinaCirculo.startAnimation(animCirc);
@@ -109,7 +105,6 @@ public class Loggin extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         finishAffinity();
     }
 

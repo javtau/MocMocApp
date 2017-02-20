@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_horizontal_margin"
-    android:paddingLeft="@dimen/Publicar_vertical_margin"
-    android:paddingRight="@dimen/Publicar_vertical_margin"
-    android:background="@android:color/black">
+    android:background="@color/colorPrimary"
+    android:weightSum="1">
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="391dp"
         android:paddingTop="@dimen/Publicar_horizontal_margin"
-        android:paddingBottom="@dimen/Publicar_horizontal_margin"
+        android:paddingBottom="100dp"
         android:paddingLeft="@dimen/Publicar_vertical_margin"
         android:paddingRight="@dimen/Publicar_vertical_margin"
-        android:layout_marginBottom="@dimen/Publicar_horizontal_margin"
+
         android:background="@android:color/white">
 
         <TextView
@@ -54,7 +54,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="82dp">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -91,8 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/lbl_hora"
-                    android:textSize="18sp"
-                    android:layout_weight="1" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -100,8 +99,7 @@
                     android:inputType="time"
                     android:ems="10"
                     android:textAlignment="center"
-                    android:id="@+id/txt_hora"
-                    android:layout_weight="1" />
+                    android:id="@+id/txt_hora" />
 
             </LinearLayout>
 
@@ -114,30 +112,26 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_width="177dp"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:text="@string/txt_plazas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/lbl_plazas"
-                    android:textSize="18sp"
-                    android:layout_weight="1" />
+                    android:textSize="18sp" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/sp_plazas"
-                    android:layout_weight="1" />
+                    android:id="@+id/sp_plazas" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:baselineAligned="false">
 
                 <TextView
@@ -145,20 +139,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/lbl_precio"
-                    android:textSize="18sp"
-                    android:layout_weight="1" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content">
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/txt_precio"
-                        android:layout_weight="4"
                         android:text="@string/hint_precio"
                         android:textAlignment="textEnd"
                         android:inputType="number" />
@@ -175,12 +166,16 @@
 
         </LinearLayout>
 
+
     </LinearLayout>
 
-    <Button
-        android:text="@string/btn_publicar"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_publicar" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-28dp"
+        android:src="@drawable/ic_toys_white_48px"
+        android:layout_weight="0.42" />
 
 </LinearLayout>

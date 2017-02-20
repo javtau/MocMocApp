@@ -1,43 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     >
-    <RelativeLayout
+
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="35dp"
-        android:background="@color/colorBlanco">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_nombre_reservar"
-            android:text="nombre"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="103dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESERVAR"
-            android:id="@+id/btnReservar"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:text="@string/info_conductor"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Plazas"
-            android:id="@+id/txt_plazas_resereva"
-            android:layout_below="@+id/txt_nombre_reservar"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/tv_conductor"
+            android:textSize="20sp"
+            android:layout_marginBottom="@dimen/reservar_elems_inf"
+            android:textStyle="normal|bold" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:layout_marginBottom="@dimen/reservar_headers_inf"
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
 
-    </RelativeLayout>
+                <ImageView
+                    android:layout_width="@dimen/img_w"
+                    android:layout_height="@dimen/img_h"
+                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
+                    android:id="@+id/iv_usuario"
+                    android:layout_gravity="center" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="@string/info_cond_nombre"
+                    android:layout_marginTop="@dimen/reservar_elems_inf"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_cond_nombre"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textStyle="normal|bold" />
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="3"
+                    android:id="@+id/rate_conductor"
+                    android:isIndicator="false"
+                    android:layout_weight="1"
+                    android:rating="2"
+                    android:stepSize="0.5" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="@string/info_vehiculo"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_vehiculo"
+            android:layout_marginBottom="@dimen/reservar_elems_inf"
+            android:textStyle="normal|bold"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/reservar_headers_inf"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="@string/info_vehiculo_marca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_marca"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/info_vehiculo_matricula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:id="@+id/tv_matricula"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_marca_res"
+                    android:textAlignment="textEnd" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:id="@+id/tv_matricula_res"
+                    android:textAlignment="textEnd" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="@string/info_viaje"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_viaje"
+            android:textSize="20sp"
+            android:layout_marginTop="@dimen/appbar_padding_top"
+            android:layout_marginBottom="@dimen/reservar_elems_inf"
+            android:textStyle="normal|bold" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/appbar_padding_top">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="@string/info_viaje_origen"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_viaje_origen"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/info_viaje_destino"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_viaje_destino"
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/info_viaje_plazas"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_plazas"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/info_viaje_precio"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_viaje_precio"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/info_viaje_hora"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_viaje_hora"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:text="@string/info_viaje_fecha"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_viaje_fecha"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_origen_res"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_destino_res"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_plazas_res"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_precio_res"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:id="@+id/tv_viaje_hora_res"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_viaje_fecha_res"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:text="@string/reservar_btn_reservar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_custom"
+        android:textColor="@android:color/white"
+        android:id="@+id/btn_reservar"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

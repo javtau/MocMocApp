@@ -24,11 +24,20 @@
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:scaleType">fitStart</item>
-        <item name="android:background">@drawable/background_fill</item>
+        <item name="android:background">@color/colorPrimary2</item>
     </style>
 
     <style name="Theme_Dialog_Translucent" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- estilo personalizado para quitar la mayuscula del titulo de las tabs -->
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

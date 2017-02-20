@@ -1,4 +1,5 @@
 <resources>
+    <string name="nombre_aplicacion">MocMoc</string>
     <string name="activiti1_name">MocMoc</string>
     <string name="activiti2_name">Inicio Sesion</string>
     <string name="activiti3_name">Registro</string>
@@ -40,4 +41,20 @@
     <string name="toast_pwd_incorrecta">La contraseña no puede tener menos de 6 caracteres</string>
     <string name="publicacion_enviada">Tu viaje se ha publicado corectamente</string>
     <string name="msg_sin_registro">Si no estas registrado pulsa aquí</string>
+    <string name="rellene_los_campos">Por favor, rellena todos los campos</string>
+    <string name="info_conductor">Conductor</string>
+    <string name="info_cond_nombre">Nombre</string>
+    <string name="info_cond_valoracion">Valoracion</string>
+    <string name="info_viaje">Viaje</string>
+    <string name="info_vehiculo">Vehículo</string>
+    <string name="info_vehiculo_marca">Marca/Modelo:</string>
+    <string name="info_vehiculo_matricula">Matricula:</string>
+    <string name="info_viaje_origen">Origen:</string>
+    <string name="info_viaje_destino">Destino:</string>
+    <string name="info_viaje_fecha">Fecha:</string>
+    <string name="info_viaje_hora">Hora:</string>
+    <string name="info_viaje_precio">Precio:</string>
+    <string name="info_viaje_plazas">Plazas:</string>
+    <string name="reservar_btn_reservar">¡Reservar!</string>
+    <string name="hint_chat">Input</string>
 </resources>
