@@ -60,7 +60,7 @@ public class Publicaciones_Adapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.nombreUsuario.setText(publicaciones.get(position).getusuario());
+        holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
         holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");

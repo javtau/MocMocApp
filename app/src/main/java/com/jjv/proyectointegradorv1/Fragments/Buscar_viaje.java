@@ -35,7 +35,7 @@ public class Buscar_viaje extends Fragment  {
 
     private final String TAG = Buscar_viaje.class.getSimpleName();
     //private ListView listaPublicaciones;
-    private ArrayList<Publicacion> publicaciones = new ArrayList<>();
+    private ArrayList<Publicacion> publicaciones;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef;
     private ChildEventListener childEvent;
@@ -43,6 +43,7 @@ public class Buscar_viaje extends Fragment  {
     private Dialog customDialog ;
     private RecyclerView rv;
     private Publicaciones_RV_adapter.OnItemClickListener listenerRv;
+    private Publicaciones_RV_adapter adapt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +53,8 @@ public class Buscar_viaje extends Fragment  {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        publicaciones = new ArrayList<>();
+        listenerRv=initListener();
         // listaPublicaciones = (ListView) view.findViewById(R.id.lista_publicaciones);
         //listaPublicaciones.setOnItemClickListener(this);
         // implementacion recycler
@@ -63,7 +65,7 @@ public class Buscar_viaje extends Fragment  {
          */
         rv.setHasFixedSize(true);
         //para manejar el recycler view como una lista es necesario un manager
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
         rv.setLayoutManager(llm);
 
 
@@ -72,7 +74,6 @@ public class Buscar_viaje extends Fragment  {
 
         childEvent = new ChildEventListener() {
             //Publicaciones_Adapter adapt;
-            Publicaciones_RV_adapter adapt;
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 publica = dataSnapshot.getValue(Publicacion.class);
@@ -81,7 +82,6 @@ public class Buscar_viaje extends Fragment  {
                 adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
                 //listaPublicaciones.setAdapter(adapt);
                 rv.setAdapter(adapt);
-                Log.d(TAG, publica.getOrigen());
 
             }
 
@@ -118,10 +118,9 @@ public class Buscar_viaje extends Fragment  {
             }
         };
         myRef.addChildEventListener(childEvent);
-        listenerRv=initListener();
 
-        Publicaciones_RV_adapter adapter = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-        rv.setAdapter(adapter);
+        adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
+        rv.setAdapter(adapt);
         // Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
         // listaPublicaciones.setAdapter(adapter);
 
@@ -147,23 +146,13 @@ public class Buscar_viaje extends Fragment  {
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //obligamos al usuario a pulsar los botones para cerrarlo
-        customDialog.setCancelable(false);
+        customDialog.setCancelable(true);
+        customDialog.setCanceledOnTouchOutside(true);
         //establecemos el contenido de nuestro dialog
         //LayoutInflater factory = LayoutInflater.from(getContext());
         //View dView = factory.inflate(R.layout.dialog_fragment_reservar, null);
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
-        customDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
 
-                if(i==KeyEvent.KEYCODE_BACK){
-                    customDialog.dismiss();
-                    return true;
-
-                }
-                return false;
-            }
-        });
         customDialog.show();
     }
 
