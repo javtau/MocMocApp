@@ -55,4 +55,6 @@
     <string name="info_viaje_plazas">Plazas:</string>
     <string name="reservar_btn_reservar">¡Reservar!</string>
     <string name="hint_chat">Input</string>
+    <string name="lat_abierto">Abierto</string>
+    <string name="lat_cerrado">Cerrado</string>
 </resources>

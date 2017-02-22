@@ -17,5 +17,5 @@
     <dimen name="reservar_margen_inf">70dp</dimen>
     <dimen name="img_w">75dp</dimen>
     <dimen name="img_h">75dp</dimen>
-    <dimen name="panel_lateral_width">150dp</dimen>
+    <dimen name="panel_lateral_width">250dp</dimen>
 </resources>

@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
@@ -17,6 +19,7 @@ import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     //variables usadas para el control de usuario
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    // variables para el panel lateral
+    private DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mDrawerToggle;
 
     // array de iconos para las pestañas
     private final int[] ICONS = {R.drawable.ic_tab_publicar, R.drawable.ic_tab_buscar, R.drawable.ic_tab_mis_viajes, R.drawable.ic_tab_chatear};
@@ -140,6 +147,29 @@ public class MainActivity extends AppCompatActivity {
         // en este caso buscar
         // TODO: dependiendo del perfil del usuario(conductor o usuario normal) seleccionar una pestaña diferente
         mViewPager.setCurrentItem(1);
+
+        /** CONFIGURACION DEL PANEL LATERAL **/
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                R.string.lat_abierto,
+                R.string.lat_cerrado){
+
+            public void OnDrawerClosed(View v){
+                super.onDrawerClosed(v);
+                invalidateOptionsMenu();
+            }
+
+            public void OnDrawerOpened(View v){
+                super.onDrawerOpened(v);
+                invalidateOptionsMenu();
+            }
+        };
+
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        /*************************************/
 
     }
 
