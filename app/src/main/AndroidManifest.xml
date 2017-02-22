@@ -9,6 +9,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- NoActionBar porque usamos un ToolBar -->
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/activiti1_name"
