@@ -43,7 +43,7 @@ public class Buscar_viaje extends Fragment  {
     private Dialog customDialog ;
     private RecyclerView rv;
     private Publicaciones_RV_adapter.OnItemClickListener listenerRv;
-    private Publicaciones_RV_adapter adapt;
+    private Publicaciones_RV_adapter adapt ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +58,11 @@ public class Buscar_viaje extends Fragment  {
         // listaPublicaciones = (ListView) view.findViewById(R.id.lista_publicaciones);
         //listaPublicaciones.setOnItemClickListener(this);
         // implementacion recycler
+        publicaciones = new ArrayList<>();
+        listenerRv=initListener();
+
         rv= (RecyclerView) view.findViewById(R.id.lista_publicaciones);
+
         /*
         Si estás seguro que el tamaño del RecyclerView no se cambiará,
         puedes añadirlo lo siguiente para mejorar el desempeño:
@@ -74,25 +78,34 @@ public class Buscar_viaje extends Fragment  {
 
         childEvent = new ChildEventListener() {
             //Publicaciones_Adapter adapt;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 publica = dataSnapshot.getValue(Publicacion.class);
-                publicaciones.add(publica);
-                //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-                //listaPublicaciones.setAdapter(adapt);
-                rv.setAdapter(adapt);
+                if(publica.getPlazas()>0){
+                    publicaciones.add(publica);
+                    //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
+                    adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
+                    //listaPublicaciones.setAdapter(adapt);
+                    rv.setAdapter(adapt);
+                }
+
+                Log.d(TAG, publica.getOrigen());
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 publica = dataSnapshot.getValue(Publicacion.class);
-                publicaciones.add(publica);
-                //adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-                rv.setAdapter(adapt);
-                //listaPublicaciones.setAdapter(adapt);
+                if(publica.getPlazas()>0){
+                    publicaciones.add(publica);
+                    //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
+                    adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
+                    //listaPublicaciones.setAdapter(adapt);
+                    rv.setAdapter(adapt);
+                }
+
+                Log.d(TAG, publica.getOrigen());
             }
 
             @Override
@@ -119,10 +132,12 @@ public class Buscar_viaje extends Fragment  {
         };
         myRef.addChildEventListener(childEvent);
 
+
         adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-        rv.setAdapter(adapt);
+       rv.setAdapter(adapt);
         // Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
         // listaPublicaciones.setAdapter(adapter);
+
 
 
     }
@@ -155,6 +170,8 @@ public class Buscar_viaje extends Fragment  {
 
         customDialog.show();
     }
+
+
 
 
 
