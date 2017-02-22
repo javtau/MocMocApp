@@ -81,11 +81,14 @@ public class Buscar_viaje extends Fragment  {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 publica = dataSnapshot.getValue(Publicacion.class);
-                publicaciones.add(publica);
-                //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-                //listaPublicaciones.setAdapter(adapt);
-                rv.setAdapter(adapt);
+                if(publica.getPlazas()>0){
+                    publicaciones.add(publica);
+                    //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
+                    adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
+                    //listaPublicaciones.setAdapter(adapt);
+                    rv.setAdapter(adapt);
+                }
+
                 Log.d(TAG, publica.getOrigen());
 
             }
@@ -93,11 +96,15 @@ public class Buscar_viaje extends Fragment  {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 publica = dataSnapshot.getValue(Publicacion.class);
-                publicaciones.add(publica);
-                //adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-                rv.setAdapter(adapt);
-                //listaPublicaciones.setAdapter(adapt);
+                if(publica.getPlazas()>0){
+                    publicaciones.add(publica);
+                    //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
+                    adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
+                    //listaPublicaciones.setAdapter(adapt);
+                    rv.setAdapter(adapt);
+                }
+
+                Log.d(TAG, publica.getOrigen());
             }
 
             @Override
