@@ -149,10 +149,10 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="time"
                         android:id="@+id/txt_precio"
                         android:text="@string/hint_precio"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:inputType="number" />
 
                     <TextView
                         android:text="@string/txt_euro"

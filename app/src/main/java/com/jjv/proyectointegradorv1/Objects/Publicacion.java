@@ -12,19 +12,22 @@ import static android.R.attr.author;
  * Created by javi0 on 17/01/2017.
  */
 
-public class Publicacion implements Parcelable{
+public class Publicacion implements Parcelable {
     private String usuario;
-    private String origen ;
+    private String origen;
     private String destino;
     private String fecha;
-    private String hora ;
-    private int plazas ;
-    private String precio ;
+    private String hora;
+    private int plazas;
+    private String precio;
+    private String idConductor;
+    private String keyViaje;
+
 
     public Publicacion() {
     }
 
-    public Publicacion(String usuario,String origen, String destino, String fecha, String hora, int plazas, String precio) {
+    public Publicacion(String usuario,  String origen, String destino, String fecha, String hora, int plazas, String precio, String idConductor, String keyViaje) {
         this.usuario = usuario;
         this.origen = origen;
         this.destino = destino;
@@ -32,6 +35,9 @@ public class Publicacion implements Parcelable{
         this.hora = hora;
         this.plazas = plazas;
         this.precio = precio;
+        this.idConductor = idConductor;
+        this.keyViaje = keyViaje;
+
     }
 
     public static final Creator<Publicacion> CREATOR = new Creator<Publicacion>() {
@@ -55,17 +61,11 @@ public class Publicacion implements Parcelable{
         result.put("hora", hora);
         result.put("plazas", plazas);
         result.put("precio", precio);
-
+        result.put("idConductor", idConductor);
+        result.put("keyViaje", keyViaje);
         return result;
     }
 
-    public String getusuario() {
-        return usuario;
-    }
-
-    public void setusuario(String usuario) {
-        this.usuario = usuario;
-    }
 
     public String getOrigen() {
         return origen;
@@ -115,6 +115,30 @@ public class Publicacion implements Parcelable{
         this.precio = precio;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getIdConductor() {
+        return idConductor;
+    }
+
+    public void setIdConductor(String idConductor) {
+        this.idConductor = idConductor;
+    }
+
+    public String getKeyViaje() {
+        return keyViaje;
+    }
+
+    public void setKeyViaje(String keyViaje) {
+        this.keyViaje = keyViaje;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -130,16 +154,19 @@ public class Publicacion implements Parcelable{
         dest.writeString(hora);
         dest.writeInt(plazas);
         dest.writeString(precio);
+        dest.writeString(idConductor);
+        dest.writeString(keyViaje);
     }
-    private Publicacion(Parcel in){
+
+    private Publicacion(Parcel in) {
         usuario = in.readString();
-        origen=in.readString();
-        destino=in.readString();
-        fecha=in.readString();
-        hora=in.readString();
-        plazas=in.readInt();
-        precio=in.readString();
-
-
+        origen = in.readString();
+        destino = in.readString();
+        fecha = in.readString();
+        hora = in.readString();
+        plazas = in.readInt();
+        precio = in.readString();
+        idConductor = in.readString();
+        keyViaje = in.readString();
     }
 }

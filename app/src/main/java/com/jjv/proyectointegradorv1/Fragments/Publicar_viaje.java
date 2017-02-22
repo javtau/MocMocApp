@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,8 +61,8 @@ public class Publicar_viaje extends Fragment {
         String currentTime = stf.format(new Date());
         String currentDate = sdf.format(new Date());
 
-        txt_destino = (TextView) view.findViewById(R.id.txt_origen);
-        txt_origen = (TextView) view.findViewById(R.id.txt_distino);
+        txt_origen = (TextView) view.findViewById(R.id.txt_origen);
+        txt_destino = (TextView) view.findViewById(R.id.txt_distino);
         txt_fecha = (TextView) view.findViewById(R.id.txt_fecha);
         txt_precio = (TextView) view.findViewById(R.id.txt_precio);
         txt_hora = (TextView) view.findViewById(R.id.txt_hora);
@@ -124,7 +125,7 @@ public class Publicar_viaje extends Fragment {
                 String destino = txt_destino.getText().toString();
                 String fecha = txt_fecha.getText().toString();
                 String hora = txt_hora.getText().toString();
-                int plazas = sp_plazas.getSelectedItemPosition();
+                int plazas =  sp_plazas.getSelectedItemPosition()+1;
                 String precio = txt_precio.getText().toString();
                 if(origen.equals("")||destino.equals("")){
                     Snackbar.make(getView(), getString(R.string.rellene_los_campos), Snackbar.LENGTH_LONG)
@@ -134,10 +135,11 @@ public class Publicar_viaje extends Fragment {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
                     String key = mDatabase.child("posts").push().getKey();
-                    Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio).toMap();
+                    String userId = user.getUid();
+                    Map<String, Object> viaje = new Publicacion(user.getDisplayName(), origen, destino, fecha, hora, plazas, precio,userId,key).toMap();
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("/trip/" + key, viaje);
-                    childUpdates.put("/user-trips/" + user.getUid() + "/" + key, viaje);
+                    childUpdates.put("/user-trips/" + userId + "/" + key, viaje);
                     mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -148,6 +150,7 @@ public class Publicar_viaje extends Fragment {
                             txt_hora.setText(stf.format(new Date()));
                             txt_fecha.setText(sdf.format(new Date()));
                             txt_precio.setText("");
+                            ((MainActivity) getActivity()).selectPage(1);
                         }
                     });
                 }

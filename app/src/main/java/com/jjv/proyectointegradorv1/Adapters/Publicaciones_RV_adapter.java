@@ -38,7 +38,7 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
     @Override
     public void onBindViewHolder(PublicacionesViewHolder holder, int position) {
         holder.bind(publicaciones.get(position), listener);
-        holder.nombreUsuario.setText(publicaciones.get(position).getusuario());
+        holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
         //holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");

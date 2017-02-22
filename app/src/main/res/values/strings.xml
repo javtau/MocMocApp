@@ -33,6 +33,8 @@
     <string name="mail_no_existe">Este email no esta registrado</string>
     <string name="auth_incorrect">Contraseña incorrecta</string>
     <string name="toast_sin_login">Iniciar sesión previamente</string>
+    <string name="snackbar_sin_origen">Iniciar sesión previamente</string>
+    <string name="snackbar_sin_destino">Iniciar sesión previamente</string>
     <string name="snackbar_sin_implementar">Botón pendiente de implementar</string>
     <string name="toast_campos_vacios">Se deben rellenar todos los campos</string>
     <string name="toast_usuario_creado">El usuario se a creado correctamente</string>

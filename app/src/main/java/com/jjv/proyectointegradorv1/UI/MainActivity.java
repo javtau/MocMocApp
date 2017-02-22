@@ -245,5 +245,8 @@ public class MainActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+    public void selectPage(int page) {
+        mViewPager.setCurrentItem(page);
+    }
 
 }
