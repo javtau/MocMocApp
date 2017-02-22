@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -44,5 +45,6 @@ public class DatepickerFragment extends DialogFragment implements DatePickerDial
         month++;
         String mes = month>9 ? ""+month:"0"+month;
         tv1.setText(dia+"/"+mes+"/"+year);
+        
     }
 }

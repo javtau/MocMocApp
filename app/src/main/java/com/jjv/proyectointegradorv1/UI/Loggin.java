@@ -146,8 +146,7 @@ public class Loggin extends AppCompatActivity {
                                     //Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
                                     Toast.makeText(getBaseContext(), R.string.mail_failed,
                                             Toast.LENGTH_SHORT).show();
-                                }
-                                else{
+                                }else{
                                     //Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
                                     Toast.makeText(getBaseContext(), R.string.auth_failed,
                                             Toast.LENGTH_SHORT).show();
