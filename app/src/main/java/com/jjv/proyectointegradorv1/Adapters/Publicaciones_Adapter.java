@@ -43,7 +43,7 @@ public class Publicaciones_Adapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView==null){
-            convertView= LayoutInflater.from(contexto).inflate(R.layout.item_buscar_viaje,null);
+            convertView= LayoutInflater.from(contexto).inflate(R.layout.item_viaje,null);
             holder = new ViewHolder();
             holder.userImage = (ImageView) convertView.findViewById(R.id.userImage);
             holder.starsImage = (ImageView) convertView.findViewById(R.id.starsImage);
