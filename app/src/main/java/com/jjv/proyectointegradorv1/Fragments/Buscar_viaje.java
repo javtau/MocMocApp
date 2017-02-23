@@ -53,8 +53,7 @@ public class Buscar_viaje extends Fragment  {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        publicaciones = new ArrayList<>();
-        listenerRv=initListener();
+
         // listaPublicaciones = (ListView) view.findViewById(R.id.lista_publicaciones);
         //listaPublicaciones.setOnItemClickListener(this);
         // implementacion recycler
@@ -161,13 +160,23 @@ public class Buscar_viaje extends Fragment  {
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //obligamos al usuario a pulsar los botones para cerrarlo
-        customDialog.setCancelable(true);
-        customDialog.setCanceledOnTouchOutside(true);
+        customDialog.setCancelable(false);
         //establecemos el contenido de nuestro dialog
         //LayoutInflater factory = LayoutInflater.from(getContext());
         //View dView = factory.inflate(R.layout.dialog_fragment_reservar, null);
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
+        customDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
 
+                if(i==KeyEvent.KEYCODE_BACK){
+                    customDialog.dismiss();
+                    return true;
+
+                }
+                return false;
+            }
+        });
         customDialog.show();
     }
 
