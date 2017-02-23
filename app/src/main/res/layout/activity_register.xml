@@ -87,7 +87,8 @@
                     android:layout_centerHorizontal="true"
                     android:id="@+id/txt_newmail"
                     android:textAlignment="center"
-                    android:hint="@string/hint_newmail" />
+                    android:hint="@string/hint_newmail"
+                    android:fontFamily="sans-serif"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -98,7 +99,8 @@
                     android:layout_alignStart="@+id/txt_newmail"
                     android:id="@+id/txt_newuser"
                     android:textAlignment="center"
-                    android:hint="@string/hint_newuser" />
+                    android:hint="@string/hint_newuser"
+                    android:fontFamily="sans-serif"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -109,7 +111,8 @@
                     android:layout_alignStart="@+id/txt_newuser"
                     android:id="@+id/txt_newPass"
                     android:textAlignment="center"
-                    android:hint="@string/hint_newpass" />
+                    android:hint="@string/hint_newpass"
+                    android:fontFamily="sans-serif"/>
             </LinearLayout>
             <Button
                 android:text="@string/btn_register"
