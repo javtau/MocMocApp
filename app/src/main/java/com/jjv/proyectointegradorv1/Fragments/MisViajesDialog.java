@@ -150,7 +150,6 @@ public class MisViajesDialog extends Dialog {
 
                        if(esPubDeConductor){
                            //si usuario es el conductor borrara todas
-
                            dataSnapshot.getRef().removeValue();
                        }else{
                            //si no es el conductor comprobara las publicaciones recibidas
@@ -160,7 +159,9 @@ public class MisViajesDialog extends Dialog {
                                dataSnapshot.getRef().removeValue();
                            }else{
                                //UPDATE en cada publicacion
-                               publicacionesToUpdate.add(dataSnapshot);
+                               publicacion = dataSnapshot.getValue(Publicacion.class);
+                               publicacion.addPlazas(1);
+                               dataSnapshot.getRef().setValue(publicacion);
                            }
                        }
 
@@ -168,7 +169,7 @@ public class MisViajesDialog extends Dialog {
 
                    @Override
                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                       Log.i("KEY OCA/OCC:",dataSnapshot.getKey());
+                     /*  Log.i("KEY OCA/OCC:",dataSnapshot.getKey());
                        publicacion = dataSnapshot.getValue(Publicacion.class);
                        Log.i("pub OCA/OCC r. uid:",publicacion.getIdConductor());
                        Log.i("pub OCA/OCC r. key:",publicacion.getKeyViaje());
@@ -186,7 +187,7 @@ public class MisViajesDialog extends Dialog {
                                //UPDATE en cada publicacion
                                publicacionesToUpdate.add(dataSnapshot);
                            }
-                       }
+                       }*/
                    }
 
                    @Override
@@ -240,7 +241,7 @@ public class MisViajesDialog extends Dialog {
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                        Log.i("OCC/OCC KEY:",dataSnapshot.getKey());
+                       /* Log.i("OCC/OCC KEY:",dataSnapshot.getKey());
                         publicacion = dataSnapshot.getValue(Publicacion.class);
                         Log.i("pub OCC/OCC r. uid:",publicacion.getIdConductor());
                         Log.i("pub OCC/OCC r. key:",publicacion.getKeyViaje());
@@ -257,7 +258,7 @@ public class MisViajesDialog extends Dialog {
                                 //UPDATE en cada publicacion
                                 publicacionesToUpdate.add(dataSnapshot);
                             }
-                        }
+                        }*/
                     }
 
                     @Override
@@ -293,18 +294,7 @@ public class MisViajesDialog extends Dialog {
             }
         };
 
-
         dbref.addChildEventListener(childEvent);
-
-        Log.i("tamaño ARRAY:",publicacionesToUpdate.size()+"");
-        for (DataSnapshot ds :  publicacionesToUpdate){
-            publicacion = ds.getValue(Publicacion.class);
-            publicacion.addPlazas(1);
-            dbref.push().setValue(publicacion);
-            Log.i("ARRAY:",publicacion.getKeyViaje());
-        }
-
-
 
     }
 }
