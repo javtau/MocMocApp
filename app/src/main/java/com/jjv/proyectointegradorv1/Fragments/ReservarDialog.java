@@ -33,7 +33,7 @@ public class ReservarDialog extends Dialog {
     String sRateConductor = "";
     Button btnReservar;
     private DatabaseReference mDatabase;
-    Context context;
+
 
     public ReservarDialog() {
         super(null, 0);

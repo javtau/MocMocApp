@@ -210,7 +210,7 @@ public class MisViajesDialog extends Dialog {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                DatabaseReference childref = dbref.child(dataSnapshot.getKey());
+                /*DatabaseReference childref = dbref.child(dataSnapshot.getKey());
                 Query q = childref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
                 //devolveria los viajes de cada usuario que coincida con la publicacion a eliminar
 
@@ -243,7 +243,7 @@ public class MisViajesDialog extends Dialog {
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                       /* Log.i("OCC/OCC KEY:",dataSnapshot.getKey());
+                       *//* Log.i("OCC/OCC KEY:",dataSnapshot.getKey());
                         publicacion = dataSnapshot.getValue(Publicacion.class);
                         Log.i("pub OCC/OCC r. uid:",publicacion.getIdConductor());
                         Log.i("pub OCC/OCC r. key:",publicacion.getKeyViaje());
@@ -260,7 +260,7 @@ public class MisViajesDialog extends Dialog {
                                 //UPDATE en cada publicacion
                                 publicacionesToUpdate.add(dataSnapshot);
                             }
-                        }*/
+                        }*//*
                     }
 
                     @Override
@@ -277,7 +277,8 @@ public class MisViajesDialog extends Dialog {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                });*/
+
             }
 
             @Override

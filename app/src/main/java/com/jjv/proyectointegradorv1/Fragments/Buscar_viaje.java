@@ -96,6 +96,19 @@ public class Buscar_viaje extends Fragment  {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 publica = dataSnapshot.getValue(Publicacion.class);
+                boolean esEncontrado = false;
+                int i = 0;
+                for (i = 0 ; i<publicaciones.size()&&!esEncontrado;i++){
+                    if(publicaciones.get(i).getKeyViaje().equals(publica.getKeyViaje())){
+                        esEncontrado = true;
+                        publicaciones.remove(i);
+                        publicaciones.add(i,publica);
+                    }
+                }
+
+
+               //TODO CARGAR DE NUEVO EL FRAGMENT o no
+               //publica = dataSnapshot.getValue(Publicacion.class);
                 if(publica.getPlazas()>0){
                     publicaciones.add(publica);
                     //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
