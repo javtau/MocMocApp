@@ -233,7 +233,9 @@ public class MisViajesDialog extends Dialog {
                                 dataSnapshot.getRef().removeValue();
                             }else{
                                 //UPDATE en cada publicacion
-                                publicacionesToUpdate.add(dataSnapshot);
+                                publicacion = dataSnapshot.getValue(Publicacion.class);
+                                publicacion.addPlazas(1);
+                                dataSnapshot.getRef().setValue(publicacion);
                             }
                         }
 
