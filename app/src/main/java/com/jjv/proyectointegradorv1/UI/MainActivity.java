@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
+            Log.e("Fragment position: ",""+position);
             switch (position){
                 case 0:
                     return new Publicar_viaje();
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     return new Mis_viajes();
 
-                case 4:
+                case 3:
                     return new Chat();
 
                 default:
@@ -263,6 +264,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void selectPage(int page) {
         mViewPager.setCurrentItem(page);
+    }
+
+    public FirebaseUser getUser() {
+        return mAuth.getCurrentUser();
     }
 
 }

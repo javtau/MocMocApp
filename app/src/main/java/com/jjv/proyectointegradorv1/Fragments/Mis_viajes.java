@@ -36,10 +36,10 @@ import java.util.ArrayList;
 
 public class Mis_viajes extends Fragment  {
 
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser user;
     private ListView listaMisViajes;
     private Publicaciones_Adapter adapter;
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database;
     private DatabaseReference dbref;
     private ChildEventListener childEvent;
     private Publicacion publicacion;
@@ -57,10 +57,12 @@ public class Mis_viajes extends Fragment  {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         publicaciones = new ArrayList<>();
-
-        Log.i("NOMBRE USR:",user.getDisplayName());
-        Log.i("UID USR:",user.getUid());
-        dbref = database.getReference("user-trips/"+user.getUid());
+        database = FirebaseDatabase.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+        Log.i("NOMBRE USR:", user.getDisplayName());
+        Log.i("UID USR:", user.getUid());
+        dbref = database.getReference("user-trips/" + user.getUid());
 
         listaMisViajes = (ListView) view.findViewById(R.id.listMisViajes);
 
@@ -70,21 +72,31 @@ public class Mis_viajes extends Fragment  {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 publicacion = dataSnapshot.getValue(Publicacion.class);
                 publicaciones.add(publicacion);
-                adapter = new Publicaciones_Adapter(view.getContext(),publicaciones);
+                adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
                 listaMisViajes.setAdapter(adapter);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 publicacion = dataSnapshot.getValue(Publicacion.class);
-                publicaciones.add(publicacion);
-                adapter = new Publicaciones_Adapter(view.getContext(),publicaciones);
-                listaMisViajes.setAdapter(adapter);
+                int pos = getPosition(publicaciones, publicacion);
+                if (pos !=-1) {
+                    publicaciones.remove(pos);
+                    publicaciones.add(pos, publicacion);
+                    adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                    listaMisViajes.setAdapter(adapter);
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                publicacion = dataSnapshot.getValue(Publicacion.class);
+                int pos = getPosition(publicaciones, publicacion);
+                if (pos !=-1) {
+                    publicaciones.remove(pos);
+                    adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                    listaMisViajes.setAdapter(adapter);
+                }
             }
 
             @Override
@@ -99,9 +111,7 @@ public class Mis_viajes extends Fragment  {
         };
 
         dbref.addChildEventListener(childEvent);
-        adapter = new Publicaciones_Adapter(view.getContext(),publicaciones);
-        listaMisViajes.setAdapter(adapter);
-        listaMisViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       listaMisViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 showDialog(publicaciones.get(position));
@@ -109,32 +119,33 @@ public class Mis_viajes extends Fragment  {
         });
 
 
-
+    }
     }
 
+    public int getPosition(ArrayList<Publicacion> array, Publicacion data) {
+        int pos = -1;
+        boolean esEncontrado = false;
+        for (int i = 0; i < array.size() && !esEncontrado; i++) {
+            if (array.get(i).getKeyViaje().equals(data.getKeyViaje())) {
+                esEncontrado = true;
+                pos = i;
+            }
+        }
+        return pos;
+    }
     private void showDialog(Publicacion p){
 
         customDialog =  new MisViajesDialog(getContext(), R.style.Theme_Dialog_Translucent, p);
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //obligamos al usuario a pulsar los botones para cerrarlo
-        customDialog.setCancelable(false);
+        customDialog.setCancelable(true);
+        customDialog.setCanceledOnTouchOutside(true);
         //establecemos el contenido de nuestro dialog
         //LayoutInflater factory = LayoutInflater.from(getContext());
         //View dView = factory.inflate(R.layout.dialog_fragment_reservar, null);
         customDialog.setContentView(R.layout.dialog_fragment_misviajes);
-        customDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
 
-                if(i==KeyEvent.KEYCODE_BACK){
-                    customDialog.dismiss();
-                    return true;
-
-                }
-                return false;
-            }
-        });
         customDialog.show();
     }
 
