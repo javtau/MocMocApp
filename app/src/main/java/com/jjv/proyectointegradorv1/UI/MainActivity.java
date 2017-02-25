@@ -3,12 +3,15 @@ package com.jjv.proyectointegradorv1.UI;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jjv.proyectointegradorv1.Fragments.Buscar_viaje;
@@ -62,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     // variables para el panel lateral
     private DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
+    NavigationView navView;
+    Drawable iconoMenu;
 
     // array de iconos para las pestañas
     private final int[] ICONS = {R.drawable.ic_tab_publicar, R.drawable.ic_tab_buscar, R.drawable.ic_tab_mis_viajes, R.drawable.ic_tab_chatear};
@@ -73,12 +80,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            // No user is signed in
-            Intent i = new Intent(this,Loggin.class);
-            startActivity(i);
-        }*/
         // recoge la instancia de FireBaseAuth
         mAuth = FirebaseAuth.getInstance();
         // creamos un listener para llevar un control de los cambios en el registro
@@ -90,14 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 // si el usuario esta registrado
                 if (user != null) {
-                    // User is signed in
-                    //Toast.makeText(getBaseContext(), getString(R.string.welcome_msg, user.getDisplayName()), Toast.LENGTH_LONG).show();
-                    toolbar.setTitle("\t\t\t\t" + user.getDisplayName());
+                    // muestra en el toolbar un icono y el nombre del usuario registrado
+                    toolbar.setTitle(user.getDisplayName().toUpperCase());
+                    toolbar.setNavigationIcon(iconoMenu);
                 } else {
-                    // User is signed out
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                   //Toast.makeText(getBaseContext(), getString(R.string.toast_sin_login), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getBaseContext(), Loggin.class);
                     startActivity(i);
                 }
@@ -107,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ActionBar actionBar = getSupportActionBar();
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -150,6 +146,21 @@ public class MainActivity extends AppCompatActivity {
 
         /** CONFIGURACION DEL PANEL LATERAL **/
 
+        iconoMenu = getResources().getDrawable(R.drawable.ic_menu_white);
+
+        if(actionBar != null){
+            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_menu_white));
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+        navView = (NavigationView) findViewById(R.id.nvView);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                navView.setCheckedItem(item.getItemId());
+
+                return false;
+            }
+        });
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this,
                 mDrawerLayout,
@@ -184,12 +195,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -201,6 +212,9 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_Closesession) {
             FirebaseAuth.getInstance().signOut();
+            return true;
+        }else if(id ==  android.R.id.home){
+            mDrawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
 

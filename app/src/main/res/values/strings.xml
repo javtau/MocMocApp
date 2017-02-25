@@ -57,4 +57,10 @@
     <string name="hint_chat">Input</string>
     <string name="lat_abierto">Abierto</string>
     <string name="lat_cerrado">Cerrado</string>
+    <string name="check_credenciales">Guardar mis credenciales</string>
+    <string name="archivo_preferencias_key">com.jjv.proyectointegradorv1.CREDENCIALES</string>
+
+    <string name="perfil">Perfil</string>
+    <string name="salir">Salir</string>
+    <string name="info">Informacion</string>
 </resources>

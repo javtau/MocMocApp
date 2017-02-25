@@ -40,7 +40,7 @@ public class Mis_viajes extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.i("NOMBRE USR:",user.getDisplayName());
+        //Log.i("NOMBRE USR:",user.getDisplayName());
 
         listaMisViajes = (ListView) view.findViewById(R.id.listMisViajes);
         publicaciones = getPublicacionesUsuario();

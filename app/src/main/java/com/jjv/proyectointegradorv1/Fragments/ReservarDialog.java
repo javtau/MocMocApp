@@ -23,6 +23,9 @@ public class ReservarDialog extends Dialog {
     String sRateConductor = "";
     Button btnReservar;
 
+    public ReservarDialog(){
+        super(null, 0);
+    }
     public ReservarDialog(Context context, int theme, Publicacion pub) {
         super(context);
         this.pub = pub;
