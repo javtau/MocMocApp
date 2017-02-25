@@ -86,7 +86,7 @@ public class Buscar_viaje extends Fragment {
 
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    publica = dataSnapshot.getValue(Publicacion.class);
+                    Log.i("snap",dataSnapshot.getKey());
                     publica = dataSnapshot.getValue(Publicacion.class);
                     if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
                         publicaciones.add(publica);
@@ -96,7 +96,7 @@ public class Buscar_viaje extends Fragment {
                         rv.setAdapter(adapt);
                     }
 
-                    Log.d(TAG, publica.getOrigen());
+
 
                 }
 
@@ -185,23 +185,13 @@ public class Buscar_viaje extends Fragment {
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //obligamos al usuario a pulsar los botones para cerrarlo
-        customDialog.setCancelable(false);
+        customDialog.setCancelable(true);
         //establecemos el contenido de nuestro dialog
         //LayoutInflater factory = LayoutInflater.from(getContext());
         //View dView = factory.inflate(R.layout.dialog_fragment_reservar, null);
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
-        customDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+        customDialog.setCanceledOnTouchOutside(true);
 
-                if (i == KeyEvent.KEYCODE_BACK) {
-                    customDialog.dismiss();
-                    return true;
-
-                }
-                return false;
-            }
-        });
         customDialog.show();
     }
 

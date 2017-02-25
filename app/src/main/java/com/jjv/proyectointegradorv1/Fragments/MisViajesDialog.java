@@ -9,11 +9,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -25,9 +28,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 // TODO: CARGAR IMAGEN DE USUARIO --- IMPLEMENTAR BOTON RESERVAR -- IMPLEMENTAR ESTRELLAS VALORACION
 
@@ -228,6 +235,47 @@ public class MisViajesDialog extends Dialog {
             };
             query1.addListenerForSingleValueEvent(event);
             query2.addListenerForSingleValueEvent(event);
+        }else {
+
+            DatabaseReference ref2 = database.getReference("trip");
+            Query query2 = ref2.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
+            ValueEventListener event = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.i("datasnpp",dataSnapshot.getKey());
+                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                        Log.i("datasnppapl",dataSnapshot.getKey());
+                        publicacion = appleSnapshot.getValue(Publicacion.class);
+                        publicacion.addPlazas(1);
+                        appleSnapshot.getRef().setValue(publicacion);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+            query2.addListenerForSingleValueEvent(event);
+            /*
+            database.getReference("trip/"+pub.getKeyViaje())
+                    .orderByChild("keyViaje")
+                    .equalTo(pub.getKeyViaje())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.i("datasnpp",dataSnapshot.getKey());
+                    publicacion = dataSnapshot.getValue(Publicacion.class);
+                    publicacion.addPlazas(1);
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/trip/"+publicacion.getKeyViaje(),publicacion.toMap());
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });*/
+
         }
         dbref.addChildEventListener(childEvent);
 
