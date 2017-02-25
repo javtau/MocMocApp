@@ -146,10 +146,10 @@ public class MainActivity extends AppCompatActivity {
     // se crea el adaptador para nuestro viewpager, se crean los frafmentos necesarios incluyendolos
     // en nuestro adaptador y se le pasa al view pager
     private void setupViewPager(ViewPager viewPager) {
-        adapter.addFragment(new Publicar_viaje(), getString(R.string.fragment1_name), ICONS[0]);
-        adapter.addFragment(new Buscar_viaje(), getString(R.string.fragment2_name), ICONS[1]);
-        adapter.addFragment(new Mis_viajes(), getString(R.string.fragment3_name), ICONS[2]);
-        adapter.addFragment(new Chat(), getString(R.string.fragment4_name), ICONS[3]);
+        adapter.addFragment(getString(R.string.fragment1_name), ICONS[0]);
+        adapter.addFragment( getString(R.string.fragment2_name), ICONS[1]);
+        adapter.addFragment( getString(R.string.fragment3_name), ICONS[2]);
+        adapter.addFragment( getString(R.string.fragment4_name), ICONS[3]);
         viewPager.setAdapter(adapter);
     }
 
@@ -192,17 +192,33 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+
+            switch (position){
+                case 0:
+                    return new Publicar_viaje();
+
+                case 1:
+                    return new Buscar_viaje();
+
+                case 2:
+                    return new Mis_viajes();
+
+                case 4:
+                    return new Chat();
+
+                default:
+                    return null;
+            }
+
         }
 
         @Override
         public int getCount() {
-            return mFragmentList.size();
+            return mFragmentTitleList.size();
         }
 
         // metodo para añadir un nuevo fragmento al adapter
-        void addFragment(Fragment fragment, String title, int iconId) {
-            mFragmentList.add(fragment);
+        void addFragment(String title, int iconId) {
             mFragmentTitleList.add(title);
             mFragmentIconList.add(iconId);
         }
