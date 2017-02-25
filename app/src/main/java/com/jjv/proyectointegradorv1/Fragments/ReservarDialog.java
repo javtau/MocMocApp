@@ -33,11 +33,17 @@ public class ReservarDialog extends Dialog {
     String sRateConductor = "";
     Button btnReservar;
     private DatabaseReference mDatabase;
+    Context context;
+
+    public ReservarDialog() {
+        super(null, 0);
+    }
 
     public ReservarDialog(Context context, int theme, Publicacion pub) {
         super(context);
         this.pub = pub;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
