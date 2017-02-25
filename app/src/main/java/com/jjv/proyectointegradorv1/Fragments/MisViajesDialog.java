@@ -212,7 +212,8 @@ public class MisViajesDialog extends Dialog {
         if (esPubDeConductor){
             DatabaseReference ref = database.getReference("Books");
             Query query1 = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
-
+            DatabaseReference ref2 = database.getReference("trip");
+            Query query2 = ref2.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
             ValueEventListener event = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -226,6 +227,7 @@ public class MisViajesDialog extends Dialog {
                 }
             };
             query1.addListenerForSingleValueEvent(event);
+            query2.addListenerForSingleValueEvent(event);
         }
         dbref.addChildEventListener(childEvent);
 
