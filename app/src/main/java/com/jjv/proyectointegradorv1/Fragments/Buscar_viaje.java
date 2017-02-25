@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
 import java.util.ArrayList;
 
@@ -31,19 +34,20 @@ import java.util.ArrayList;
  * Created by javi0 on 11/01/2017.
  */
 
-public class Buscar_viaje extends Fragment  {
+public class Buscar_viaje extends Fragment {
 
     private final String TAG = Buscar_viaje.class.getSimpleName();
     //private ListView listaPublicaciones;
     private ArrayList<Publicacion> publicaciones;
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database;
     private DatabaseReference myRef;
     private ChildEventListener childEvent;
+    private FirebaseUser currentUser;
     private Publicacion publica;
-    private Dialog customDialog ;
+    private Dialog customDialog;
     private RecyclerView rv;
     private Publicaciones_RV_adapter.OnItemClickListener listenerRv;
-    private Publicaciones_RV_adapter adapt ;
+    private Publicaciones_RV_adapter adapt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,9 +62,9 @@ public class Buscar_viaje extends Fragment  {
         //listaPublicaciones.setOnItemClickListener(this);
         // implementacion recycler
         publicaciones = new ArrayList<>();
-        listenerRv=initListener();
+        listenerRv = initListener();
 
-        rv= (RecyclerView) view.findViewById(R.id.lista_publicaciones);
+        rv = (RecyclerView) view.findViewById(R.id.lista_publicaciones);
 
         /*
         Si estás seguro que el tamaño del RecyclerView no se cambiará,
@@ -71,105 +75,113 @@ public class Buscar_viaje extends Fragment  {
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
         rv.setLayoutManager(llm);
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String useruid = currentUser.getUid();
+        if (currentUser != null) {
+            database = FirebaseDatabase.getInstance();
+            myRef = database.getReference("trip");// hacemos referencia a la rama donde se almacenan todos los viajes
 
+            childEvent = new ChildEventListener() {
+                //Publicaciones_Adapter adapt;
 
-        myRef = database.getReference("trip");// hacemos referencia a la rama donde se almacenan todos los viajes
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Log.e("credenciales:  ", publica.getIdConductor() + "" + currentUser.getUid());
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
+                        publicaciones.add(publica);
+                        //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
+                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                        //listaPublicaciones.setAdapter(adapt);
+                        rv.setAdapter(adapt);
+                    }
 
-        childEvent = new ChildEventListener() {
-            //Publicaciones_Adapter adapt;
+                    Log.d(TAG, publica.getOrigen());
 
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                publica = dataSnapshot.getValue(Publicacion.class);
-                if(publica.getPlazas()>0){
-                    publicaciones.add(publica);
-                    //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                    adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-                    //listaPublicaciones.setAdapter(adapt);
-                    rv.setAdapter(adapt);
                 }
 
-                Log.d(TAG, publica.getOrigen());
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones, publica);
+                    if (pos != -1) {
+                        publicaciones.remove(pos);
 
-            }
+                        //TODO CARGAR DE NUEVO EL FRAGMENT o no
+                        //publica = dataSnapshot.getValue(Publicacion.class);
+                        if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
+                            publicaciones.add(pos, publica);
+                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                            rv.setAdapter(adapt);
+                        }
+                    }
+                    Log.d(TAG, publica.getOrigen());
+                }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                publica = dataSnapshot.getValue(Publicacion.class);
-                boolean esEncontrado = false;
-                int i = 0;
-                for (i = 0 ; i<publicaciones.size()&&!esEncontrado;i++){
-                    if(publicaciones.get(i).getKeyViaje().equals(publica.getKeyViaje())){
-                        esEncontrado = true;
-                        publicaciones.remove(i);
-                        publicaciones.add(i,publica);
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones, publica);
+                    if (pos != -1) {
+                        publicaciones.remove(pos);
+                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                        rv.setAdapter(adapt);
+
                     }
                 }
 
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-               //TODO CARGAR DE NUEVO EL FRAGMENT o no
-               //publica = dataSnapshot.getValue(Publicacion.class);
-                if(publica.getPlazas()>0){
-                    publicaciones.add(publica);
-                    //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                    adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-                    //listaPublicaciones.setAdapter(adapt);
-                    rv.setAdapter(adapt);
                 }
 
-                Log.d(TAG, publica.getOrigen());
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-               /* publica = dataSnapshot.getValue(Publicacion.class);
-                int pos = publicaciones.indexOf(publica);
-                //prueba para comprobar
-                Log.d(TAG,"borrado: "+pos+"  "+ publica.getDestino()+"  "+publica.getusuario()+"  "+publica.getOrigen()+"  "+publica.getPlazas()+"  "+publica.getPrecio()+"  "+publica.getFecha()+"  "+publica.getHora());
-
-                adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                listaPublicaciones.setAdapter(adapt);
-                */
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        myRef.addChildEventListener(childEvent);
+                }
+            };
+            myRef.addChildEventListener(childEvent);
 
 
-        adapt = new Publicaciones_RV_adapter(publicaciones,listenerRv);
-       rv.setAdapter(adapt);
-        // Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
-        // listaPublicaciones.setAdapter(adapter);
+            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+            rv.setAdapter(adapt);
+            // Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
+            // listaPublicaciones.setAdapter(adapter);
 
-
-
+        }
     }
 
     private Publicaciones_RV_adapter.OnItemClickListener initListener() {
 
-        Publicaciones_RV_adapter.OnItemClickListener l= new Publicaciones_RV_adapter.OnItemClickListener() {
+        Publicaciones_RV_adapter.OnItemClickListener l = new Publicaciones_RV_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(Publicacion item) {
                 showDialog(item);
             }
 
 
-    };
+        };
         return l;
     }
 
-    private void showDialog(Publicacion p){
+    ////
 
-        customDialog =  new ReservarDialog(getContext(), R.style.Theme_Dialog_Translucent, p);
+    ///
+    public int getPosition(ArrayList<Publicacion> array, Publicacion data) {
+        int pos = -1;
+        boolean esEncontrado = false;
+        for (int i = 0; i < array.size() && !esEncontrado; i++) {
+            if (array.get(i).getKeyViaje().equals(data.getKeyViaje())) {
+                esEncontrado = true;
+                pos = i;
+            }
+        }
+        return pos;
+    }
+
+    private void showDialog(Publicacion p) {
+
+        customDialog = new ReservarDialog(getContext(), R.style.Theme_Dialog_Translucent, p);
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //obligamos al usuario a pulsar los botones para cerrarlo
@@ -182,7 +194,7 @@ public class Buscar_viaje extends Fragment  {
             @Override
             public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
 
-                if(i==KeyEvent.KEYCODE_BACK){
+                if (i == KeyEvent.KEYCODE_BACK) {
                     customDialog.dismiss();
                     return true;
 
@@ -192,9 +204,6 @@ public class Buscar_viaje extends Fragment  {
         });
         customDialog.show();
     }
-
-
-
 
 
 }

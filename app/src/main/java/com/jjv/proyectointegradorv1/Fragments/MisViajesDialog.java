@@ -169,25 +169,7 @@ public class MisViajesDialog extends Dialog {
 
                    @Override
                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                     /*  Log.i("KEY OCA/OCC:",dataSnapshot.getKey());
-                       publicacion = dataSnapshot.getValue(Publicacion.class);
-                       Log.i("pub OCA/OCC r. uid:",publicacion.getIdConductor());
-                       Log.i("pub OCA/OCC r. key:",publicacion.getKeyViaje());
 
-                       if(esPubDeConductor){
-                           //si usuario es el conductor borrara todas
-                           dataSnapshot.getRef().removeValue();
-                       }else{
-                           //si no es el conductor comprobara las publicaciones recibidas
-                           //solo borrara la que le pertenece
-                           if(userkeyShot.getKey().equals(user.getUid())){
-
-                               dataSnapshot.getRef().removeValue();
-                           }else{
-                               //UPDATE en cada publicacion
-                               publicacionesToUpdate.add(dataSnapshot);
-                           }
-                       }*/
                    }
 
                    @Override
@@ -210,75 +192,6 @@ public class MisViajesDialog extends Dialog {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                /*DatabaseReference childref = dbref.child(dataSnapshot.getKey());
-                Query q = childref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
-                //devolveria los viajes de cada usuario que coincida con la publicacion a eliminar
-
-                q.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.i("OCC/OCA KEY:",dataSnapshot.getKey());
-                        publicacion = dataSnapshot.getValue(Publicacion.class);
-                        Log.i("pub OCC/OCA r.uid:",publicacion.getIdConductor());
-                        Log.i("pub OCC/OCA r.key:",publicacion.getKeyViaje());
-
-                        if(esPubDeConductor){
-                            //si usuario es el conductor borrara todas
-                            dataSnapshot.getRef().removeValue();
-                        }else{
-                            //si no es el conductor comprobara las publicaciones recibidas
-                            //solo borrara la que le pertenece
-                            if(userkeyShot.getKey().equals(user.getUid())){
-                                Log.i("entra en if userkshot:",dataSnapshot.getKey());
-                                dataSnapshot.getRef().removeValue();
-                            }else{
-                                //UPDATE en cada publicacion
-                                publicacion = dataSnapshot.getValue(Publicacion.class);
-                                publicacion.addPlazas(1);
-                                dataSnapshot.getRef().setValue(publicacion);
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                       *//* Log.i("OCC/OCC KEY:",dataSnapshot.getKey());
-                        publicacion = dataSnapshot.getValue(Publicacion.class);
-                        Log.i("pub OCC/OCC r. uid:",publicacion.getIdConductor());
-                        Log.i("pub OCC/OCC r. key:",publicacion.getKeyViaje());
-
-                        if(esPubDeConductor){
-                            //si usuario es el conductor borrara todas
-                            dataSnapshot.getRef().removeValue();
-                        }else{
-                            //si no es el conductor comprobara las publicaciones recibidas
-                            //solo borrara la que le pertenece
-                            if(userkeyShot.getKey().equals(user.getUid())){
-                                dataSnapshot.getRef().removeValue();
-                            }else{
-                                //UPDATE en cada publicacion
-                                publicacionesToUpdate.add(dataSnapshot);
-                            }
-                        }*//*
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
-
             }
 
             @Override
@@ -296,7 +209,24 @@ public class MisViajesDialog extends Dialog {
 
             }
         };
+        if (esPubDeConductor){
+            DatabaseReference ref = database.getReference("Books");
+            Query query1 = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
 
+            ValueEventListener event = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                        appleSnapshot.getRef().removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+            query1.addListenerForSingleValueEvent(event);
+        }
         dbref.addChildEventListener(childEvent);
 
     }
