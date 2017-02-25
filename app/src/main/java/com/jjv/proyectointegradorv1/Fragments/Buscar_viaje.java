@@ -86,7 +86,7 @@ public class Buscar_viaje extends Fragment {
 
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.e("credenciales:  ", publica.getIdConductor() + "" + currentUser.getUid());
+                    publica = dataSnapshot.getValue(Publicacion.class);
                     publica = dataSnapshot.getValue(Publicacion.class);
                     if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
                         publicaciones.add(publica);
