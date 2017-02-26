@@ -136,6 +136,7 @@ public class GestionDB {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                         appleSnapshot.getRef().removeValue();
+
                     }
                 }
 
@@ -192,20 +193,34 @@ public class GestionDB {
 
 
     public void deletePubsEnTrip_UserTrip() {
-        //TODO
         DatabaseReference ref = database.getReference("user-trips");
         ValueEventListener eventUT = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot userkeyShotRecuperada) {
-                Log.i("userkeRecupMTHOD",userkeyShotRecuperada.getKey());
-            }
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                   Log.i("UID USER RECUPERADO:",appleSnapshot.getKey());
+                   DatabaseReference ref = database.getReference("user-trips/"+appleSnapshot.getKey());
+                   Query q = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
+                   ValueEventListener vel = new ValueEventListener() {
+                       @Override
+                       public void onDataChange(DataSnapshot dataSnapshot) {
+                           for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                               Log.i("RESERVA RECUPERADA:",appleSnapshot.getKey());
+                               appleSnapshot.getRef().removeValue();
+                           }
+                       }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                       @Override
+                       public void onCancelled(DatabaseError databaseError) {}
+                   };
+                   q.addListenerForSingleValueEvent(vel);
+               }
+           }
 
-            }
+           @Override
+           public void onCancelled(DatabaseError databaseError) {}
         };
-
+        ref.addListenerForSingleValueEvent(eventUT);
         DatabaseReference ref1 = database.getReference("Books");
         Query query1 = ref1.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
         DatabaseReference ref2 = database.getReference("trip");
@@ -214,7 +229,8 @@ public class GestionDB {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                    appleSnapshot.getRef().removeValue();
+                   appleSnapshot.getRef().removeValue();
+
                 }
             }
 
@@ -222,14 +238,31 @@ public class GestionDB {
             public void onCancelled(DatabaseError databaseError) {
             }
         };
-        query1.addListenerForSingleValueEvent(event);
-        query2.addListenerForSingleValueEvent(event);
-        ref.addListenerForSingleValueEvent(eventUT);
-
+       query1.addListenerForSingleValueEvent(event);
+       query2.addListenerForSingleValueEvent(event);
     }
 
     public void deletePubDeUserEnUserTrip() {
-        //TODO
+        //recojemos las publicaciones del usuario
+        DatabaseReference ref = database
+                .getReference("user-trips/"+user.getUid());
+        Query q = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje()) ;
+        ValueEventListener vel = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    Log.i("Key viaje a eliminar",appleSnapshot.getKey());
+                    appleSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        q.addListenerForSingleValueEvent(vel);
+
     }
 
     public void updatePubsEnTrip_UserTrip() {

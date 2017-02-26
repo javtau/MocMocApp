@@ -83,9 +83,6 @@ public class MisViajesDialog extends Dialog {
         etViajePrecio.setText(pub.getPrecio() + "€");
         etViajeHora.setText(pub.getHora());
         etViajeFecha.setText(pub.getFecha());
-        final String idConductor = pub.getIdConductor();
-        final String keyViaje = pub.getKeyViaje();
-        final int reservas = 1;
         btnCancelaViaje = (Button) findViewById(R.id.btn_cancelar_viaje);
         btnCancelaViaje.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,18 +115,18 @@ public class MisViajesDialog extends Dialog {
         if(pub.getIdConductor().equals(user.getUid())){
             //si es conductor debe eliminar la publicacion en trip y en user-trips
             esPubDeConductor=true;
-            //TODO gestionDB.deletePubsEnTrip_UserTrip();
+            gestionDB.deletePubsEnTrip_UserTrip();
 
         }else{
             //sino, tiene que eliminar la reserva SOLO del pasajero en user-trip
             //tambien hay que actualizar en user-trip del resto de reservas de esa publicacion
             //añadiendo una plaza libre
             esPubDeConductor=false;
-            //TODO gestionDB.deletePubDeUserEnUserTrip();
+            gestionDB.deletePubDeUserEnUserTrip();
             //TODO gestionDB.updatePubsEnTrip_UserTrip();
         }
 
-        gestionDB.eliminar(esPubDeConductor);
+        //gestionDB.eliminar(esPubDeConductor);
         this.dismiss();
     }
 }
