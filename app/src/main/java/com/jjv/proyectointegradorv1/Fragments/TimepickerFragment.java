@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -41,6 +42,7 @@ public class TimepickerFragment extends DialogFragment implements TimePickerDial
         String hora = hourOfDay>9 ? ""+hourOfDay:"0"+hourOfDay;
         String minutos = minute>9 ? ""+minute:"0"+minute;
         tv1.setText(hora+":"+minutos);
+
     }
 
 
