@@ -1,6 +1,5 @@
 package com.jjv.proyectointegradorv1.UI;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
@@ -63,10 +62,6 @@ public class Loggin extends AppCompatActivity {
                     //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     finish();
                 }
-                //else {
-                    // User is signed out
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                //}
 
             }
         };

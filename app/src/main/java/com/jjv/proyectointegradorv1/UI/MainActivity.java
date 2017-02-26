@@ -40,6 +40,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String FB_USER = "fireBaseUsuarioLogueado";
+    public static final String FB_EMAIL = "fireBaseEmailLogueado";
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager mViewPager;
@@ -181,7 +184,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(i);
                         break;
                     case R.id.drawer_contacto:
-                        
+                        Intent j = new Intent(MainActivity.this, ContactoActivity.class);
+                        j.putExtra(FB_USER, mAuth.getCurrentUser().getDisplayName());
+                        j.putExtra(FB_EMAIL, mAuth.getCurrentUser().getEmail());
+                        startActivity(j);
+                        break;
                     case R.id.drawer_salir:
                         crearDialogo().show();
                         break;

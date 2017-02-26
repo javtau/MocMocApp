@@ -45,6 +45,9 @@ public class Publicar_viaje extends Fragment {
     private DatabaseReference mDatabase;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
+
+    private FloatingActionButton fab;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_publicarviaje, container, false);
@@ -115,7 +118,7 @@ public class Publicar_viaje extends Fragment {
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

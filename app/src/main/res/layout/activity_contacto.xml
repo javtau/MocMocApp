@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_contacto"
+    android:id="@+id/rl_fondo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jjv.proyectointegradorv1.UI.ContactoActivity">
+    tools:context="com.jjv.proyectointegradorv1.UI.ContactoActivity"
+    android:background="?attr/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:layout_marginBottom="150dp"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:background="@android:color/transparent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/et_contacto"
+            android:hint="@string/contacto_hint"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/ic_toys_white_48px"
+        android:layout_marginBottom="115dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/fab_contacto"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
