@@ -150,7 +150,7 @@ public class Publicar_viaje extends Fragment {
                             txt_hora.setText(stf.format(new Date()));
                             txt_fecha.setText(sdf.format(new Date()));
                             txt_precio.setText("");
-                            ((MainActivity) getActivity()).selectPage(1);
+                            ((MainActivity) getActivity()).selectPage(2);
                         }
                     });
                 }

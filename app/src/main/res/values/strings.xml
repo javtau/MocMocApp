@@ -64,4 +64,5 @@
     <string name="Cancelar">Cancelar</string>
     <string name="pregunta_cancelar_alert_dialog">¿Eliminar viaje?</string>
     <string name="cancelar_reserva_alert_dialog_msg">Esta accion puede afectar a más usuarios.\n¿Estás seguro que deseas eliminar este viaje?</string>
+    <string name="publicacion_eliminada">Viaje eliminado</string>
 </resources>
