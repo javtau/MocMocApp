@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +19,13 @@ public class ReservarDialog extends Dialog {
     Publicacion pub;
     TextView etConductorNombre, etViajeOrigen, etViajeDestino, etViajePlazas, etViajePrecio;
     TextView etViajeFecha, etViajeHora;
+    RatingBar rateConductor;
+    String sRateConductor = "";
     Button btnReservar;
 
+    public ReservarDialog(){
+        super(null, 0);
+    }
     public ReservarDialog(Context context, int theme, Publicacion pub) {
         super(context);
         this.pub = pub;
@@ -37,12 +43,15 @@ public class ReservarDialog extends Dialog {
         etViajePrecio = (TextView)findViewById(R.id.tv_precio_res);
         etViajeFecha = (TextView)findViewById(R.id.tv_viaje_fecha_res);
         etViajeHora = (TextView)findViewById(R.id.tv_viaje_hora_res);
+        rateConductor = (RatingBar)findViewById(R.id.rate_conductor);
+
 
         btnReservar = (Button)findViewById(R.id.btn_reservar);
         btnReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Click ok", Toast.LENGTH_SHORT).show();
+                sRateConductor =   String.valueOf(rateConductor.getRating());
+                Toast.makeText(getContext(), sRateConductor, Toast.LENGTH_SHORT).show();
             }
         });
 

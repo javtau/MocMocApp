@@ -5,15 +5,15 @@
     <string name="activiti3_name">Registro</string>
     <string name="fragment1_name">Publicar</string>
     <string name="fragment2_name">Buscar</string>
-    <string name="fragment3_name">Mis viajes</string>
+    <string name="fragment3_name">Mis Viajes</string>
     <string name="fragment4_name">Chatear</string>
     <string name="action_closesession">Cerrar sesion</string>
     <string name="section_format">Estas en: %1$d</string>
     <string name="hint_user">Usuario</string>
     <string name="hint_pass">Contraseña</string>
-    <string name="hint_newuser">Escribe un usuario</string>
+    <string name="hint_newuser">Elige un nombre de usuario</string>
     <string name="hint_newpass">Escribe una contraseña</string>
-    <string name="hint_newmail">Introduce un e-mail</string>
+    <string name="hint_newmail">Escribe tu e-mail</string>
     <string name="hint_origen">Seleccione origen</string>
     <string name="hint_destino">Seleccione destino</string>
     <string name="hint_precio">0</string>
@@ -54,4 +54,16 @@
     <string name="info_viaje_precio">Precio:</string>
     <string name="info_viaje_plazas">Plazas:</string>
     <string name="reservar_btn_reservar">¡Reservar!</string>
+    <string name="hint_chat">Input</string>
+    <string name="lat_abierto">Abierto</string>
+    <string name="lat_cerrado">Cerrado</string>
+    <string name="check_credenciales">Guardar mis credenciales</string>
+    <string name="archivo_preferencias_key">com.jjv.proyectointegradorv1.CREDENCIALES</string>
+
+    <string name="perfil">Perfil</string>
+    <string name="salir">Salir</string>
+    <string name="info">Información</string>
+    <string name="contacto">Contáctanos</string>
+
+    <string name="contacto_hint">¿Duda, queja, error o simplemente decirnos lo mucho que te gusta la app? ¡Ponlo aquí!</string>
 </resources>

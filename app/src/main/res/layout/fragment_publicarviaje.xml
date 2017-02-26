@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:focusableInTouchMode="true"
     android:weightSum="1">
 
 
@@ -175,7 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="-28dp"
-        app:srcCompat="@drawable/ic_toys_white_48px"
+        android:src="@drawable/ic_toys_white_48px"
         android:layout_weight="0.42" />
 
 </LinearLayout>

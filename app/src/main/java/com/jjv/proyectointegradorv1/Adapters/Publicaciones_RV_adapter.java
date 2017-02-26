@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones_RV_adapter.PublicacionesViewHolder>{
 
 
-    ArrayList<Publicacion> publicaciones;
+    ArrayList<Publicacion> publicaciones = new ArrayList<>();
     OnItemClickListener listener;
 
     public Publicaciones_RV_adapter(ArrayList<Publicacion> publicaciones, OnItemClickListener listener) {
@@ -41,7 +41,7 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
         holder.nombreUsuario.setText(publicaciones.get(position).getusuario());
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
-        holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
+        //holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
         holder.horaViaje.setText(publicaciones.get(position).getHora());
         holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
 
@@ -65,18 +65,18 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
     }
 
     public static class PublicacionesViewHolder extends RecyclerView.ViewHolder{
-        ImageView userImage,starsImage;
+        //ImageView userImage,starsImage;
         TextView nombreUsuario,origenViaje,destinoViaje,precioViaje,horaViaje,plazas;
 
         public PublicacionesViewHolder(View convertView) {
             super(convertView);
 
-            userImage = (ImageView) convertView.findViewById(R.id.userImage);
-            starsImage = (ImageView) convertView.findViewById(R.id.starsImage);
+            //userImage = (ImageView) convertView.findViewById(R.id.userImage);
+            //starsImage = (ImageView) convertView.findViewById(R.id.starsImage);
             nombreUsuario= (TextView) convertView.findViewById(R.id.txt_userName);
             origenViaje= (TextView) convertView.findViewById(R.id.txt_origen_usr);
             destinoViaje= (TextView) convertView.findViewById(R.id.txt_destino_viaje);
-            precioViaje= (TextView) convertView.findViewById(R.id.txt_precio_viaje);
+            //precioViaje= (TextView) convertView.findViewById(R.id.txt_precio_viaje);
             horaViaje= (TextView) convertView.findViewById(R.id.txt_hora_viaje);
             plazas= (TextView) convertView.findViewById(R.id.txt_plazas_viaje);
         }
