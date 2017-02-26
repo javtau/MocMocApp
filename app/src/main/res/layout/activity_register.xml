@@ -5,11 +5,7 @@
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".UI.register">
-
-
-
 
     <ImageView
         android:src="@drawable/background"
@@ -74,7 +70,7 @@
                 android:layout_marginTop="@dimen/topMargin_linear"
                 android:layout_marginLeft="@dimen/leftMargin_linear"
                 android:layout_marginRight="@dimen/rightMargin_linear"
-                android:background="@color/colorBlanco"
+                android:background="@android:color/white"
                 >
 
 
