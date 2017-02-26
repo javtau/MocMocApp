@@ -1,13 +1,21 @@
 package com.jjv.proyectointegradorv1.UI;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
@@ -15,8 +23,9 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,22 +40,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     *
-     * Branch: Devel
-     * Last change: 18/01/2017
-     */
+    public static final String FB_USER = "fireBaseUsuarioLogueado";
+    public static final String FB_EMAIL = "fireBaseEmailLogueado";
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
     private Toolbar toolbar;
     private TabLayout tabs;
@@ -55,9 +53,22 @@ public class MainActivity extends AppCompatActivity {
     //variables usadas para el control de usuario
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private String usuarioLogueado, emailLogueado;
+
+    // variables para el panel lateral
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView navView;
+    private View headerView;
+    private Drawable iconoMenu;
+
+    // variables para el header del panel lateral
+    private TextView tvLatUsuario, tvLatEmail;
+    private ImageView avatar;
 
     // array de iconos para las pestañas
     private final int[] ICONS = {R.drawable.ic_tab_publicar, R.drawable.ic_tab_buscar, R.drawable.ic_tab_mis_viajes, R.drawable.ic_tab_chatear};
+    private final int[] ICONS_GRISES = {R.drawable.ic_tab_publicar_gris, R.drawable.ic_tab_buscar_gris, R.drawable.ic_tab_mis_viajes_gris, R.drawable.ic_tab_chatear_gris};
     private final List<String> mFragmentTitleList = new ArrayList<>();
     private SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -66,12 +77,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            // No user is signed in
-            Intent i = new Intent(this,Loggin.class);
-            startActivity(i);
-        }*/
         // recoge la instancia de FireBaseAuth
         mAuth = FirebaseAuth.getInstance();
         // creamos un listener para llevar un control de los cambios en el registro
@@ -83,16 +88,14 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 // si el usuario esta registrado
                 if (user != null) {
-                    // User is signed in
-                    //Toast.makeText(getBaseContext(), getString(R.string.welcome_msg, user.getDisplayName()), Toast.LENGTH_LONG).show();
-                    toolbar.setTitle("\t\t\t\t" + user.getDisplayName());
+                    // muestra en el toolbar un icono y el nombre del usuario registrado
+                    toolbar.setTitle(user.getDisplayName().toUpperCase());
+                    toolbar.setNavigationIcon(iconoMenu);
                 } else {
-                    // User is signed out
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                   //Toast.makeText(getBaseContext(), getString(R.string.toast_sin_login), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getBaseContext(), Loggin.class);
                     startActivity(i);
+                    finish();
                 }
 
             }
@@ -100,17 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ActionBar actionBar = getSupportActionBar();
 
-        // Set up the ViewPager with the sections adapter.
+        // configura el view pager con el section adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
-        //mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(mViewPager); //Configuramos el tab layaut con nuestro view pager
+        //Configuramos el tab layaut con nuestro view pager
+        tabs.setupWithViewPager(mViewPager);
         // listener para determinar que pestaña esta activa
         // dependiendo de cual este llama a un metodo u otro para mostrar icono y texto o solo icono
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -139,27 +140,124 @@ public class MainActivity extends AppCompatActivity {
         // selecciona una pestaña por defecto cada vez que se llama a onCreate
         // en este caso buscar
         // TODO: dependiendo del perfil del usuario(conductor o usuario normal) seleccionar una pestaña diferente
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(2);
 
+        /** CONFIGURACION DEL PANEL LATERAL **/
+
+        navView = (NavigationView) findViewById(R.id.nvView);
+        headerView = navView.getHeaderView(0);
+        iconoMenu = getResources().getDrawable(R.drawable.ic_menu_white);
+        tvLatUsuario = (TextView) headerView.findViewById(R.id.usuario);
+        tvLatEmail = (TextView) headerView.findViewById(R.id.email);
+        avatar = (ImageView) headerView.findViewById(R.id.avatar);
+
+        // si el action bar existe
+        if(actionBar != null && mAuth.getCurrentUser() != null){
+            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_menu_white));
+            actionBar.setDisplayShowHomeEnabled(true);
+            FirebaseUser usuario = mAuth.getCurrentUser();
+
+            usuarioLogueado = usuario.getDisplayName();
+            emailLogueado = usuario.getEmail();
+
+            // TODO: asignar foto de usuario al panel lateral
+            tvLatUsuario.setText(mAuth.getCurrentUser().getDisplayName());
+            tvLatEmail.setText(mAuth.getCurrentUser().getEmail());
+            //avatar.setImageDrawable();
+        }
+        // *** esto está por razones de seguridad pero se supone que nunca deberia hacer esto
+        else{
+            tvLatUsuario.setText("");
+            tvLatEmail.setText("");
+        }
+
+        // asigna el listener al navigation view
+        // configura acciones segun opcion seleccionada
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                navView.setCheckedItem(item.getItemId());
+                // acciones segun item seleccionado en el panel lateral
+                switch(item.getItemId()){
+                    case R.id.drawer_perfil:
+                        Intent i = new Intent(MainActivity.this, PerfilActivity.class);
+                        startActivity(i);
+                        break;
+                    case R.id.drawer_contacto:
+                        Intent j = new Intent(MainActivity.this, ContactoActivity.class);
+                        j.putExtra(FB_USER, mAuth.getCurrentUser().getDisplayName());
+                        j.putExtra(FB_EMAIL, mAuth.getCurrentUser().getEmail());
+                        startActivity(j);
+                        break;
+                    case R.id.drawer_salir:
+                        crearDialogo().show();
+                        break;
+
+                }
+
+                return false;
+            }
+        });
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                R.string.lat_abierto,
+                R.string.lat_cerrado){
+
+            public void OnDrawerClosed(View v){
+                super.onDrawerClosed(v);
+                invalidateOptionsMenu();
+            }
+
+            public void OnDrawerOpened(View v){
+                super.onDrawerOpened(v);
+                invalidateOptionsMenu();
+            }
+        };
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+
+        /*************************************/
+
+    }
+
+    private Dialog crearDialogo() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(false);
+        builder.setMessage("¿Seguro que quieres salir?");
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        return builder.create();
     }
 
     // se crea el adaptador para nuestro viewpager, se crean los frafmentos necesarios incluyendolos
     // en nuestro adaptador y se le pasa al view pager
     private void setupViewPager(ViewPager viewPager) {
-        adapter.addFragment(getString(R.string.fragment1_name), ICONS[0]);
-        adapter.addFragment( getString(R.string.fragment2_name), ICONS[1]);
-        adapter.addFragment( getString(R.string.fragment3_name), ICONS[2]);
-        adapter.addFragment( getString(R.string.fragment4_name), ICONS[3]);
+        adapter.addFragment(new Publicar_viaje(), getString(R.string.fragment1_name), ICONS[0]);
+        adapter.addFragment(new Buscar_viaje(), getString(R.string.fragment2_name), ICONS[1]);
+        adapter.addFragment(new Mis_viajes(), getString(R.string.fragment3_name), ICONS[2]);
+        adapter.addFragment(new Chat(), getString(R.string.fragment4_name), ICONS[3]);
         viewPager.setAdapter(adapter);
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -172,15 +270,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_Closesession) {
             FirebaseAuth.getInstance().signOut();
             return true;
+        }else if(id ==  android.R.id.home){
+            mDrawerLayout.openDrawer(GravityCompat.START);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<Integer>mFragmentIconList = new ArrayList<>();
@@ -192,33 +289,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
-            switch (position){
-                case 0:
-                    return new Publicar_viaje();
-
-                case 1:
-                    return new Buscar_viaje();
-
-                case 2:
-                    return new Mis_viajes();
-
-                case 4:
-                    return new Chat();
-
-                default:
-                    return null;
-            }
-
+            return mFragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            return mFragmentTitleList.size();
+            return mFragmentList.size();
         }
 
         // metodo para añadir un nuevo fragmento al adapter
-        void addFragment(String title, int iconId) {
+        void addFragment(Fragment fragment, String title, int iconId) {
+            mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
             mFragmentIconList.add(iconId);
         }
@@ -228,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             //return mFragmentTitleList.get(position);
             // de esta forma los iconos son mas grandes y hay menos espacio entre titulo e icono
-            Drawable image = ContextCompat.getDrawable(getBaseContext(), ICONS[position]);
+            Drawable image = ContextCompat.getDrawable(getBaseContext(), ICONS_GRISES[position]);
             image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
             SpannableString sb = new SpannableString(" \n");
             ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
@@ -261,8 +342,13 @@ public class MainActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
     public void selectPage(int page) {
         mViewPager.setCurrentItem(page);
+    }
+
+    public FirebaseUser getUser() {
+        return mAuth.getCurrentUser();
     }
 
 }

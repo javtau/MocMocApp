@@ -9,11 +9,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -23,11 +26,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 // TODO: CARGAR IMAGEN DE USUARIO --- IMPLEMENTAR BOTON RESERVAR -- IMPLEMENTAR ESTRELLAS VALORACION
 
@@ -40,13 +48,11 @@ public class MisViajesDialog extends Dialog {
     String sRateConductor = "";
     Button btnCancelaViaje;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference dbref;
+
     Context context;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private ChildEventListener childEvent;
-    private Publicacion publicacion;
-    DataSnapshot userkeyShot;
-    private ArrayList<DataSnapshot>publicacionesToUpdate = new ArrayList<>();
+
+    GestionDB gestionDB ;
 
 
     public MisViajesDialog(Context context, int theme, Publicacion pub) {
@@ -77,9 +83,6 @@ public class MisViajesDialog extends Dialog {
         etViajePrecio.setText(pub.getPrecio() + "€");
         etViajeHora.setText(pub.getHora());
         etViajeFecha.setText(pub.getFecha());
-        final String idConductor = pub.getIdConductor();
-        final String keyViaje = pub.getKeyViaje();
-        final int reservas = 1;
         btnCancelaViaje = (Button) findViewById(R.id.btn_cancelar_viaje);
         btnCancelaViaje.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,6 +94,7 @@ public class MisViajesDialog extends Dialog {
                                     .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             eliminarPublicacion();
+
                                         }
                                     })
                                     .setNegativeButton(R.string.Cancelar, new DialogInterface.OnClickListener() {
@@ -103,201 +107,24 @@ public class MisViajesDialog extends Dialog {
 
                 }
             });
+        gestionDB = new GestionDB(database,user,pub);
         }
 
     private void eliminarPublicacion() {
-        Log.i("llega:","metodo eliminar");
-        boolean esPubDeConductor;
         if(pub.getIdConductor().equals(user.getUid())){
-            esPubDeConductor=true;
+            //si es conductor debe eliminar la publicacion en trip y en user-trips
+            gestionDB.deletePubsEnTrip_UserTrip();
+
         }else{
-            esPubDeConductor=false;
+            //sino, tiene que eliminar la reserva SOLO del pasajero en user-trip
+            //tambien hay que actualizar en user-trip del resto de reservas de esa publicacion
+            //añadiendo una plaza libre
+
+            gestionDB.deletePubDeUserEnUserTrip();
+            gestionDB.updatePubsEnTrip_UserTrip();
         }
-        eliminar(esPubDeConductor);
-    }
 
-    private void eliminar(final boolean esPubDeConductor) {
-        dbref = database.getReference("user-trips");
-        // dbref.orderByChild("keyViaje").equalTo(pub.getKeyViaje()).addValueEventListener(new ValueEventListener() {
-        Log.i("pub key eliminar:",pub.getKeyViaje());
-
-        childEvent = new ChildEventListener() {
-
-
-            @Override
-            public void onChildAdded(DataSnapshot userkeyShotRecuperada, String s) {
-               /* publicacion = dataSnapshot.getValue(Publicacion.class);
-                Log.i("publicacion recuperada:",publicacion.getIdConductor());
-                Log.i("usuario:",user.getUid());
-                Log.i("publicacion a eliminar:",pub.getIdConductor());
-                Log.i("KEY VIAJE:","Key del viaje a eliminar: "+dataSnapshot.getKey());
-                Log.i("DSN:::::::",dataSnapshot.getChildrenCount()+"");
-                Log.i("keys usuarios::::",dataSnapshot.getKey());
-                */
-                userkeyShot = userkeyShotRecuperada;
-                Log.i("userkeyshot recuperada:",userkeyShot.getKey());
-                DatabaseReference childref = dbref.child(userkeyShotRecuperada.getKey());
-                Query q = childref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
-                //devolveria los viajes de cada usuario que coincida con la publicacion a eliminar
-
-               q.addChildEventListener(new ChildEventListener() {
-                   @Override
-                   public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                       Log.i("KEY OCA/OCA:",dataSnapshot.getKey());
-                       publicacion = dataSnapshot.getValue(Publicacion.class);
-                       Log.i("pub OCA/OCA r. uid:",publicacion.getIdConductor());
-                       Log.i("publ OCA/OCA r. key:",publicacion.getKeyViaje());
-
-                       if(esPubDeConductor){
-                           //si usuario es el conductor borrara todas
-                           dataSnapshot.getRef().removeValue();
-                       }else{
-                           //si no es el conductor comprobara las publicaciones recibidas
-                           //solo borrara la que le pertenece
-                           if(userkeyShot.getKey().equals(user.getUid())){
-                               Log.i("entra en if userkshot:",userkeyShot.getKey());
-                               dataSnapshot.getRef().removeValue();
-                           }else{
-                               //UPDATE en cada publicacion
-                               publicacion = dataSnapshot.getValue(Publicacion.class);
-                               publicacion.addPlazas(1);
-                               dataSnapshot.getRef().setValue(publicacion);
-                           }
-                       }
-
-                   }
-
-                   @Override
-                   public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                     /*  Log.i("KEY OCA/OCC:",dataSnapshot.getKey());
-                       publicacion = dataSnapshot.getValue(Publicacion.class);
-                       Log.i("pub OCA/OCC r. uid:",publicacion.getIdConductor());
-                       Log.i("pub OCA/OCC r. key:",publicacion.getKeyViaje());
-
-                       if(esPubDeConductor){
-                           //si usuario es el conductor borrara todas
-                           dataSnapshot.getRef().removeValue();
-                       }else{
-                           //si no es el conductor comprobara las publicaciones recibidas
-                           //solo borrara la que le pertenece
-                           if(userkeyShot.getKey().equals(user.getUid())){
-
-                               dataSnapshot.getRef().removeValue();
-                           }else{
-                               //UPDATE en cada publicacion
-                               publicacionesToUpdate.add(dataSnapshot);
-                           }
-                       }*/
-                   }
-
-                   @Override
-                   public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                   }
-
-                   @Override
-                   public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                   }
-
-                   @Override
-                   public void onCancelled(DatabaseError databaseError) {
-
-                   }
-               });
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                /*DatabaseReference childref = dbref.child(dataSnapshot.getKey());
-                Query q = childref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
-                //devolveria los viajes de cada usuario que coincida con la publicacion a eliminar
-
-                q.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.i("OCC/OCA KEY:",dataSnapshot.getKey());
-                        publicacion = dataSnapshot.getValue(Publicacion.class);
-                        Log.i("pub OCC/OCA r.uid:",publicacion.getIdConductor());
-                        Log.i("pub OCC/OCA r.key:",publicacion.getKeyViaje());
-
-                        if(esPubDeConductor){
-                            //si usuario es el conductor borrara todas
-                            dataSnapshot.getRef().removeValue();
-                        }else{
-                            //si no es el conductor comprobara las publicaciones recibidas
-                            //solo borrara la que le pertenece
-                            if(userkeyShot.getKey().equals(user.getUid())){
-                                Log.i("entra en if userkshot:",dataSnapshot.getKey());
-                                dataSnapshot.getRef().removeValue();
-                            }else{
-                                //UPDATE en cada publicacion
-                                publicacion = dataSnapshot.getValue(Publicacion.class);
-                                publicacion.addPlazas(1);
-                                dataSnapshot.getRef().setValue(publicacion);
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                       *//* Log.i("OCC/OCC KEY:",dataSnapshot.getKey());
-                        publicacion = dataSnapshot.getValue(Publicacion.class);
-                        Log.i("pub OCC/OCC r. uid:",publicacion.getIdConductor());
-                        Log.i("pub OCC/OCC r. key:",publicacion.getKeyViaje());
-
-                        if(esPubDeConductor){
-                            //si usuario es el conductor borrara todas
-                            dataSnapshot.getRef().removeValue();
-                        }else{
-                            //si no es el conductor comprobara las publicaciones recibidas
-                            //solo borrara la que le pertenece
-                            if(userkeyShot.getKey().equals(user.getUid())){
-                                dataSnapshot.getRef().removeValue();
-                            }else{
-                                //UPDATE en cada publicacion
-                                publicacionesToUpdate.add(dataSnapshot);
-                            }
-                        }*//*
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        dbref.addChildEventListener(childEvent);
-
+        //gestionDB.eliminar(esPubDeConductor);
+        this.dismiss();
     }
 }

@@ -1,6 +1,7 @@
 package com.jjv.proyectointegradorv1.UI;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +10,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,6 +42,10 @@ public class Loggin extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private Animation animCirc,animMocs;
 
+    private CheckBox checkCredenciales;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences check;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +62,6 @@ public class Loggin extends AppCompatActivity {
                     //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     finish();
                 }
-                //else {
-                    // User is signed out
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                //}
 
             }
         };
@@ -68,13 +70,16 @@ public class Loggin extends AppCompatActivity {
         txt_usuario = (EditText) findViewById(R.id.txt_name);
         txt_pass = (EditText) findViewById(R.id.txt_contraseña);
         btn_login = (Button) findViewById(R.id.btn_login);
-        btn_register = (Button) findViewById(R.id.btn_login);
+        //btn_register = (Button) findViewById(R.id.btn_login);
         ivBocinaCirculo = (ImageView) findViewById(R.id.ivbocina_circulo);
         ivMocs = (ImageView) findViewById(R.id.ivmocs);
         ivParentesis = (ImageView) findViewById(R.id.ivparantesis);
         ivBocinaCono = (ImageView) findViewById(R.id.ivbocina_cono);
         linearLayoutLog = (LinearLayout) findViewById(R.id.linearLayoutLogs);
-       Animation animElemLog = AnimationUtils.loadAnimation(this,R.anim.animacion_elementos_log);
+
+        checkCredenciales = (CheckBox) findViewById(R.id.chk_credenciales);
+
+        Animation animElemLog = AnimationUtils.loadAnimation(this,R.anim.animacion_elementos_log);
         animCirc = AnimationUtils.loadAnimation(getBaseContext(), R.anim.animacion_circ);
         animMocs = AnimationUtils.loadAnimation(getBaseContext(), R.anim.animacion_mocs);
 
@@ -87,7 +92,25 @@ public class Loggin extends AppCompatActivity {
         //ivParentesis.startAnimation(animMocs);
         //ivBocinaCono.startAnimation(animMocs);
 
-
+        // comprueba el estado guardado del checkbox
+        check = getSharedPreferences("PREF", MODE_PRIVATE);
+        checkCredenciales.setChecked(check.getBoolean("PREF", false));
+        checkCredenciales.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = check.edit();
+                editor.putBoolean("PREF", checkCredenciales.isChecked());
+                editor.commit();
+            }
+        });
+        // si el usuario selecciono guardar sus credenciales recuperalas
+        if(checkCredenciales.isChecked()){
+            SharedPreferences prefs = getBaseContext().getSharedPreferences(getString(R.string.archivo_preferencias_key), MODE_PRIVATE);
+            String user = prefs.getString("usuario", "usuario@ejemplo.com");
+            String pass = prefs.getString("pwd", "123");
+            txt_usuario.setText(user);
+            txt_pass.setText(pass);
+        }
     }
 
     private void initAnim() {
@@ -110,10 +133,27 @@ public class Loggin extends AppCompatActivity {
 
     // recoge la contraseña y el mail introducido y comprueba si es un usuario registrado en FireBase
     public void ingresar(View v){
-        String user,pass,mail;
+
+        String user,pass;
+
+        // guardar credenciales si el checkbox esta seleccionado
+        if(checkCredenciales.isChecked()){
+            SharedPreferences credenciales = getBaseContext().getSharedPreferences(getString(R.string.archivo_preferencias_key), MODE_PRIVATE);
+            editor = credenciales.edit();
+
+            // recoge el texto que introduce el usuario
+            user = txt_usuario.getText().toString();
+            pass = txt_pass.getText().toString();
+
+            editor.putString("usuario", user);
+            editor.putString("pwd", pass);
+            editor.commit();
+        }
+
         // recoge el texto que introduce el usuario
         user = txt_usuario.getText().toString();
         pass = txt_pass.getText().toString();
+
         if (pass.equals("") || user.equals("")) {
             Toast.makeText(this, getString(R.string.toast_campos_vacios), Toast.LENGTH_SHORT).show();
         } else {
@@ -124,10 +164,7 @@ public class Loggin extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             //Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
+                            // controla los posibles errores que pueden salir
                             if (!task.isSuccessful()) {
                                 if (task.getException().toString().equals(ERROR_USR_INCORRECTO)){
                                     //Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
@@ -150,6 +187,10 @@ public class Loggin extends AppCompatActivity {
                                     Toast.makeText(getBaseContext(), R.string.auth_failed,
                                             Toast.LENGTH_SHORT).show();
                                 }
+                                // si all es correcto inicia MainActivity
+                            }else{
+                                Intent i = new Intent(Loggin.this, MainActivity.class);
+                                startActivity(i);
                             }
                         }
                     });

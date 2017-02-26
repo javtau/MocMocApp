@@ -5,15 +5,15 @@
     <string name="activiti3_name">Registro</string>
     <string name="fragment1_name">Publicar</string>
     <string name="fragment2_name">Buscar</string>
-    <string name="fragment3_name">Mis viajes</string>
+    <string name="fragment3_name">Mis Viajes</string>
     <string name="fragment4_name">Chatear</string>
     <string name="action_closesession">Cerrar sesion</string>
     <string name="section_format">Estas en: %1$d</string>
     <string name="hint_user">Usuario</string>
     <string name="hint_pass">Contraseña</string>
-    <string name="hint_newuser">Escribe un usuario</string>
+    <string name="hint_newuser">Elige un nombre de usuario</string>
     <string name="hint_newpass">Escribe una contraseña</string>
-    <string name="hint_newmail">Introduce un e-mail</string>
+    <string name="hint_newmail">Escribe tu e-mail</string>
     <string name="hint_origen">Seleccione origen</string>
     <string name="hint_destino">Seleccione destino</string>
     <string name="hint_precio">0</string>
@@ -33,8 +33,6 @@
     <string name="mail_no_existe">Este email no esta registrado</string>
     <string name="auth_incorrect">Contraseña incorrecta</string>
     <string name="toast_sin_login">Iniciar sesión previamente</string>
-    <string name="snackbar_sin_origen">Iniciar sesión previamente</string>
-    <string name="snackbar_sin_destino">Iniciar sesión previamente</string>
     <string name="snackbar_sin_implementar">Botón pendiente de implementar</string>
     <string name="toast_campos_vacios">Se deben rellenar todos los campos</string>
     <string name="toast_usuario_creado">El usuario se a creado correctamente</string>
@@ -57,6 +55,10 @@
     <string name="info_viaje_plazas">Plazas:</string>
     <string name="reservar_btn_reservar">¡Reservar!</string>
     <string name="hint_chat">Input</string>
+    <string name="lat_abierto">Abierto</string>
+    <string name="lat_cerrado">Cerrado</string>
+    <string name="check_credenciales">Guardar mis credenciales</string>
+    <string name="archivo_preferencias_key">com.jjv.proyectointegradorv1.CREDENCIALES</string>
     <string name="valora_viaje">Valora este viaje</string>
     <string name="cancel_reserva_btn_cancl_reservar">CANCELAR RESERVA</string>
     <string name="cancel_viaje_btn_cancl_viaje">CANCELAR VIAJE</string>
@@ -64,4 +66,12 @@
     <string name="Cancelar">Cancelar</string>
     <string name="pregunta_cancelar_alert_dialog">¿Eliminar viaje?</string>
     <string name="cancelar_reserva_alert_dialog_msg">Esta accion puede afectar a más usuarios.\n¿Estás seguro que deseas eliminar este viaje?</string>
+    <string name="publicacion_eliminada">Viaje eliminado</string>
+
+    <string name="perfil">Perfil</string>
+    <string name="salir">Salir</string>
+    <string name="info">Información</string>
+    <string name="contacto">Contáctanos</string>
+
+    <string name="contacto_hint">¿Duda, queja, error o simplemente decirnos lo mucho que te gusta la app? ¡Ponlo aquí!</string>
 </resources>

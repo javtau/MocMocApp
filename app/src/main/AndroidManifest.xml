@@ -9,6 +9,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- NoActionBar porque usamos un ToolBar -->
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/activiti1_name"
@@ -29,7 +31,12 @@
             android:label="@string/activiti3_name"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Splash" />
-        <activity android:name=".Fragments.ReservarDialog"></activity>
+        <activity android:name=".UI.PerfilActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/perfil"/>
+        <activity android:name=".UI.ContactoActivity"
+            android:label="@string/contacto"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
