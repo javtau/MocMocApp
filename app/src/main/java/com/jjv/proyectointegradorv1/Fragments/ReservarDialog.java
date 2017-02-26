@@ -34,10 +34,16 @@ public class ReservarDialog extends Dialog {
     Button btnReservar;
     private DatabaseReference mDatabase;
 
+
+    public ReservarDialog() {
+        super(null, 0);
+    }
+
     public ReservarDialog(Context context, int theme, Publicacion pub) {
         super(context);
         this.pub = pub;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

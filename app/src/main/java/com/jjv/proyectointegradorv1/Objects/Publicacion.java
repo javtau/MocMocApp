@@ -169,4 +169,8 @@ public class Publicacion implements Parcelable {
         idConductor = in.readString();
         keyViaje = in.readString();
     }
+
+    public void addPlazas(int i){
+        this.plazas = this.plazas+i;
+    }
 }
