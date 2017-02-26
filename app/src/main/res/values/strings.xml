@@ -59,6 +59,14 @@
     <string name="lat_cerrado">Cerrado</string>
     <string name="check_credenciales">Guardar mis credenciales</string>
     <string name="archivo_preferencias_key">com.jjv.proyectointegradorv1.CREDENCIALES</string>
+    <string name="valora_viaje">Valora este viaje</string>
+    <string name="cancel_reserva_btn_cancl_reservar">CANCELAR RESERVA</string>
+    <string name="cancel_viaje_btn_cancl_viaje">CANCELAR VIAJE</string>
+    <string name="si">"Sí"</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="pregunta_cancelar_alert_dialog">¿Eliminar viaje?</string>
+    <string name="cancelar_reserva_alert_dialog_msg">Esta accion puede afectar a más usuarios.\n¿Estás seguro que deseas eliminar este viaje?</string>
+    <string name="publicacion_eliminada">Viaje eliminado</string>
 
     <string name="perfil">Perfil</string>
     <string name="salir">Salir</string>

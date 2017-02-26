@@ -343,4 +343,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void selectPage(int page) {
+        mViewPager.setCurrentItem(page);
+    }
+
+    public FirebaseUser getUser() {
+        return mAuth.getCurrentUser();
+    }
+
 }

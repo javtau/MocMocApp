@@ -39,9 +39,6 @@ public class ReservarDialog extends Dialog {
         super(null, 0);
     }
 
-    public ReservarDialog(){
-        super(null, 0);
-    }
     public ReservarDialog(Context context, int theme, Publicacion pub) {
         super(context);
         this.pub = pub;
