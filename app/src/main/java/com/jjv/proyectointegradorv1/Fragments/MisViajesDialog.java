@@ -111,19 +111,17 @@ public class MisViajesDialog extends Dialog {
         }
 
     private void eliminarPublicacion() {
-        boolean esPubDeConductor;
         if(pub.getIdConductor().equals(user.getUid())){
             //si es conductor debe eliminar la publicacion en trip y en user-trips
-            esPubDeConductor=true;
             gestionDB.deletePubsEnTrip_UserTrip();
 
         }else{
             //sino, tiene que eliminar la reserva SOLO del pasajero en user-trip
             //tambien hay que actualizar en user-trip del resto de reservas de esa publicacion
             //añadiendo una plaza libre
-            esPubDeConductor=false;
+
             gestionDB.deletePubDeUserEnUserTrip();
-            //TODO gestionDB.updatePubsEnTrip_UserTrip();
+            gestionDB.updatePubsEnTrip_UserTrip();
         }
 
         //gestionDB.eliminar(esPubDeConductor);

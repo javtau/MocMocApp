@@ -266,6 +266,60 @@ public class GestionDB {
     }
 
     public void updatePubsEnTrip_UserTrip() {
-        //TODO
+        updatePlazasTrips();
+        updatePlazasUserTrips();
+    }
+
+    private void updatePlazasTrips() {
+        DatabaseReference ref = database.getReference("trip");
+        Query query = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
+        ValueEventListener event = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    publicacion = appleSnapshot.getValue(Publicacion.class);
+                    publicacion.addPlazas(1);
+                    appleSnapshot.getRef().setValue(publicacion);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        query.addListenerForSingleValueEvent(event);
+    }
+
+    private void updatePlazasUserTrips() {
+        DatabaseReference ref = database.getReference("user-trips");
+        ValueEventListener eventUT = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    Log.i("UID USER RECUPERADO:",appleSnapshot.getKey());
+                    DatabaseReference ref = database.getReference("user-trips/"+appleSnapshot.getKey());
+                    Query q = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
+                    ValueEventListener vel = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                Log.i("RESERVA RECUPERADA:",appleSnapshot.getKey());
+                                publicacion = appleSnapshot.getValue(Publicacion.class);
+                                publicacion.addPlazas(1);
+                                appleSnapshot.getRef().setValue(publicacion);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    };
+                    q.addListenerForSingleValueEvent(vel);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        ref.addListenerForSingleValueEvent(eventUT);
     }
 }
