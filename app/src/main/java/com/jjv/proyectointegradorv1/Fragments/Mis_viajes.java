@@ -44,7 +44,7 @@ public class Mis_viajes extends Fragment  {
     private ChildEventListener childEvent;
     private Publicacion publicacion;
     private ArrayList<Publicacion> publicaciones;
-    private Dialog customDialog ;
+    private Dialog customDialog;
 
 
 
