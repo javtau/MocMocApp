@@ -169,10 +169,7 @@ public class Loggin extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             //Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
+                            // controla los posibles errores que pueden salir
                             if (!task.isSuccessful()) {
                                 if (task.getException().toString().equals(ERROR_USR_INCORRECTO)){
                                     //Log.d(TAG, "createUserWithEmail:onComplete:" + task.getException());
@@ -195,6 +192,10 @@ public class Loggin extends AppCompatActivity {
                                     Toast.makeText(getBaseContext(), R.string.auth_failed,
                                             Toast.LENGTH_SHORT).show();
                                 }
+                                // si all es correcto inicia MainActivity
+                            }else{
+                                Intent i = new Intent(Loggin.this, MainActivity.class);
+                                startActivity(i);
                             }
                         }
                     });

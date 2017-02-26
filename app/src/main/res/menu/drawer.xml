@@ -4,10 +4,14 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_perfil"
-            android:checked="true"
             android:title="@string/perfil"
-            android:icon="@drawable/ic_perfil"
-            />
+            android:icon="@drawable/ic_perfil" />
+
+        <item
+            android:id="@+id/drawer_contacto"
+            android:title="@string/contacto"
+            android:icon="@drawable/ic_contacto" />
+
         <item
             android:id="@+id/drawer_info"
             android:title="@string/info"

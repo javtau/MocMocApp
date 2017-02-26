@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="172dp"
-    android:background="@drawable/drawer_background"
+    android:background="@drawable/drawer_background2"
     android:orientation="vertical"
     android:paddingTop="@dimen/appbar_padding_top"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">

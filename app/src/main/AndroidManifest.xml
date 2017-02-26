@@ -32,6 +32,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Splash" />
         <activity android:name=".Fragments.ReservarDialog" />
+        <activity android:name=".UI.PerfilActivity" />
+        <activity android:name=".UI.ContactoActivity"></activity>
     </application>
 
 </manifest>
