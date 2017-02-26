@@ -35,10 +35,6 @@ public class ReservarDialog extends Dialog {
     private DatabaseReference mDatabase;
 
 
-    public ReservarDialog() {
-        super(null, 0);
-    }
-
     public ReservarDialog(){
         super(null, 0);
     }
