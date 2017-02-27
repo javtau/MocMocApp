@@ -5,7 +5,6 @@
     android:toYScale="0.0"
     android:pivotX="50%"
     android:pivotY="50%"
-    android:startOffset="700"
     android:duration="9000"
     android:repeatCount="infinite"
     android:repeatMode="restart">

@@ -27,6 +27,7 @@ import com.jjv.proyectointegradorv1.Adapters.Publicaciones_Adapter;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
 import java.util.ArrayList;
 
@@ -60,66 +61,68 @@ public class Mis_viajes extends Fragment  {
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
-        Log.i("NOMBRE USR:", user.getDisplayName());
-        Log.i("UID USR:", user.getUid());
-        dbref = database.getReference("user-trips/" + user.getUid());
+            Log.i("NOMBRE USR:", user.getDisplayName());
+            Log.i("UID USR:", user.getUid());
+            dbref = database.getReference("user-trips/" + user.getUid());
 
-        listaMisViajes = (ListView) view.findViewById(R.id.listMisViajes);
+            listaMisViajes = (ListView) view.findViewById(R.id.listMisViajes);
 
-        childEvent = new ChildEventListener() {
+            childEvent = new ChildEventListener() {
 
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                publicacion = dataSnapshot.getValue(Publicacion.class);
-                publicaciones.add(publicacion);
-                adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
-                listaMisViajes.setAdapter(adapter);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                publicacion = dataSnapshot.getValue(Publicacion.class);
-                int pos = getPosition(publicaciones, publicacion);
-                if (pos !=-1) {
-                    publicaciones.remove(pos);
-                    publicaciones.add(pos, publicacion);
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    publicacion = dataSnapshot.getValue(Publicacion.class);
+                    publicaciones.add(publicacion);
                     adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
                     listaMisViajes.setAdapter(adapter);
                 }
-            }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                publicacion = dataSnapshot.getValue(Publicacion.class);
-                int pos = getPosition(publicaciones, publicacion);
-                if (pos !=-1) {
-                    publicaciones.remove(pos);
-                    adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
-                    listaMisViajes.setAdapter(adapter);
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    /*publicacion = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones, publicacion);
+                    if (pos !=-1) {
+                        publicaciones.remove(pos);
+                        publicaciones.add(pos, publicacion);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        listaMisViajes.setAdapter(adapter);
+                    }*/
+
                 }
-            }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    /*publicacion = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones, publicacion);
+                    if (pos !=-1) {
+                        publicaciones.remove(pos);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        listaMisViajes.setAdapter(adapter);
+                    }*/
 
-            }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
-        };
+                }
 
-        dbref.addChildEventListener(childEvent);
-       listaMisViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDialog(publicaciones.get(position));
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+
+            dbref.addChildEventListener(childEvent);
+            listaMisViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    showDialog(publicaciones.get(position));
+                }
+            });
 
 
-    }
+        }
     }
 
     public int getPosition(ArrayList<Publicacion> array, Publicacion data) {
