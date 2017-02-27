@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -71,8 +72,7 @@ public class Buscar_viaje extends Fragment {
     private FloatingActionButton fab;
 
     // variables para el panel lateral
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
+    public DrawerLayout mDrawerLayout;
     private NavigationView navView;
 
 
@@ -80,6 +80,8 @@ public class Buscar_viaje extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_buscar_viaje, container, false);
     }
+
+
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
@@ -171,8 +173,6 @@ public class Buscar_viaje extends Fragment {
                 }
             };
             myRef.addChildEventListener(childEvent);
-
-
             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
             rv.setAdapter(adapt);
             // Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
@@ -180,15 +180,7 @@ public class Buscar_viaje extends Fragment {
 
         }
 
-
-
-
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //lanzar menu de busqueda
-            }});
 
         Animation rotar;
         rotar= AnimationUtils.loadAnimation(getContext(),R.anim.rotar);
@@ -196,9 +188,6 @@ public class Buscar_viaje extends Fragment {
 
 
         navView = (NavigationView) view.findViewById(R.id.nvViewBusqueda);
-
-
-
 
 
         // asigna el listener al navigation view
@@ -225,30 +214,16 @@ public class Buscar_viaje extends Fragment {
             }
         });
         mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layoutBusqueda);
-        mDrawerToggle = new ActionBarDrawerToggle(getActivity(),
-                mDrawerLayout,
-                R.string.lat_abierto,
-                R.string.lat_cerrado){
 
-            public void OnDrawerClosed(View v){
-                super.onDrawerClosed(v);
-                customDialog.invalidateOptionsMenu();
-            }
-
-            public void OnDrawerOpened(View v){
-                super.onDrawerOpened(v);
-                customDialog.invalidateOptionsMenu();
-            }
-        };
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    mDrawerLayout.openDrawer(GravityCompat.START);
+                    mDrawerLayout.openDrawer(Gravity.RIGHT);
 
             }
         });
+
 
 
 

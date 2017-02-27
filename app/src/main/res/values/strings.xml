@@ -75,4 +75,7 @@
 
     <string name="contacto_hint">¿Duda, queja, error o simplemente decirnos lo mucho que te gusta la app? ¡Ponlo aquí!</string>
     <string name="titulo_filtro">Filtrar búsqueda</string>
+    <string name="hint_precioMaximo">Precio máximo</string>
+    <string name="hint_conductorBuscar">Conductor</string>
+    <string name="Filtrar">Filtrar</string>
 </resources>

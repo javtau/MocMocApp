@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -123,11 +124,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitle(tab.getPosition()));
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitleCompleto(tab.getPosition()));
+
             }
         });
 
