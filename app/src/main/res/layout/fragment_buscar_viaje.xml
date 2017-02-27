@@ -129,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Cancelar"
                 android:id="@+id/btn_cancelar_filtro"
+
                 />
         </LinearLayout>
     </android.support.design.widget.NavigationView>

@@ -27,6 +27,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +41,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
+import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
 import com.jjv.proyectointegradorv1.UI.ContactoActivity;
@@ -70,10 +74,14 @@ public class Buscar_viaje extends Fragment {
     private Publicaciones_RV_adapter.OnItemClickListener listenerRv;
     private Publicaciones_RV_adapter adapt;
     private FloatingActionButton fab;
+    private GestionDB gestionDB;
+    private EditText etDestinoFiltro,etOrigenFiltro,etPrecioFiltro,etUsuarioFiltro;
+    private Button btnFiltrar,btnCancelarFiltro;
 
     // variables para el panel lateral
     public DrawerLayout mDrawerLayout;
     private NavigationView navView;
+    private Publicacion publicacionFiltro;
 
 
     @Override
@@ -87,10 +95,7 @@ public class Buscar_viaje extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // listaPublicaciones = (ListView) view.findViewById(R.id.lista_publicaciones);
-        //listaPublicaciones.setOnItemClickListener(this);
-        // implementacion recycler
-        publicaciones = new ArrayList<>();
+
         listenerRv = initListener();
 
         rv = (RecyclerView) view.findViewById(R.id.lista_publicaciones);
@@ -105,80 +110,13 @@ public class Buscar_viaje extends Fragment {
         rv.setLayoutManager(llm);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String useruid = currentUser.getUid();
+
         if (currentUser != null) {
-            database = FirebaseDatabase.getInstance();
-            myRef = database.getReference("trip");// hacemos referencia a la rama donde se almacenan todos los viajes
-
-            childEvent = new ChildEventListener() {
-                //Publicaciones_Adapter adapt;
-
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.i("snap",dataSnapshot.getKey());
-                    publica = dataSnapshot.getValue(Publicacion.class);
-                    if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
-                        publicaciones.add(publica);
-                        //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
-                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                        //listaPublicaciones.setAdapter(adapt);
-                        rv.setAdapter(adapt);
-                    }
-
-
-
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                   /* publica = dataSnapshot.getValue(Publicacion.class);
-                    int pos = getPosition(publicaciones, publica);
-                    if (pos != -1) {
-                        publicaciones.remove(pos);
-
-                        //TODO CARGAR DE NUEVO EL FRAGMENT o no
-                        //publica = dataSnapshot.getValue(Publicacion.class);
-                        if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
-                            publicaciones.add(pos, publica);
-                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                            rv.setAdapter(adapt);
-                        }
-                    }
-                    Log.d(TAG, publica.getOrigen());*/
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    /*publica = dataSnapshot.getValue(Publicacion.class);
-                    int pos = getPosition(publicaciones, publica);
-                    if (pos != -1) {
-                        publicaciones.remove(pos);
-                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                        rv.setAdapter(adapt);
-
-                    }*/
-
-
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-            myRef.addChildEventListener(childEvent);
-            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-            rv.setAdapter(adapt);
-            // Publicaciones_Adapter adapter = new Publicaciones_Adapter(getContext(),publicaciones);
-            // listaPublicaciones.setAdapter(adapter);
-
+            cargarCardview();
         }
+        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        rv.setAdapter(adapt);
+
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -192,74 +130,135 @@ public class Buscar_viaje extends Fragment {
 
         // asigna el listener al navigation view
         // configura acciones segun opcion seleccionada
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        etDestinoFiltro = (EditText) view.findViewById(R.id.txt_destino_buscar);
+        etOrigenFiltro = (EditText) view.findViewById(R.id.txt_origen_buscar);
+        etPrecioFiltro = (EditText) view.findViewById(R.id.txt_precioMaximo_buscar);
+        etUsuarioFiltro = (EditText) view.findViewById(R.id.txt_conductor_buscar);
+        btnFiltrar = (Button) view.findViewById(R.id.btnFiltrar);
+        btnCancelarFiltro = (Button) view.findViewById(R.id.btn_cancelar_filtro);
+        mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layoutBusqueda);
+
+        btnCancelarFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                navView.setCheckedItem(item.getItemId());
-                // acciones segun item seleccionado en el panel lateral
-                switch(item.getItemId()){
-                    case R.id.drawer_perfil:
-
-                        break;
-                    case R.id.drawer_contacto:
-
-                        break;
-                    case R.id.drawer_salir:
-
-                        break;
-
-                }
-
-                return false;
+            public void onClick(View v) {
+                cancelarFiltro();
             }
         });
-        mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layoutBusqueda);
+
+        btnFiltrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buscarFiltro();
+            }
+        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     mDrawerLayout.openDrawer(Gravity.RIGHT);
-
             }
         });
+    }
+    private void cancelarFiltro(){
+        publicacionFiltro = null;
+        etDestinoFiltro.setText("");
+        etOrigenFiltro.setText("");
+        etPrecioFiltro.setText("");
+        etUsuarioFiltro.setText("");
+        mDrawerLayout.closeDrawers();
+        cargarCardview();
+    }
+    private void buscarFiltro(){
+        publicacionFiltro = new Publicacion();
+        publicacionFiltro.setDestino(etDestinoFiltro.getText().toString().toLowerCase());
+        publicacionFiltro.setOrigen(etOrigenFiltro.getText().toString().toLowerCase());
+        publicacionFiltro.setUsuario(etUsuarioFiltro.getText().toString().toLowerCase());
 
+        try{
+            if(etPrecioFiltro.getText().toString().equals("")){
+                publicacionFiltro.setPrecio("0");
+            }else{
+                Integer.parseInt(etPrecioFiltro.getText().toString());
+                publicacionFiltro.setPrecio(etPrecioFiltro.getText().toString());
+            }
+            cargarCardview();
+            mDrawerLayout.closeDrawers();
+        }catch (NumberFormatException e){
+            Snackbar.make(getView(), getString(R.string.falloNumero), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+    }
 
+    private void cargarCardview() {
+        publicaciones = new ArrayList<>();
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("trip");
+        ValueEventListener event = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    publica = appleSnapshot.getValue(Publicacion.class);
+                    if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                        filtrarPublicaciones();
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        ref.addListenerForSingleValueEvent(event);
+        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        rv.setAdapter(adapt);
+    }
 
+    private void filtrarPublicaciones() {
+        if(publicacionFiltro==null){
+            publicaciones.add(publica);
+            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+            rv.setAdapter(adapt);
+        }else{
+            if(publicacionFiltro.getPrecio().equals("0")){
+                if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
+                    agregarPublicacionSetAdapt();
+                }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
+                    agregarPublicacionSetAdapt();
+                }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
+                    agregarPublicacionSetAdapt();
+                }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
+                    agregarPublicacionSetAdapt();
+                }
+            }else if(Integer.parseInt(publica.getPrecio())<=Integer.parseInt(publicacionFiltro.getPrecio())){
+                if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
+                    agregarPublicacionSetAdapt();;
+                }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
+                    agregarPublicacionSetAdapt();
+                }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
+                    agregarPublicacionSetAdapt();
+                }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
+                    agregarPublicacionSetAdapt();
+                }
+            }
+        }
+    }
 
+    public void agregarPublicacionSetAdapt(){
+        publicaciones.add(publica);
+        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        rv.setAdapter(adapt);
     }
 
     private Publicaciones_RV_adapter.OnItemClickListener initListener() {
-
         Publicaciones_RV_adapter.OnItemClickListener l = new Publicaciones_RV_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(Publicacion item) {
                 showDialog(item);
             }
-
-
         };
         return l;
     }
-
-    ////
-
-    ///
-    public int getPosition(ArrayList<Publicacion> array, Publicacion data) {
-        int pos = -1;
-        boolean esEncontrado = false;
-        for (int i = 0; i < array.size() && !esEncontrado; i++) {
-            if (array.get(i).getKeyViaje().equals(data.getKeyViaje())) {
-                esEncontrado = true;
-                pos = i;
-            }
-        }
-        return pos;
-    }
-
     private void showDialog(Publicacion p) {
-
         customDialog = new ReservarDialog(getContext(), R.style.Theme_Dialog_Translucent, p);
         //deshabilitamos el título por defecto
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -270,9 +269,6 @@ public class Buscar_viaje extends Fragment {
         //View dView = factory.inflate(R.layout.dialog_fragment_reservar, null);
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
         customDialog.setCanceledOnTouchOutside(true);
-
         customDialog.show();
     }
-
-
 }

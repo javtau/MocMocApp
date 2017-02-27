@@ -78,4 +78,6 @@
     <string name="hint_precioMaximo">Precio máximo</string>
     <string name="hint_conductorBuscar">Conductor</string>
     <string name="Filtrar">Filtrar</string>
+    <string name="falloNumero">Introduce un precio correcto</string>
+    <string name="sinResultados">Sin resultados posibles</string>
 </resources>

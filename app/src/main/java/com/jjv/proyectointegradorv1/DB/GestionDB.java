@@ -1,7 +1,9 @@
 package com.jjv.proyectointegradorv1.DB;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -10,7 +12,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
+
+import java.util.ArrayList;
 
 /**
  * Created by Victor on 26/02/2017.
@@ -26,10 +31,17 @@ public class GestionDB {
     DataSnapshot userkeyShot;
 
 
+
     public GestionDB(FirebaseDatabase database, FirebaseUser user, Publicacion pub) {
         this.database = database;
         this.user=user;
         this.pub=pub;
+    }
+
+    public GestionDB(FirebaseDatabase database, FirebaseUser currentUser) {
+        this.database = database;
+        this.user=currentUser;
+
     }
 
     public void eliminar(final boolean esPubDeConductor) {
@@ -322,4 +334,5 @@ public class GestionDB {
         };
         ref.addListenerForSingleValueEvent(eventUT);
     }
+
 }
