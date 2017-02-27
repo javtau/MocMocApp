@@ -189,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
                         j.putExtra(FB_EMAIL, mAuth.getCurrentUser().getEmail());
                         startActivity(j);
                         break;
+                    case R.id.drawer_info:
+                        // hacer algo cuando el usaurio de en info
+                        break;
                     case R.id.drawer_salir:
                         crearDialogo().show();
                         break;

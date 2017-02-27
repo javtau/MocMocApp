@@ -73,5 +73,7 @@
     <string name="info">Información</string>
     <string name="contacto">Contáctanos</string>
 
+    <string name="titulo_filtro">Filtrar búsqueda</string>
+
     <string name="contacto_hint">¿Duda, queja, error o simplemente decirnos lo mucho que te gusta la app? ¡Ponlo aquí!</string>
 </resources>
