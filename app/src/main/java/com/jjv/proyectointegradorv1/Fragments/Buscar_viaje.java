@@ -120,9 +120,9 @@ public class Buscar_viaje extends Fragment {
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
-        Animation rotar;
+        /*Animation rotar;
         rotar= AnimationUtils.loadAnimation(getContext(),R.anim.rotar);
-        fab.setAnimation(rotar);
+        fab.setAnimation(rotar);*/
 
 
         navView = (NavigationView) view.findViewById(R.id.nvViewBusqueda);

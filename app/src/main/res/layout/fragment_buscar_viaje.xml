@@ -21,7 +21,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="430dp"
+            android:layout_height="400dp"
             android:paddingTop="@dimen/Publicar_horizontal_margin"
             android:paddingBottom="3dp"
             android:paddingLeft="@dimen/Publicar_vertical_margin"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="-28dp"
-            android:src="@drawable/ic_toys_white_48px"
+            android:src="@drawable/ic_tab_buscar"
             android:layout_weight="0.42" />
 
 

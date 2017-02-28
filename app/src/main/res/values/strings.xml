@@ -80,4 +80,8 @@
     <string name="Filtrar">Filtrar</string>
     <string name="falloNumero">Introduce un precio correcto</string>
     <string name="sinResultados">Sin resultados posibles</string>
+
+    <string name="nick_chat">Chateando como:</string>
+    <string name="chat_hint">Escribe tu mensaje</string>
+
 </resources>

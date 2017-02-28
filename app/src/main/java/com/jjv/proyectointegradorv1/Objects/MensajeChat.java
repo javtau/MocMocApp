@@ -8,13 +8,17 @@ import java.util.Date;
 
 public class MensajeChat {
     private String msgTexto;
-    private String msgAutor;
+    private String msgEmisor;
+    private String msgReceptor;
     private long msgHora;
 
-    public MensajeChat(){}
-    public MensajeChat(String t, String a){
-        this.msgTexto = t;
-        this.msgAutor = a;
+    public MensajeChat() {
+    }
+
+    public MensajeChat(String msg, String e, String r) {
+        this.msgTexto = msg;
+        this.msgEmisor = e;
+        this.msgReceptor = r;
 
         // consigue la hora actual
         this.msgHora = new Date().getTime();
@@ -28,12 +32,20 @@ public class MensajeChat {
         this.msgTexto = msgTexto;
     }
 
-    public String getMsgAutor() {
-        return msgAutor;
+    public String getMsgReceptor() {
+        return msgReceptor;
     }
 
-    public void setMsgAutor(String msgAutor) {
-        this.msgAutor = msgAutor;
+    public void setMsgReceptor(String msgReceptor) {
+        this.msgReceptor = msgReceptor;
+    }
+
+    public String getMsgEmisor() {
+        return msgEmisor;
+    }
+
+    public void setMsgEmisor(String msgEmisor) {
+        this.msgEmisor = msgEmisor;
     }
 
     public long getMsgHora() {
@@ -44,3 +56,4 @@ public class MensajeChat {
         this.msgHora = msgHora;
     }
 }
+

@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="165dp"
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
@@ -25,15 +25,14 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="62dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="165dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/txt_userName"
                     android:text="Nombre de usuario"
-                    android:layout_marginStart="5dp"
-                    android:textSize="34sp"
+                    android:textSize="25sp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:textAlignment="center"
@@ -44,7 +43,8 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -61,17 +61,16 @@
                         android:text="Alcobendas"
                         android:id="@+id/txt_origen_usr"
                         android:textSize="20sp"
-                        android:textAlignment="center"
-                        android:textStyle="normal|bold" />
+                        android:textAlignment="textEnd" />
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="65dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="45dp"
+                    android:layout_marginTop="20dp"
                     app:srcCompat="@drawable/ic_viaje"
                     android:id="@+id/iv_viaje"
                     android:layout_weight="1"
-                    android:layout_height="65dp" />
+                    android:layout_height="45dp" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -88,8 +87,7 @@
                         android:layout_marginTop="30dp"
                         android:id="@+id/txt_destino_viaje"
                         android:textSize="20sp"
-                        android:textAlignment="center"
-                        android:textStyle="normal|bold" />
+                        android:textAlignment="textStart" />
 
                 </LinearLayout>
 
@@ -99,64 +97,60 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="25dp"
-                >
+                android:layout_marginTop="-10dp"
+                android:layout_marginLeft="30dp"
+               >
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/tresDeCinco">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Hora"
-                        android:id="@+id/txt_hora"
-                        android:textSize="18sp"
-                        android:layout_marginRight="15dp"
-                        android:textStyle="normal|bold"
-                        android:textAlignment="textEnd" />
+                    android:text="Hora"
+                    android:id="@+id/txt_hora"
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="normal|bold"
+                    android:textAlignment="center"
+                    android:layout_weight="1" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Plazas"
-                        android:id="@+id/txt_plazas"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="20dp"
-                        android:textSize="18sp"
-                        android:textStyle="normal|bold"
-                        android:textAlignment="textEnd" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/cuatroDeCinco"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="00:00"
-                        android:id="@+id/txt_hora_viaje"
-                        android:textSize="30sp"
-                        android:textAlignment="textStart"
-                        android:textStyle="normal|bold" />
+                    android:text="00:00"
+                    android:id="@+id/txt_hora_viaje"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="textStart"
+                    android:textStyle="normal|bold"
+                    android:layout_weight="1" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="6"
-                        android:id="@+id/txt_plazas_viaje"
-                        android:textSize="30sp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_below="@+id/txt_plazas"
-                        android:layout_marginRight="10dp"
-                        android:textAlignment="textStart"
-                        android:textStyle="normal|bold" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Plazas"
+                    android:id="@+id/txt_plazas"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="normal|bold"
+                    android:textAlignment="center"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    android:id="@+id/txt_plazas_viaje"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_below="@+id/txt_plazas"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="textStart"
+                    android:textStyle="normal|bold"
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </LinearLayout>
