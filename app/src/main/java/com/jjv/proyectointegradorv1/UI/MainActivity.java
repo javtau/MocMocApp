@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     // muestra en el toolbar un icono y el nombre del usuario registrado
                     toolbar.setTitle(user.getDisplayName().toUpperCase());
                     toolbar.setNavigationIcon(iconoMenu);
+                    setupViewPager(mViewPager);
                 } else {
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
                     Intent i = new Intent(getBaseContext(), Loggin.class);
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         // configura el view pager con el section adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager);
+
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         //Configuramos el tab layaut con nuestro view pager
@@ -123,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitle(tab.getPosition()));
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitleCompleto(tab.getPosition()));
+
             }
         });
 
