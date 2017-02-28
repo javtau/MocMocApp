@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                     // muestra en el toolbar un icono y el nombre del usuario registrado
                     toolbar.setTitle(user.getDisplayName().toUpperCase());
                     toolbar.setNavigationIcon(iconoMenu);
-                    setupViewPager(mViewPager);
                 } else {
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
                     Intent i = new Intent(getBaseContext(), Loggin.class);
@@ -103,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -110,10 +110,11 @@ public class MainActivity extends AppCompatActivity {
         // configura el view pager con el section adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
 
-
         tabs = (TabLayout) findViewById(R.id.tabs);
         //Configuramos el tab layaut con nuestro view pager
+        setupViewPager(mViewPager);
         tabs.setupWithViewPager(mViewPager);
+
         // listener para determinar que pestaña esta activa
         // dependiendo de cual este llama a un metodo u otro para mostrar icono y texto o solo icono
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         // selecciona una pestaña por defecto cada vez que se llama a onCreate
         // en este caso buscar
         // TODO: dependiendo del perfil del usuario(conductor o usuario normal) seleccionar una pestaña diferente
-        mViewPager.setCurrentItem(2);
+        mViewPager.setCurrentItem(3);
 
         /** CONFIGURACION DEL PANEL LATERAL **/
 

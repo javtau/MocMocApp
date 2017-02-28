@@ -12,20 +12,19 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
         android:paddingTop="@dimen/Publicar_vertical_margin"
         android:paddingLeft="@dimen/Publicar_vertical_margin"
         android:paddingRight="@dimen/Publicar_vertical_margin"
         android:paddingBottom="5dp"
-        android:background="@color/colorPrimary2">
+        android:background="@color/colorPrimary2"
+        android:layout_height="400dp">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="400dp"
             android:paddingTop="@dimen/Publicar_horizontal_margin"
             android:paddingLeft="@dimen/Publicar_vertical_margin"
             android:paddingRight="@dimen/Publicar_vertical_margin"
-
             android:background="@android:color/white">
 
             <TextView

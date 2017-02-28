@@ -113,10 +113,9 @@ public class Buscar_viaje extends Fragment {
 
         if (currentUser != null) {
             cargarCardview();
+            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+            rv.setAdapter(adapt);
         }
-        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-        rv.setAdapter(adapt);
-
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
