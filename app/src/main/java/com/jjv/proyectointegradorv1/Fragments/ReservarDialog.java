@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
 
@@ -80,6 +81,9 @@ public class ReservarDialog extends Dialog {
                     sRateConductor = String.valueOf(rateConductor.getRating());
                     Toast.makeText(getContext(), sRateConductor, Toast.LENGTH_SHORT).show();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    //GestionDB gestiondb = new GestionDB(mDatabase,user);
+
+
                     //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
                     String key = mDatabase.child("posts").push().getKey();
                     String userId = user.getUid();

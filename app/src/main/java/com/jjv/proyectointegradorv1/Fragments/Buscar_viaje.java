@@ -82,6 +82,7 @@ public class Buscar_viaje extends Fragment {
     public DrawerLayout mDrawerLayout;
     private NavigationView navView;
     private Publicacion publicacionFiltro;
+    private DatabaseReference ref;
 
 
     @Override
@@ -115,6 +116,34 @@ public class Buscar_viaje extends Fragment {
             cargarCardview();
             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
             rv.setAdapter(adapt);
+            ChildEventListener childEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    cargarCardview();
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    cargarCardview();
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    cargarCardview();
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    cargarCardview();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    cargarCardview();
+                }
+            };
+            ref.addChildEventListener(childEventListener);
+
         }
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -191,7 +220,7 @@ public class Buscar_viaje extends Fragment {
     private void cargarCardview() {
         publicaciones = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("trip");
+        ref = database.getReference("trip");
         ValueEventListener event = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
