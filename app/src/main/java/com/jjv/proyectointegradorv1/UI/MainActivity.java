@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     // muestra en el toolbar un icono y el nombre del usuario registrado
                     toolbar.setTitle(user.getDisplayName().toUpperCase());
                     toolbar.setNavigationIcon(iconoMenu);
+                    setupViewPager(mViewPager);
                 } else {
                     // si el usuario no esta registrado muestra un Toast informandole y lanza la actividad de Login
                     Intent i = new Intent(getBaseContext(), Loggin.class);
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         // configura el view pager con el section adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager);
+
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         //Configuramos el tab layaut con nuestro view pager
