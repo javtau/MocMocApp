@@ -83,6 +83,7 @@ public class Buscar_viaje extends Fragment {
     private NavigationView navView;
     private Publicacion publicacionFiltro;
     private DatabaseReference ref = database.getReference("trip");
+    private ValueEventListener event ;
 
 
     @Override
@@ -96,7 +97,7 @@ public class Buscar_viaje extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        event=null;
         listenerRv = initListener();
 
         rv = (RecyclerView) view.findViewById(R.id.lista_publicaciones);
@@ -115,10 +116,12 @@ public class Buscar_viaje extends Fragment {
         if (currentUser != null) {
             cargarCardview();
             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+            adapt.notifyDataSetChanged();
             rv.setAdapter(adapt);
-
         }
-
+        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        adapt.notifyDataSetChanged();
+        rv.setAdapter(adapt);
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -194,47 +197,51 @@ public class Buscar_viaje extends Fragment {
     private void cargarCardview() {
         rv.removeAllViews();
         publicaciones = new ArrayList<>();
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
-               rv.removeAllViews();
-                publica = dataSnapshot.getValue(Publicacion.class);
-                if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                    Log.i("se ejecuta","salta ondatachange");
-                    filtrarPublicaciones();
+
+        if(event!=null){
+            ref.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                        Log.i("se ejecuta","salta en ADDed");
+                        filtrarPublicaciones();
+                    }
+                    adapt.notifyDataSetChanged();
                 }
-                adapt.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.i("se ejecutaCC","salta onChildChanged");
-            }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.i("se ejecutaCC","salta onChildChanged");
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.i("se ejecutaCC","salta onChildRemoved");
-            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.i("se ejecutaCC","salta onChildRemoved");
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.i("se ejecutaCC","salta onChildMoved");
-            }
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    Log.i("se ejecutaCC","salta onChildMoved");
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.i("se ejecutaCC","salta onCancelled");
-            }
-        });
-        ValueEventListener event = new ValueEventListener() {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.i("se ejecutaCC","salta onCancelled");
+                }
+            });
+
+        }
+
+        event = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                     publica = appleSnapshot.getValue(Publicacion.class);
                     if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                        Log.i("se ejecuta","salta ondatachange");
+                        Log.i("se ejecuta","salta ondatachangeValue");
                         filtrarPublicaciones();
                     }
                 }
@@ -246,12 +253,16 @@ public class Buscar_viaje extends Fragment {
             }
         };
         ref.addListenerForSingleValueEvent(event);
+        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        adapt.notifyDataSetChanged();
+        rv.setAdapter(adapt);
     }
 
     private void filtrarPublicaciones() {
         if(publicacionFiltro==null){
             publicaciones.add(publica);
-            adapt.setPublicaciones(publicaciones);
+            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+            adapt.notifyDataSetChanged();
             rv.setAdapter(adapt);
         }else{
             if(publicacionFiltro.getPrecio().equals("0")){
@@ -281,7 +292,8 @@ public class Buscar_viaje extends Fragment {
     public void agregarPublicacionSetAdapt(){
 
         publicaciones.add(publica);
-        adapt.setPublicaciones(publicaciones);
+        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        adapt.notifyDataSetChanged();
         rv.setAdapter(adapt);
     }
 
