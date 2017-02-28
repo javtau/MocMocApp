@@ -97,7 +97,7 @@ public class Buscar_viaje extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        event=null;
+
         listenerRv = initListener();
 
         rv = (RecyclerView) view.findViewById(R.id.lista_publicaciones);
@@ -195,6 +195,7 @@ public class Buscar_viaje extends Fragment {
     }
 
     private void cargarCardview() {
+        event=null;
         rv.removeAllViews();
         publicaciones = new ArrayList<>();
 
