@@ -64,7 +64,7 @@ public class Buscar_viaje extends Fragment {
     private final String TAG = Buscar_viaje.class.getSimpleName();
     //private ListView listaPublicaciones;
     private ArrayList<Publicacion> publicaciones;
-    private FirebaseDatabase database;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef;
     private ChildEventListener childEvent;
     private FirebaseUser currentUser;
@@ -82,7 +82,7 @@ public class Buscar_viaje extends Fragment {
     public DrawerLayout mDrawerLayout;
     private NavigationView navView;
     private Publicacion publicacionFiltro;
-    private DatabaseReference ref;
+    private DatabaseReference ref = database.getReference("trip");
 
 
     @Override
@@ -116,35 +116,9 @@ public class Buscar_viaje extends Fragment {
             cargarCardview();
             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
             rv.setAdapter(adapt);
-            ChildEventListener childEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    cargarCardview();
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    cargarCardview();
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    cargarCardview();
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    cargarCardview();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    cargarCardview();
-                }
-            };
-            ref.addChildEventListener(childEventListener);
 
         }
+
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -183,7 +157,7 @@ public class Buscar_viaje extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    mDrawerLayout.openDrawer(Gravity.RIGHT);
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
     }
@@ -218,18 +192,53 @@ public class Buscar_viaje extends Fragment {
     }
 
     private void cargarCardview() {
+        rv.removeAllViews();
         publicaciones = new ArrayList<>();
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("trip");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
+               rv.removeAllViews();
+                publica = dataSnapshot.getValue(Publicacion.class);
+                if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                    Log.i("se ejecuta","salta ondatachange");
+                    filtrarPublicaciones();
+                }
+                adapt.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.i("se ejecutaCC","salta onChildChanged");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.i("se ejecutaCC","salta onChildRemoved");
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.i("se ejecutaCC","salta onChildMoved");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("se ejecutaCC","salta onCancelled");
+            }
+        });
         ValueEventListener event = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                     publica = appleSnapshot.getValue(Publicacion.class);
                     if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                        Log.i("se ejecuta","salta ondatachange");
                         filtrarPublicaciones();
                     }
                 }
+
             }
 
             @Override
@@ -237,14 +246,12 @@ public class Buscar_viaje extends Fragment {
             }
         };
         ref.addListenerForSingleValueEvent(event);
-        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-        rv.setAdapter(adapt);
     }
 
     private void filtrarPublicaciones() {
         if(publicacionFiltro==null){
             publicaciones.add(publica);
-            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+            adapt.setPublicaciones(publicaciones);
             rv.setAdapter(adapt);
         }else{
             if(publicacionFiltro.getPrecio().equals("0")){
@@ -272,8 +279,9 @@ public class Buscar_viaje extends Fragment {
     }
 
     public void agregarPublicacionSetAdapt(){
+
         publicaciones.add(publica);
-        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+        adapt.setPublicaciones(publicaciones);
         rv.setAdapter(adapt);
     }
 

@@ -28,6 +28,10 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
         this.listener = listener;
     }
 
+    public void setPublicaciones(ArrayList<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
+    }
+
     @Override
     public PublicacionesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_buscar_viaje,parent,false);
