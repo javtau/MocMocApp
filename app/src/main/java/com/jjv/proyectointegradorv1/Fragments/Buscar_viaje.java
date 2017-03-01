@@ -83,7 +83,7 @@ public class Buscar_viaje extends Fragment {
     private NavigationView navView;
     private Publicacion publicacionFiltro;
     private DatabaseReference ref = database.getReference("trip");
-    private ValueEventListener event ;
+
 
 
     @Override
@@ -195,11 +195,10 @@ public class Buscar_viaje extends Fragment {
     }
 
     private void cargarCardview() {
-        event=null;
+
         rv.removeAllViews();
         publicaciones = new ArrayList<>();
 
-        if(event!=null){
             ref.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -210,6 +209,8 @@ public class Buscar_viaje extends Fragment {
                         filtrarPublicaciones();
                     }
                     adapt.notifyDataSetChanged();
+                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                    rv.setAdapter(adapt);
                 }
 
                 @Override
@@ -232,9 +233,7 @@ public class Buscar_viaje extends Fragment {
                     Log.i("se ejecutaCC","salta onCancelled");
                 }
             });
-
-        }
-
+            /*
         event = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -253,7 +252,7 @@ public class Buscar_viaje extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         };
-        ref.addListenerForSingleValueEvent(event);
+        ref.addListenerForSingleValueEvent(event);*/
         adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
         adapt.notifyDataSetChanged();
         rv.setAdapter(adapt);
