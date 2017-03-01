@@ -205,10 +205,11 @@ public class Buscar_viaje extends Fragment {
                     if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
                         Log.i("se ejecuta","salta en ADDed");
                         filtrarPublicaciones(publicaciones);
+                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                        adapt.notifyDataSetChanged();
+                        rv.setAdapter(adapt);
                     }
-                    adapt.notifyDataSetChanged();
-                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                    rv.setAdapter(adapt);
+
                 }
 
                 @Override
@@ -257,41 +258,49 @@ public class Buscar_viaje extends Fragment {
     private void filtrarPublicaciones(ArrayList <Publicacion> publicaciones) {
         if(publicacionFiltro==null){
             publicaciones.add(publica);
-            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+           /* adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
             adapt.notifyDataSetChanged();
-            rv.setAdapter(adapt);
+            rv.setAdapter(adapt);*/
         }else{
             if(publicacionFiltro.getPrecio().equals("0")){
                 if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }
             }else if(Integer.parseInt(publica.getPrecio())<=Integer.parseInt(publicacionFiltro.getPrecio())){
                 if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
-                    agregarPublicacionSetAdapt(publicaciones);;
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
-                    agregarPublicacionSetAdapt(publicaciones);
+                    //agregarPublicacionSetAdapt(publicaciones);
+                    publicaciones.add(publica);
                 }
             }
         }
     }
-
+/*
     public void agregarPublicacionSetAdapt(ArrayList<Publicacion>publicaciones){
 
         publicaciones.add(publica);
         adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
         adapt.notifyDataSetChanged();
         rv.setAdapter(adapt);
-    }
+    }*/
 
     private Publicaciones_RV_adapter.OnItemClickListener initListener() {
         Publicaciones_RV_adapter.OnItemClickListener l = new Publicaciones_RV_adapter.OnItemClickListener() {
