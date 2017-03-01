@@ -1,4 +1,4 @@
-package com.jjv.proyectointegradorv1.DB;
+package com.jjv.proyectointegradorv1.Utils;
 
 import android.util.Log;
 

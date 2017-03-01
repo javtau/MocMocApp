@@ -76,7 +76,6 @@ public class Buscar_viaje extends Fragment {
         rv.setLayoutManager(llm);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String useruid = currentUser.getUid();
         if (currentUser != null) {
             database = FirebaseDatabase.getInstance();
             myRef = database.getReference("trip");// hacemos referencia a la rama donde se almacenan todos los viajes
@@ -88,7 +87,7 @@ public class Buscar_viaje extends Fragment {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.i("snap",dataSnapshot.getKey());
                     publica = dataSnapshot.getValue(Publicacion.class);
-                    if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
+                    if (publica.getPlazas() > 0 && publica.getIdConductor().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         publicaciones.add(publica);
                         //  adapt=  new Publicaciones_Adapter(getContext(),publicaciones);
                         adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
@@ -109,7 +108,7 @@ public class Buscar_viaje extends Fragment {
 
                         //TODO CARGAR DE NUEVO EL FRAGMENT o no
                         //publica = dataSnapshot.getValue(Publicacion.class);
-                        if (publica.getPlazas() > 0 && publica.getIdConductor() != FirebaseAuth.getInstance().getCurrentUser().getUid()) {
+                        if (publica.getPlazas() > 0 && publica.getIdConductor().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                             publicaciones.add(pos, publica);
                             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
                             rv.setAdapter(adapt);

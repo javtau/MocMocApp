@@ -1,9 +1,11 @@
 package com.jjv.proyectointegradorv1.UI;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -23,6 +25,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +37,7 @@ import com.jjv.proyectointegradorv1.Fragments.Chat;
 import com.jjv.proyectointegradorv1.Fragments.Mis_viajes;
 import com.jjv.proyectointegradorv1.Fragments.Publicar_viaje;
 import com.jjv.proyectointegradorv1.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String FB_USER = "fireBaseUsuarioLogueado";
     public static final String FB_EMAIL = "fireBaseEmailLogueado";
+    public static final String FB_AVATAR = "avatar";
+    public static final int EDITPROFILE = 22;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String usuarioLogueado, emailLogueado;
+    private Uri userimage;
 
     // variables para el panel lateral
     private DrawerLayout mDrawerLayout;
@@ -159,10 +166,12 @@ public class MainActivity extends AppCompatActivity {
 
             usuarioLogueado = usuario.getDisplayName();
             emailLogueado = usuario.getEmail();
-
+            userimage = usuario.getPhotoUrl();
+            Log.e("User imagen ",userimage.toString());
             // TODO: asignar foto de usuario al panel lateral
             tvLatUsuario.setText(mAuth.getCurrentUser().getDisplayName());
             tvLatEmail.setText(mAuth.getCurrentUser().getEmail());
+            loaduserimage(userimage);
             //avatar.setImageDrawable();
         }
         // *** esto está por razones de seguridad pero se supone que nunca deberia hacer esto
@@ -181,7 +190,9 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.drawer_perfil:
                         Intent i = new Intent(MainActivity.this, PerfilActivity.class);
-                        startActivity(i);
+                        Log.e("sedeeee", userimage.toString());
+                        i.putExtra(FB_AVATAR,userimage.toString());
+                        startActivityForResult(i,EDITPROFILE);
                         break;
                     case R.id.drawer_contacto:
                         Intent j = new Intent(MainActivity.this, ContactoActivity.class);
@@ -220,6 +231,26 @@ public class MainActivity extends AppCompatActivity {
         /*************************************/
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "resultado recivido resullllllllllllllllllll");
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == EDITPROFILE){
+                Uri uri = Uri.parse(data.getStringExtra(FB_AVATAR));
+                loaduserimage(uri);
+                Log.e(TAG, "resultado recivido " + uri.toString());
+            }
+        }
+    }
+
+    private  void loaduserimage(Uri image) {
+        Picasso.with(this).load(userimage).into(avatar);
+    }
+
+
+
 
     private Dialog crearDialogo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
