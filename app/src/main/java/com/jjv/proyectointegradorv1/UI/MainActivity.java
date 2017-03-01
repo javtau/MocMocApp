@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitle(tab.getPosition()));
 
+
             }
 
             @Override

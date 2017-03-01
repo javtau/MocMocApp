@@ -63,7 +63,7 @@ public class Buscar_viaje extends Fragment {
 
     private final String TAG = Buscar_viaje.class.getSimpleName();
     //private ListView listaPublicaciones;
-    private ArrayList<Publicacion> publicaciones;
+
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef;
     private ChildEventListener childEvent;
@@ -88,6 +88,9 @@ public class Buscar_viaje extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+
         return inflater.inflate(R.layout.fragment_buscar_viaje, container, false);
     }
 
@@ -115,13 +118,9 @@ public class Buscar_viaje extends Fragment {
 
         if (currentUser != null) {
             cargarCardview();
-            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-            adapt.notifyDataSetChanged();
-            rv.setAdapter(adapt);
+
         }
-        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-        adapt.notifyDataSetChanged();
-        rv.setAdapter(adapt);
+
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
@@ -197,16 +196,15 @@ public class Buscar_viaje extends Fragment {
     private void cargarCardview() {
 
         rv.removeAllViews();
-        publicaciones = new ArrayList<>();
-
             ref.addChildEventListener(new ChildEventListener() {
+                ArrayList<Publicacion> publicaciones = new ArrayList<>();
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
                     publica = dataSnapshot.getValue(Publicacion.class);
                     if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
                         Log.i("se ejecuta","salta en ADDed");
-                        filtrarPublicaciones();
+                        filtrarPublicaciones(publicaciones);
                     }
                     adapt.notifyDataSetChanged();
                     adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
@@ -253,12 +251,10 @@ public class Buscar_viaje extends Fragment {
             }
         };
         ref.addListenerForSingleValueEvent(event);*/
-        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-        adapt.notifyDataSetChanged();
-        rv.setAdapter(adapt);
+
     }
 
-    private void filtrarPublicaciones() {
+    private void filtrarPublicaciones(ArrayList <Publicacion> publicaciones) {
         if(publicacionFiltro==null){
             publicaciones.add(publica);
             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
@@ -267,29 +263,29 @@ public class Buscar_viaje extends Fragment {
         }else{
             if(publicacionFiltro.getPrecio().equals("0")){
                 if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }
             }else if(Integer.parseInt(publica.getPrecio())<=Integer.parseInt(publicacionFiltro.getPrecio())){
                 if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
-                    agregarPublicacionSetAdapt();;
+                    agregarPublicacionSetAdapt(publicaciones);;
                 }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
-                    agregarPublicacionSetAdapt();
+                    agregarPublicacionSetAdapt(publicaciones);
                 }
             }
         }
     }
 
-    public void agregarPublicacionSetAdapt(){
+    public void agregarPublicacionSetAdapt(ArrayList<Publicacion>publicaciones){
 
         publicaciones.add(publica);
         adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
