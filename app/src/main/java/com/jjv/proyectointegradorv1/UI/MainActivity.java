@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.view.Gravity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
     private Toolbar toolbar;
     private TabLayout tabs;
     private TextView txt1 ;
@@ -114,11 +115,12 @@ public class MainActivity extends AppCompatActivity {
 
         // configura el view pager con el section adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager);
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         //Configuramos el tab layaut con nuestro view pager
+        setupViewPager(mViewPager);
         tabs.setupWithViewPager(mViewPager);
+
         // listener para determinar que pestaña esta activa
         // dependiendo de cual este llama a un metodo u otro para mostrar icono y texto o solo icono
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -130,11 +132,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitle(tab.getPosition()));
+
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 tab.setText(adapter.getPageTitleCompleto(tab.getPosition()));
+
             }
         });
 
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         // selecciona una pestaña por defecto cada vez que se llama a onCreate
         // en este caso buscar
         // TODO: dependiendo del perfil del usuario(conductor o usuario normal) seleccionar una pestaña diferente
-        mViewPager.setCurrentItem(2);
+        mViewPager.setCurrentItem(3);
 
         /** CONFIGURACION DEL PANEL LATERAL **/
 
@@ -199,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
                         j.putExtra(FB_USER, mAuth.getCurrentUser().getDisplayName());
                         j.putExtra(FB_EMAIL, mAuth.getCurrentUser().getEmail());
                         startActivity(j);
+                        break;
+                    case R.id.drawer_info:
+                        // hacer algo cuando el usaurio de en info
                         break;
                     case R.id.drawer_salir:
                         crearDialogo().show();
@@ -374,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void selectPage(int page) {
+    public static void selectPage(int page) {
         mViewPager.setCurrentItem(page);
     }
 
