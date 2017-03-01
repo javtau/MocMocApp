@@ -20,12 +20,16 @@ import java.util.ArrayList;
 public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones_RV_adapter.PublicacionesViewHolder>{
 
 
-    ArrayList<Publicacion> publicaciones = new ArrayList<>();
+    ArrayList<Publicacion> publicaciones;
     OnItemClickListener listener;
 
     public Publicaciones_RV_adapter(ArrayList<Publicacion> publicaciones, OnItemClickListener listener) {
         this.publicaciones = publicaciones;
         this.listener = listener;
+    }
+
+    public void setPublicaciones(ArrayList<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
     }
 
     @Override

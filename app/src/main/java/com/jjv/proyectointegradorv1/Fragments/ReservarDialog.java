@@ -1,9 +1,13 @@
 package com.jjv.proyectointegradorv1.Fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -15,9 +19,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +38,16 @@ public class ReservarDialog extends Dialog {
     TextView etViajeFecha, etViajeHora;
     RatingBar rateConductor;
     String sRateConductor = "";
-    Button btnReservar;
+    static Button btnReservar;
     private DatabaseReference mDatabase;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private GestionDB gestiondb = new GestionDB(FirebaseDatabase.getInstance(),user);
 
 
-    public ReservarDialog() {
+
+    public ReservarDialog(){
         super(null, 0);
     }
-
     public ReservarDialog(Context context, int theme, Publicacion pub) {
         super(context);
         this.pub = pub;
@@ -71,16 +80,15 @@ public class ReservarDialog extends Dialog {
         final String keyViaje = pub.getKeyViaje();
         final int reservas = 1;
         btnReservar = (Button) findViewById(R.id.btn_reservar);
-        if (pub.getPlazas()<1){
-            btnReservar.setEnabled(false);
-        }else {
+        gestiondb.comprobarReserva(pub,this);
+            btnReservar.setText(R.string.reservar_btn_reservar);
+            btnReservar.setBackgroundResource(R.color.colorAccent);
             btnReservar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mDatabase = FirebaseDatabase.getInstance().getReference();
                     sRateConductor = String.valueOf(rateConductor.getRating());
                     Toast.makeText(getContext(), sRateConductor, Toast.LENGTH_SHORT).show();
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
                     String key = mDatabase.child("posts").push().getKey();
                     String userId = user.getUid();
@@ -103,6 +111,20 @@ public class ReservarDialog extends Dialog {
                 }
             });
         }
-    }
 
+
+
+    public static void gestionarBoton(final ReservarDialog a) {
+        btnReservar.setText(R.string.yaReservado);
+        btnReservar.setBackgroundResource(R.color.colorGris);
+        btnReservar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                MainActivity.selectPage(2);
+                a.cancel();
+
+
+            }
+        });
+    }
 }

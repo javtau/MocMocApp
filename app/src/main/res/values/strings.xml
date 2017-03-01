@@ -37,7 +37,7 @@
     <string name="toast_campos_vacios">Se deben rellenar todos los campos</string>
     <string name="toast_usuario_creado">El usuario se a creado correctamente</string>
     <string name="toast_pwd_incorrecta">La contraseña no puede tener menos de 6 caracteres</string>
-    <string name="publicacion_enviada">Tu viaje se ha publicado corectamente</string>
+    <string name="publicacion_enviada">Tu viaje se ha publicado correctamente</string>
     <string name="msg_sin_registro">Si no estas registrado pulsa aquí</string>
     <string name="rellene_los_campos">Por favor, rellena todos los campos</string>
     <string name="info_conductor">Conductor</string>
@@ -74,4 +74,15 @@
     <string name="contacto">Contáctanos</string>
 
     <string name="contacto_hint">¿Duda, queja, error o simplemente decirnos lo mucho que te gusta la app? ¡Ponlo aquí!</string>
+    <string name="titulo_filtro">Filtrar búsqueda</string>
+    <string name="hint_precioMaximo">Precio máximo</string>
+    <string name="hint_conductorBuscar">Conductor</string>
+    <string name="Filtrar">Filtrar</string>
+    <string name="falloNumero">Introduce un precio correcto</string>
+    <string name="sinResultados">Sin resultados posibles</string>
+
+    <string name="nick_chat">Chateando como:</string>
+    <string name="chat_hint">Escribe tu mensaje</string>
+    <string name="yaReservado">¡VIAJE YA RESERVADO!</string>
+
 </resources>

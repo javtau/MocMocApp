@@ -52,8 +52,6 @@ public class Publicar_viaje extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_publicarviaje, container, false);
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

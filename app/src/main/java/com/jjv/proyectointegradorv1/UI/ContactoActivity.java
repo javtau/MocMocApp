@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,6 +65,10 @@ public class ContactoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Animation rotar;
+        rotar = AnimationUtils.loadAnimation(getBaseContext(),R.anim.rotar);
+        fab.setAnimation(rotar);
     }
 
     @Override

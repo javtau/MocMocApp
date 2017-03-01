@@ -6,169 +6,180 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:focusableInTouchMode="true"
+    android:layout_margin="10dp"
     android:weightSum="1">
-
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="391dp"
-        android:paddingTop="@dimen/Publicar_horizontal_margin"
-        android:paddingBottom="100dp"
+        android:paddingTop="@dimen/Publicar_vertical_margin"
         android:paddingLeft="@dimen/Publicar_vertical_margin"
         android:paddingRight="@dimen/Publicar_vertical_margin"
-
-        android:background="@android:color/white">
-
-        <TextView
-            android:text="@string/txt_origen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lbl_origen"
-            android:textSize="18sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/txt_origen"
-            android:textSize="18sp"
-            android:hint="@string/hint_origen"/>
-
-        <TextView
-            android:text="@string/txt_destino"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lbl_destino"
-            android:textSize="18sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/txt_distino"
-            android:textSize="18sp"
-            android:hint="@string/hint_destino"/>
-
+        android:paddingBottom="5dp"
+        android:background="@color/colorPrimary2"
+        android:layout_height="400dp">
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="82dp">
+            android:layout_height="400dp"
+            android:paddingTop="@dimen/Publicar_horizontal_margin"
+            android:paddingLeft="@dimen/Publicar_vertical_margin"
+            android:paddingRight="@dimen/Publicar_vertical_margin"
+            android:background="@android:color/white">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <TextView
+                android:text="@string/txt_origen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:id="@+id/lbl_origen"
+                android:textSize="18sp"/>
 
-                <TextView
-                    android:text="@string/txt_fecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lbl_fecha"
-                    android:textSize="18sp"
-                    android:layout_weight="1" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/txt_fecha"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:text="@string/txt_hora"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lbl_hora"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="time"
-                    android:ems="10"
-                    android:textAlignment="center"
-                    android:id="@+id/txt_hora" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="177dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="@string/txt_plazas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lbl_plazas"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sp_plazas" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false">
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/txt_origen"
+                android:textSize="18sp"
+                android:hint="@string/hint_origen"/>
 
-                <TextView
-                    android:text="@string/txt_precio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lbl_precio"
-                    android:textSize="18sp" />
+            <TextView
+                android:text="@string/txt_destino"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lbl_destino"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/txt_distino"
+                android:textSize="18sp"
+                android:hint="@string/hint_destino"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="82dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:text="@string/txt_fecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lbl_fecha"
+                        android:textSize="18sp"
+                        android:layout_weight="1" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/txt_precio"
-                        android:text="@string/hint_precio"
-                        android:textAlignment="textEnd"
-                        android:inputType="number" />
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/txt_fecha"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                     <TextView
-                        android:text="@string/txt_euro"
-                        android:layout_width="wrap_content"
+                        android:text="@string/txt_hora"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lbl_euro"
-                        android:layout_weight="1" />
+                        android:id="@+id/lbl_hora"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:ems="10"
+                        android:textAlignment="center"
+                        android:id="@+id/txt_hora" />
+
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="177dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/txt_plazas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lbl_plazas"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sp_plazas" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
+
+                    <TextView
+                        android:text="@string/txt_precio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lbl_precio"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_precio"
+                            android:text="@string/hint_precio"
+                            android:textAlignment="textEnd"
+                            android:inputType="number" />
+
+                        <TextView
+                            android:text="@string/txt_euro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/lbl_euro"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
 
     </LinearLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
