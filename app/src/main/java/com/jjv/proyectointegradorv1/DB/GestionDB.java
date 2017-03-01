@@ -1,8 +1,12 @@
 package com.jjv.proyectointegradorv1.DB;
 
+import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -13,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
+import com.jjv.proyectointegradorv1.Fragments.ReservarDialog;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 
 import java.util.ArrayList;
@@ -28,7 +33,10 @@ public class GestionDB {
     private DatabaseReference dbref;
     private ChildEventListener childEvent;
     private Publicacion publicacion;
-    DataSnapshot userkeyShot;
+    private boolean esReservada;
+    private DataSnapshot userkeyShot;
+    public  ArrayList<Publicacion>publicacionesBusqueda;
+
 
 
 
@@ -335,4 +343,27 @@ public class GestionDB {
         ref.addListenerForSingleValueEvent(eventUT);
     }
 
+    public void comprobarReserva(final Publicacion publi, final ReservarDialog a) {
+        //Si el usuario ya ha reservado este viaje , no podra reservar mas
+        esReservada=false;
+        publicacionesBusqueda = new ArrayList<>();
+
+        DatabaseReference ref = database.getReference("user-trips/"+user.getUid());
+        Query q = ref.orderByChild("keyViaje").equalTo(publi.getKeyViaje());
+        q.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ReservarDialog.gestionarBoton(a);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

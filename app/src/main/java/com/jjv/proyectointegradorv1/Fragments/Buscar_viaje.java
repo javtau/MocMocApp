@@ -215,21 +215,40 @@ public class Buscar_viaje extends Fragment {
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     Log.i("se ejecutaCC","salta onChildChanged");
+                    Log.i("se ejecutaCC","salta onChildChanged : KEY:"+dataSnapshot.getKey());
+                    Log.i("se ejecutaCC","salta onChildChanged : string:"+s);
+
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                        Log.i("se ejecuta","salta en ADDed");
+                        filtrarPublicaciones(publicaciones);
+                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                        adapt.notifyDataSetChanged();
+                        rv.setAdapter(adapt);
+                    }
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Log.i("se ejecutaCC","salta onChildRemoved");
+                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                    adapt.notifyDataSetChanged();
+                    rv.setAdapter(adapt);
                 }
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                     Log.i("se ejecutaCC","salta onChildMoved");
+                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                    adapt.notifyDataSetChanged();
+                    rv.setAdapter(adapt);
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     Log.i("se ejecutaCC","salta onCancelled");
+                    adapt.notifyDataSetChanged();
+                    rv.setAdapter(adapt);
                 }
             });
             /*

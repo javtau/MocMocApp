@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
     private Toolbar toolbar;
     private TabLayout tabs;
     private TextView txt1 ;
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void selectPage(int page) {
+    public static void selectPage(int page) {
         mViewPager.setCurrentItem(page);
     }
 
