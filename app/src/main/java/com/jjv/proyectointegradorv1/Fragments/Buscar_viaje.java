@@ -39,12 +39,9 @@ import java.util.ArrayList;
 
 public class Buscar_viaje extends Fragment {
 
-    private final String TAG = Buscar_viaje.class.getSimpleName();
     //private ListView listaPublicaciones;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef;
-    private ChildEventListener childEvent;
     private FirebaseUser currentUser;
     private Publicacion publica;
     private Dialog customDialog;
@@ -52,7 +49,6 @@ public class Buscar_viaje extends Fragment {
     private Publicaciones_RV_adapter.OnItemClickListener listenerRv;
     private Publicaciones_RV_adapter adapt;
     private FloatingActionButton fab;
-    private GestionDB gestionDB;
     private EditText etDestinoFiltro,etOrigenFiltro,etPrecioFiltro,etUsuarioFiltro;
     private Button btnFiltrar,btnCancelarFiltro;
 
@@ -193,8 +189,6 @@ public class Buscar_viaje extends Fragment {
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     Log.i("se ejecutaCC","salta onChildChanged");
                     Log.i("se ejecutaCC","salta onChildChanged : KEY:"+dataSnapshot.getKey());
-                    Log.i("se ejecutaCC","salta onChildChanged : string:"+s);
-
                     publica = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones,publica);
                     if(pos>-1){
@@ -221,7 +215,6 @@ public class Buscar_viaje extends Fragment {
                         rv.setAdapter(adapt);
 
                     }
-
                 }
 
                 @Override
@@ -237,75 +230,35 @@ public class Buscar_viaje extends Fragment {
                     Log.i("se ejecutaCC","salta onCancelled");
                 }
             });
-            /*
-        event = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                    publica = appleSnapshot.getValue(Publicacion.class);
-                    if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                        Log.i("se ejecuta","salta ondatachangeValue");
-                        filtrarPublicaciones();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-        ref.addListenerForSingleValueEvent(event);*/
-
     }
 
     private void filtrarPublicaciones(ArrayList <Publicacion> publicaciones) {
         if(publicacionFiltro==null){
             publicaciones.add(publica);
-           /* adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-            adapt.notifyDataSetChanged();
-            rv.setAdapter(adapt);*/
         }else{
             if(publicacionFiltro.getPrecio().equals("0")){
                 if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }
             }else if(Integer.parseInt(publica.getPrecio())<=Integer.parseInt(publicacionFiltro.getPrecio())){
                 if(publica.getDestino().toLowerCase().contains(publicacionFiltro.getDestino())&&!publicacionFiltro.getDestino().equals("")){
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }else if(publica.getOrigen().toLowerCase().contains(publicacionFiltro.getOrigen())&&!publicacionFiltro.getOrigen().equals("")) {
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }else if(publica.getUsuario().toLowerCase().contains(publicacionFiltro.getUsuario())&&!publicacionFiltro.getUsuario().equals("")) {
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }else if(publicacionFiltro.getDestino().equals("")&&publicacionFiltro.getOrigen().equals("")&&publicacionFiltro.getUsuario().equals("")){
-                    //agregarPublicacionSetAdapt(publicaciones);
                     publicaciones.add(publica);
                 }
             }
         }
     }
-/*
-    public void agregarPublicacionSetAdapt(ArrayList<Publicacion>publicaciones){
-
-        publicaciones.add(publica);
-        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-        adapt.notifyDataSetChanged();
-        rv.setAdapter(adapt);
-    }*/
 
     private Publicaciones_RV_adapter.OnItemClickListener initListener() {
         Publicaciones_RV_adapter.OnItemClickListener l = new Publicaciones_RV_adapter.OnItemClickListener() {
