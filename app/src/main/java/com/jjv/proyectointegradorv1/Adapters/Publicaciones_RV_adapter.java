@@ -97,4 +97,5 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
     public interface OnItemClickListener {
         void onItemClick(Publicacion item);
     }
+
 }
