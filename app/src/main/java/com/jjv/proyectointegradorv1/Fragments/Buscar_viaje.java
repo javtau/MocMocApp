@@ -2,38 +2,23 @@ package com.jjv.proyectointegradorv1.Fragments;
 
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -41,19 +26,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_RV_adapter;
 import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
-import com.jjv.proyectointegradorv1.UI.ContactoActivity;
-import com.jjv.proyectointegradorv1.UI.MainActivity;
-import com.jjv.proyectointegradorv1.UI.PerfilActivity;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Created by javi0 on 11/01/2017.
@@ -115,7 +93,6 @@ public class Buscar_viaje extends Fragment {
         rv.setLayoutManager(llm);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if (currentUser != null) {
             cargarCardview();
 
@@ -219,21 +196,32 @@ public class Buscar_viaje extends Fragment {
                     Log.i("se ejecutaCC","salta onChildChanged : string:"+s);
 
                     publica = dataSnapshot.getValue(Publicacion.class);
-                    if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                        Log.i("se ejecuta","salta en ADDed");
-                        filtrarPublicaciones(publicaciones);
-                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                        adapt.notifyDataSetChanged();
-                        rv.setAdapter(adapt);
+                    int pos = getPosition(publicaciones,publica);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                            Log.i("se ejecuta","salta en ADDed");
+                            filtrarPublicaciones(publicaciones);
+                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                            adapt.notifyDataSetChanged();
+                            rv.setAdapter(adapt);
+                        }
                     }
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Log.i("se ejecutaCC","salta onChildRemoved");
-                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                    adapt.notifyDataSetChanged();
-                    rv.setAdapter(adapt);
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones,publica);
+
+                            Log.i("se ejecuta","salta en ADDed");
+                            filtrarPublicaciones(publicaciones);
+                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                            adapt.notifyDataSetChanged();
+                            rv.setAdapter(adapt);
+
+
                 }
 
                 @Override
@@ -342,5 +330,16 @@ public class Buscar_viaje extends Fragment {
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
         customDialog.setCanceledOnTouchOutside(true);
         customDialog.show();
+    }
+    public int getPosition(ArrayList<Publicacion> array, Publicacion data) {
+        int pos = -1;
+        boolean esEncontrado = false;
+        for (int i = 0; i < array.size() && !esEncontrado; i++) {
+            if (array.get(i).getKeyViaje().equals(data.getKeyViaje())) {
+                esEncontrado = true;
+                pos = i;
+            }
+        }
+        return pos;
     }
 }

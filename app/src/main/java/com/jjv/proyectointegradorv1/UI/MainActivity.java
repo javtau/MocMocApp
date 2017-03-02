@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         // selecciona una pestaña por defecto cada vez que se llama a onCreate
         // en este caso buscar
         // TODO: dependiendo del perfil del usuario(conductor o usuario normal) seleccionar una pestaña diferente
-        mViewPager.setCurrentItem(3);
+        mViewPager.setCurrentItem(1);
 
         /** CONFIGURACION DEL PANEL LATERAL **/
 
