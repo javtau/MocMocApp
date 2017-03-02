@@ -16,7 +16,7 @@
     <string name="hint_newmail">Escribe tu e-mail</string>
     <string name="hint_origen">Seleccione origen</string>
     <string name="hint_destino">Seleccione destino</string>
-    <string name="hint_precio">0</string>
+    <string name="hint_precio">Ej: 5</string>
     <string name="txt_origen">Origen:</string>
     <string name="txt_destino">Destino:</string>
     <string name="txt_fecha">Fecha:</string>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    >
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="85dp"
         android:weightSum="3"
         android:background="@android:color/white"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="66dp"
@@ -43,24 +45,6 @@
                     android:layout_marginStart="5dp"
                     android:textSize="15dp"
                     android:layout_marginTop="5dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Valoración:"
-                    android:id="@+id/txt_valoracion"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="1dp"
-                    android:textSize="10dp"
-                    android:textStyle="normal|bold" />
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/starsImage"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/stars" />
 
 
             </LinearLayout>

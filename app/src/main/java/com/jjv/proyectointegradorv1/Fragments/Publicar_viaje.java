@@ -128,6 +128,10 @@ public class Publicar_viaje extends Fragment {
                 String hora = txt_hora.getText().toString();
                 int plazas =  sp_plazas.getSelectedItemPosition()+1;
                 String precio = txt_precio.getText().toString();
+                if (precio.equals("")){
+                    precio="0";
+                }
+
                 if(origen.equals("")||destino.equals("")){
                     Snackbar.make(getView(), getString(R.string.rellene_los_campos), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();

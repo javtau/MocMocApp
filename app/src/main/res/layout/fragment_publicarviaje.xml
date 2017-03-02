@@ -131,9 +131,11 @@
                         android:textSize="18sp" />
 
                     <Spinner
-                        android:layout_width="match_parent"
+                        android:layout_width="137dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/sp_plazas" />
+                        android:textSize="23dp"
+                        android:id="@+id/sp_plazas"
+                        android:layout_marginTop="13dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -155,12 +157,13 @@
                         android:layout_height="wrap_content">
 
                         <EditText
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/txt_precio"
-                            android:text="@string/hint_precio"
+                            android:hint="@string/hint_precio"
                             android:textAlignment="textEnd"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:layout_weight="10" />
 
                         <TextView
                             android:text="@string/txt_euro"

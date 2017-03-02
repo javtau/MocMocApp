@@ -46,7 +46,6 @@ public class Publicaciones_Adapter extends BaseAdapter {
             convertView= LayoutInflater.from(contexto).inflate(R.layout.item_viaje,null);
             holder = new ViewHolder();
             holder.userImage = (ImageView) convertView.findViewById(R.id.userImage);
-            holder.starsImage = (ImageView) convertView.findViewById(R.id.starsImage);
             holder.nombreUsuario= (TextView) convertView.findViewById(R.id.txt_userName);
             holder.origenViaje= (TextView) convertView.findViewById(R.id.txt_origen_usr);
             holder.destinoViaje= (TextView) convertView.findViewById(R.id.txt_destino_viaje);
@@ -68,14 +67,14 @@ public class Publicaciones_Adapter extends BaseAdapter {
         holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
 
         /* TODO : RECUPERAR LAS IMAGENES
-        holder.starsImage
+
         holder.userImage
          */
 
         return convertView;
     }
     private class ViewHolder{
-        ImageView userImage,starsImage;
+        ImageView userImage;
         TextView nombreUsuario,origenViaje,destinoViaje,precioViaje,horaViaje,plazas;
     }
 }

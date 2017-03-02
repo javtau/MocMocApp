@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="470dp"
     android:background="@android:color/white"
     >
 
@@ -20,16 +20,18 @@
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/appbar_padding_top"
             android:layout_marginBottom="@dimen/reservar_headers_inf"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_weight="1.09">
                 <TextView
                     android:text="@string/info_conductor"
-                    android:layout_width="126dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_conductor_misviajes"
                     android:textSize="20sp"
@@ -42,25 +44,17 @@
                     app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
                     android:id="@+id/iv_usuario_misviajes"
                     android:layout_gravity="center" />
+
+                <TextView
+                    android:text="@string/info_cond_nombre"
+                    android:layout_marginBottom="@dimen/reservar_elems_inf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_cond_nombre_misviajes"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textStyle="normal|bold" />
             </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2">
-
-            </LinearLayout>
-
-            <TextView
-                android:text="@string/info_cond_nombre"
-                android:layout_marginBottom="@dimen/reservar_elems_inf"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_cond_nombre_misviajes"
-                android:textSize="16sp"
-                android:textAlignment="center"
-                android:textStyle="normal|bold" />
 
         </LinearLayout>
 
