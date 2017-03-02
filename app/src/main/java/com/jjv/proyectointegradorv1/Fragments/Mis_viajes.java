@@ -79,6 +79,15 @@ public class Mis_viajes extends Fragment  {
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    publicacion = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones,publicacion);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        publicaciones.add(pos, publicacion);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        listaMisViajes.setAdapter(adapter);
+                    }
                     /*publicacion = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones, publicacion);
                     if (pos !=-1) {
@@ -92,6 +101,15 @@ public class Mis_viajes extends Fragment  {
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.i("se ejecutaCC","salta onChildRemoved");
+                    publicacion = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones,publicacion);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        listaMisViajes.setAdapter(adapter);
+
+                    }
                     /*publicacion = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones, publicacion);
                     if (pos !=-1) {
