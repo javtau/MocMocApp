@@ -105,6 +105,7 @@ public class ReservarDialog extends Dialog {
                     mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+
                             dismiss();
                         }
                     });

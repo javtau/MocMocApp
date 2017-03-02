@@ -214,13 +214,13 @@ public class Buscar_viaje extends Fragment {
                     Log.i("se ejecutaCC","salta onChildRemoved");
                     publica = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones,publica);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                        adapt.notifyDataSetChanged();
+                        rv.setAdapter(adapt);
 
-                            Log.i("se ejecuta","salta en ADDed");
-                            filtrarPublicaciones(publicaciones);
-                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                            adapt.notifyDataSetChanged();
-                            rv.setAdapter(adapt);
-
+                    }
 
                 }
 
@@ -235,8 +235,6 @@ public class Buscar_viaje extends Fragment {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     Log.i("se ejecutaCC","salta onCancelled");
-                    adapt.notifyDataSetChanged();
-                    rv.setAdapter(adapt);
                 }
             });
             /*
