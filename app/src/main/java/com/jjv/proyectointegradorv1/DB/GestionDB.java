@@ -33,7 +33,6 @@ public class GestionDB {
     private DatabaseReference dbref;
     private ChildEventListener childEvent;
     private Publicacion publicacion;
-    private boolean esReservada;
     private DataSnapshot userkeyShot;
     public  ArrayList<Publicacion>publicacionesBusqueda;
 
@@ -345,7 +344,7 @@ public class GestionDB {
 
     public void comprobarReserva(final Publicacion publi, final ReservarDialog a) {
         //Si el usuario ya ha reservado este viaje , no podra reservar mas
-        esReservada=false;
+
         publicacionesBusqueda = new ArrayList<>();
 
         DatabaseReference ref = database.getReference("user-trips/"+user.getUid());

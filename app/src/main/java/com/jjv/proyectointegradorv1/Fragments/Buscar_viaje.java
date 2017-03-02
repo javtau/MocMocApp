@@ -219,21 +219,32 @@ public class Buscar_viaje extends Fragment {
                     Log.i("se ejecutaCC","salta onChildChanged : string:"+s);
 
                     publica = dataSnapshot.getValue(Publicacion.class);
-                    if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                        Log.i("se ejecuta","salta en ADDed");
-                        filtrarPublicaciones(publicaciones);
-                        adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                        adapt.notifyDataSetChanged();
-                        rv.setAdapter(adapt);
+                    int pos = getPosition(publicaciones,publica);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                            Log.i("se ejecuta","salta en ADDed");
+                            filtrarPublicaciones(publicaciones);
+                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                            adapt.notifyDataSetChanged();
+                            rv.setAdapter(adapt);
+                        }
                     }
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Log.i("se ejecutaCC","salta onChildRemoved");
-                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                    adapt.notifyDataSetChanged();
-                    rv.setAdapter(adapt);
+                    publica = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones,publica);
+
+                            Log.i("se ejecuta","salta en ADDed");
+                            filtrarPublicaciones(publicaciones);
+                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                            adapt.notifyDataSetChanged();
+                            rv.setAdapter(adapt);
+
+
                 }
 
                 @Override
@@ -342,5 +353,16 @@ public class Buscar_viaje extends Fragment {
         customDialog.setContentView(R.layout.dialog_fragment_reservar);
         customDialog.setCanceledOnTouchOutside(true);
         customDialog.show();
+    }
+    public int getPosition(ArrayList<Publicacion> array, Publicacion data) {
+        int pos = -1;
+        boolean esEncontrado = false;
+        for (int i = 0; i < array.size() && !esEncontrado; i++) {
+            if (array.get(i).getKeyViaje().equals(data.getKeyViaje())) {
+                esEncontrado = true;
+                pos = i;
+            }
+        }
+        return pos;
     }
 }
