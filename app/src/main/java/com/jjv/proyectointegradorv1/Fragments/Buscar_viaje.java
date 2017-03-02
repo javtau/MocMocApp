@@ -191,8 +191,23 @@ public class Buscar_viaje extends Fragment {
                     Log.i("se ejecutaCC","salta onChildChanged : KEY:"+dataSnapshot.getKey());
                     publica = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones,publica);
-                    if(pos>-1){
+                    Log.i("se ejecutaCC","salta onChildChanged : POSICION:"+pos);
+                    if(pos!=-1){
                         publicaciones.remove(pos);
+
+                            if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                                Log.i("se ejecuta","salta en ADDed");
+                                filtrarPublicaciones(publicaciones);
+                                adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                                adapt.notifyDataSetChanged();
+                                rv.setAdapter(adapt);
+                            }else if (publica.getPlazas()==0){
+                                adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                                adapt.notifyDataSetChanged();
+                                rv.setAdapter(adapt);
+                            }
+
+                    }else{
                         if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
                             Log.i("se ejecuta","salta en ADDed");
                             filtrarPublicaciones(publicaciones);
@@ -201,6 +216,7 @@ public class Buscar_viaje extends Fragment {
                             rv.setAdapter(adapt);
                         }
                     }
+                    pos=-1;
                 }
 
                 @Override
