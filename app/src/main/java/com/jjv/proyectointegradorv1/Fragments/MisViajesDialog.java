@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.jjv.proyectointegradorv1.Utils.GestionDB;
+import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
 

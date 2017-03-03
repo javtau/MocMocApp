@@ -31,8 +31,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.jjv.proyectointegradorv1.Fragments.Buscar_viaje;
 import com.jjv.proyectointegradorv1.Fragments.Chat;
 import com.jjv.proyectointegradorv1.Fragments.Mis_viajes;
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String FB_USER = "fireBaseUsuarioLogueado";
     public static final String FB_EMAIL = "fireBaseEmailLogueado";
     public static final String FB_AVATAR = "avatar";
+    public static final Uri DEFAULTIMAGEURI = Uri.parse("https://firebasestorage.googleapis.com/v0/b/logginpi.appspot.com/o/Userimage%2Fdefault.png?alt=media&token=3791a8b6-c7d0-45fe-b04b-cd0b90ffb6fd");
     public static final int EDITPROFILE = 22;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -60,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     //variables usadas para el control de usuario
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private String usuarioLogueado, emailLogueado;
+    private String usuarioLogueado, emailLogueado, uidlogueado;
     private Uri userimage;
 
     // variables para el panel lateral
@@ -80,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
     private final List<String> mFragmentTitleList = new ArrayList<>();
     private SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+    /// variables para fireba storage
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReferenceFromUrl("gs://logginpi.appspot.com").child("Userimage");
+    private Uri useruribck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +182,23 @@ public class MainActivity extends AppCompatActivity {
 
             usuarioLogueado = usuario.getDisplayName();
             emailLogueado = usuario.getEmail();
+            uidlogueado = usuario.getUid();
             userimage = usuario.getPhotoUrl();
+            storageRef.child(uidlogueado).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    Log.e(TAG, "resultado recivido del estarage " + uri.toString());
+                    loaduserimage(uri);
+                    userimage = uri;
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    userimage = DEFAULTIMAGEURI;
+                }
+            });
             Log.e("User imagen ",userimage.toString());
             // TODO: asignar foto de usuario al panel lateral
             tvLatUsuario.setText(mAuth.getCurrentUser().getDisplayName());
@@ -242,19 +269,37 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(TAG, "resultado recivido resullllllllllllllllllll");
-        super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == Activity.RESULT_OK) {
+
             if (requestCode == EDITPROFILE){
                 Uri uri = Uri.parse(data.getStringExtra(FB_AVATAR));
                 loaduserimage(uri);
+                userimage = uri;
                 Log.e(TAG, "resultado recivido " + uri.toString());
             }
+        } else{
+            Log.e(TAG, "resultado recivido resullllllllllllllllllll "+requestCode+"  "+resultCode+"  "+Activity.RESULT_OK);
+            super.onActivityResult(requestCode, resultCode, data);
+            storageRef.child(uidlogueado).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    Log.e(TAG, "resultado recivido del estarage " + uri.toString());
+                    loaduserimage(uri);
+                    userimage = uri;
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
         }
     }
 
     private  void loaduserimage(Uri image) {
-        Picasso.with(this).load(userimage).into(avatar);
+        Picasso.with(this).load(image).into(avatar);
     }
 
 

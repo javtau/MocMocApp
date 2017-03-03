@@ -173,12 +173,32 @@ public class Buscar_viaje extends Fragment {
     private void cargarCardview() {
 
         rv.removeAllViews();
-            ref.addChildEventListener(new ChildEventListener() {
-                ArrayList<Publicacion> publicaciones = new ArrayList<>();
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
-                    publica = dataSnapshot.getValue(Publicacion.class);
+        ref.addChildEventListener(new ChildEventListener() {
+            ArrayList<Publicacion> publicaciones = new ArrayList<>();
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
+                publica = dataSnapshot.getValue(Publicacion.class);
+                if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
+                    Log.i("se ejecuta","salta en ADDed");
+                    filtrarPublicaciones(publicaciones);
+                    adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                    adapt.notifyDataSetChanged();
+                    rv.setAdapter(adapt);
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.i("se ejecutaCC","salta onChildChanged");
+                Log.i("se ejecutaCC","salta onChildChanged : KEY:"+dataSnapshot.getKey());
+                Log.i("se ejecutaCC","salta onChildChanged : string:"+s);
+
+                publica = dataSnapshot.getValue(Publicacion.class);
+                int pos = getPosition(publicaciones,publica);
+                if(pos>-1){
+                    publicaciones.remove(pos);
                     if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
                         Log.i("se ejecuta","salta en ADDed");
                         filtrarPublicaciones(publicaciones);
@@ -186,59 +206,37 @@ public class Buscar_viaje extends Fragment {
                         adapt.notifyDataSetChanged();
                         rv.setAdapter(adapt);
                     }
-
                 }
+            }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.i("se ejecutaCC","salta onChildChanged");
-                    Log.i("se ejecutaCC","salta onChildChanged : KEY:"+dataSnapshot.getKey());
-                    Log.i("se ejecutaCC","salta onChildChanged : string:"+s);
-
-                    publica = dataSnapshot.getValue(Publicacion.class);
-                    int pos = getPosition(publicaciones,publica);
-                    if(pos>-1){
-                        publicaciones.remove(pos);
-                        if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                            Log.i("se ejecuta","salta en ADDed");
-                            filtrarPublicaciones(publicaciones);
-                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                            adapt.notifyDataSetChanged();
-                            rv.setAdapter(adapt);
-                        }
-                    }
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.i("se ejecutaCC","salta onChildRemoved");
-                    publica = dataSnapshot.getValue(Publicacion.class);
-                    int pos = getPosition(publicaciones,publica);
-
-                            Log.i("se ejecuta","salta en ADDed");
-                            filtrarPublicaciones(publicaciones);
-                            adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
-                            adapt.notifyDataSetChanged();
-                            rv.setAdapter(adapt);
-
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.i("se ejecutaCC","salta onChildMoved");
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.i("se ejecutaCC","salta onChildRemoved");
+                publica = dataSnapshot.getValue(Publicacion.class);
+                int pos = getPosition(publicaciones,publica);
+                if(pos>-1){
+                    publicaciones.remove(pos);
                     adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
                     adapt.notifyDataSetChanged();
                     rv.setAdapter(adapt);
+
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.i("se ejecutaCC","salta onCancelled");
-                    adapt.notifyDataSetChanged();
-                    rv.setAdapter(adapt);
-                }
-            });
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.i("se ejecutaCC","salta onChildMoved");
+                adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
+                adapt.notifyDataSetChanged();
+                rv.setAdapter(adapt);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("se ejecutaCC","salta onCancelled");
+            }
+        });
             /*
         event = new ValueEventListener() {
             @Override
