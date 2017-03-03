@@ -1,19 +1,11 @@
 package com.jjv.proyectointegradorv1.Fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,9 +15,6 @@ import com.jjv.proyectointegradorv1.DB.GestionDB;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
 import com.jjv.proyectointegradorv1.UI.MainActivity;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +25,6 @@ public class ReservarDialog extends Dialog {
     Publicacion pub;
     TextView etConductorNombre, etViajeOrigen, etViajeDestino, etViajePlazas, etViajePrecio;
     TextView etViajeFecha, etViajeHora;
-    RatingBar rateConductor;
-    String sRateConductor = "";
     static Button btnReservar;
     private DatabaseReference mDatabase;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -66,7 +53,6 @@ public class ReservarDialog extends Dialog {
         etViajePrecio = (TextView) findViewById(R.id.tv_precio_res);
         etViajeFecha = (TextView) findViewById(R.id.tv_viaje_fecha_res);
         etViajeHora = (TextView) findViewById(R.id.tv_viaje_hora_res);
-        rateConductor = (RatingBar) findViewById(R.id.rate_conductor);
 
 
         etConductorNombre.setText(pub.getUsuario());
@@ -87,8 +73,6 @@ public class ReservarDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     mDatabase = FirebaseDatabase.getInstance().getReference();
-                    sRateConductor = String.valueOf(rateConductor.getRating());
-                    Toast.makeText(getContext(), sRateConductor, Toast.LENGTH_SHORT).show();
                     //Publicacion viaje = new Publicacion(origen,destino,fecha,hora,plazas,precio);
                     String key = mDatabase.child("posts").push().getKey();
                     String userId = user.getUid();
@@ -112,8 +96,6 @@ public class ReservarDialog extends Dialog {
             });
         }
 
-
-
     public static void gestionarBoton(final ReservarDialog a) {
         btnReservar.setText(R.string.yaReservado);
         btnReservar.setBackgroundResource(R.color.colorGris);
@@ -122,8 +104,6 @@ public class ReservarDialog extends Dialog {
             public void onClick(View v) {
                 MainActivity.selectPage(2);
                 a.cancel();
-
-
             }
         });
     }

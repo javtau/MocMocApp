@@ -44,7 +44,8 @@ public class Mis_viajes extends Fragment  {
     private DatabaseReference dbref;
     private ChildEventListener childEvent;
     private Publicacion publicacion;
-    private ArrayList<Publicacion> publicaciones;
+    private ArrayList<Publicacion>publicacionesbckup;
+
     private Dialog customDialog ;
 
 
@@ -57,7 +58,7 @@ public class Mis_viajes extends Fragment  {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        publicaciones = new ArrayList<>();
+
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
@@ -68,6 +69,7 @@ public class Mis_viajes extends Fragment  {
             listaMisViajes = (ListView) view.findViewById(R.id.listMisViajes);
 
             childEvent = new ChildEventListener() {
+                ArrayList<Publicacion> publicaciones = new ArrayList<>();
 
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -75,10 +77,21 @@ public class Mis_viajes extends Fragment  {
                     publicaciones.add(publicacion);
                     adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
                     listaMisViajes.setAdapter(adapter);
+                    publicacionesbckup = publicaciones;
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    publicacion = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones,publicacion);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        publicaciones.add(pos, publicacion);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        listaMisViajes.setAdapter(adapter);
+                        publicacionesbckup = publicaciones;
+                    }
                     /*publicacion = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones, publicacion);
                     if (pos !=-1) {
@@ -92,6 +105,16 @@ public class Mis_viajes extends Fragment  {
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.i("se ejecutaCC","salta onChildRemoved");
+                    publicacion = dataSnapshot.getValue(Publicacion.class);
+                    int pos = getPosition(publicaciones,publicacion);
+                    if(pos>-1){
+                        publicaciones.remove(pos);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        listaMisViajes.setAdapter(adapter);
+                        publicacionesbckup = publicaciones;
+
+                    }
                     /*publicacion = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones, publicacion);
                     if (pos !=-1) {
@@ -117,7 +140,7 @@ public class Mis_viajes extends Fragment  {
             listaMisViajes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    showDialog(publicaciones.get(position));
+                    showDialog(publicacionesbckup.get(position));
                 }
             });
 

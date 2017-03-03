@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#09534c</color>
     <color name="colorPrimary2">#042623</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#06433d</color>
     <color name="colorAccent">#c83737</color>
     <color name="colorFondo">#fe09534c</color>
     <color name="colorFondooscuro">#052724</color>
@@ -10,5 +10,6 @@
     <color name="colorRojoSuave">#8fc83737</color>
     <color name="colorBlanco">#F3E5D8</color>
     <color name="colorGris">#716f6f</color>
+    <color name="colorItem">#44b6b6b6</color>
 
 </resources>

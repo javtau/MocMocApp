@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="470dp"
     android:background="@android:color/white"
     >
 
@@ -26,7 +26,6 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/appbar_padding_top"
-            android:layout_marginBottom="@dimen/reservar_headers_inf"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -41,13 +40,6 @@
                     app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
                     android:id="@+id/iv_usuario"
                     android:layout_gravity="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
 
                 <TextView
                     android:text="@string/info_cond_nombre"
@@ -60,85 +52,6 @@
                     android:textSize="16sp"
                     android:textAlignment="center"
                     android:textStyle="normal|bold" />
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="3"
-                    android:id="@+id/rate_conductor"
-                    android:isIndicator="false"
-                    android:layout_marginLeft="50dp"
-                    android:layout_weight="1"
-                    android:rating="2"
-                    android:stepSize="0.5" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:text="@string/info_vehiculo"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/appbar_padding_top"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_vehiculo"
-            android:layout_marginBottom="@dimen/reservar_elems_inf"
-            android:textStyle="normal|bold"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/reservar_headers_inf"
-            android:layout_marginTop="@dimen/appbar_padding_top"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <TextView
-                    android:text="@string/info_vehiculo_marca"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:id="@+id/tv_marca"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:text="@string/info_vehiculo_matricula"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:id="@+id/tv_matricula"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:id="@+id/tv_marca_res"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:id="@+id/tv_matricula_res"
-                    android:textAlignment="textEnd" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -146,7 +59,7 @@
         <TextView
             android:text="@string/info_viaje"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/tv_viaje"
             android:textSize="20sp"
             android:layout_marginTop="@dimen/appbar_padding_top"
@@ -156,7 +69,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/appbar_padding_top">
 
             <LinearLayout
@@ -181,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
                     android:id="@+id/tv_viaje_destino"
-                    android:layout_weight="1"
                     android:textAlignment="center" />
 
                 <TextView
@@ -200,7 +112,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_viaje_precio"
                     android:layout_marginBottom="@dimen/reservar_elems_inf"
-                    android:layout_weight="1"
                     android:textAlignment="center" />
 
                 <TextView

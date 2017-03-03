@@ -57,7 +57,7 @@ public class MisViajesDialog extends Dialog {
         etViajePrecio = (TextView) findViewById(R.id.tv_precio_res_misviajes);
         etViajeFecha = (TextView) findViewById(R.id.tv_viaje_fecha_res_misviajes);
         etViajeHora = (TextView) findViewById(R.id.tv_viaje_hora_res_misviajes);
-        rateConductor = (RatingBar) findViewById(R.id.rate_conductor_misviajes);
+
 
 
         etConductorNombre.setText(pub.getUsuario());
