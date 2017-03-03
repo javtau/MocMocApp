@@ -42,7 +42,7 @@ public class Chat extends Fragment {
     private EditText etMensaje;
     private Button btnEnviar;
     private RecyclerView listaMensajes;
-    private ImageButton btnImagen;
+    //private ImageButton btnImagen;
     private ChatAdapter chatAdapter;
 
     @Override
@@ -61,10 +61,10 @@ public class Chat extends Fragment {
         etMensaje = (EditText) v.findViewById(R.id.et_msg);
         btnEnviar = (Button) v.findViewById(R.id.btn_enviar);
         listaMensajes = (RecyclerView) v.findViewById(R.id.lista_msgs);
-        btnImagen = (ImageButton) v.findViewById(R.id.btn_imagen);
+        //btnImagen = (ImageButton) v.findViewById(R.id.btn_imagen);
 
         // asigna un click listener al btnImagen para permitir al usuario seleccionar una imagen
-        btnImagen.setOnClickListener(new View.OnClickListener() {
+        /*btnImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
@@ -72,12 +72,12 @@ public class Chat extends Fragment {
                 i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
                 startActivityForResult(i, SEL_FOTO);
             }
-        });
+        });*/
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MensajeChat msgChat = new MensajeChat(etMensaje.getText().toString(), usuarioLogueado.getEmail());
+                MensajeChat msgChat = new MensajeChat(etMensaje.getText().toString(), usuarioLogueado.getDisplayName());
                 // push mensaje a la bd
                 mRef.push().setValue(msgChat);
                 etMensaje.setText("");
