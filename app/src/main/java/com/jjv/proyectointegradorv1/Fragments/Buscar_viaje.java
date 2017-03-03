@@ -216,7 +216,7 @@ public class Buscar_viaje extends Fragment {
                             rv.setAdapter(adapt);
                         }
                     }
-                    pos=-1;
+
                 }
 
                 @Override
