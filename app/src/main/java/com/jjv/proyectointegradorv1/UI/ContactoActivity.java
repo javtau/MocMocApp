@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +21,15 @@ public class ContactoActivity extends AppCompatActivity {
 
     private EditText etContacto;
     private FloatingActionButton fab;
-
+    private ActionBar actBar;
     String usuarioLogueado, emailLogueado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacto);
+        actBar = getSupportActionBar();
+        actBar.setDisplayHomeAsUpEnabled(true);
 
         usuarioLogueado = getIntent().getStringExtra(MainActivity.FB_USER);
         emailLogueado = getIntent().getStringExtra(MainActivity.FB_EMAIL);

@@ -1,7 +1,9 @@
 package com.jjv.proyectointegradorv1.Adapters;
 
 import android.content.Context;
-import android.text.Layout;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,6 +26,8 @@ public class Publicaciones_Adapter extends BaseAdapter {
     Context contexto;
     ArrayList<Publicacion> publicaciones;
     int layout ;
+    private static StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://logginpi.appspot.com").child("Userimage");;
+    public static final Uri DEFAULTIMAGEURI = Uri.parse("https://firebasestorage.googleapis.com/v0/b/logginpi.appspot.com/o/Userimage%2Fdefault.png?alt=media&token=3791a8b6-c7d0-45fe-b04b-cd0b90ffb6fd");
 
 
     public Publicaciones_Adapter(Context contexto, ArrayList<Publicacion> publicaciones,int layout) {
@@ -44,7 +53,7 @@ public class Publicaciones_Adapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if(convertView==null){
             convertView= LayoutInflater.from(contexto).inflate(layout,null);
             holder = new ViewHolder();
@@ -64,15 +73,7 @@ public class Publicaciones_Adapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-
-        if(layout==R.layout.item_viaje){
-           /* TODO : RECUPERAR LAS IMAGENES
-
-        holder.userImage
-         */
-            holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
-        }
-
+        holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
         holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
@@ -80,7 +81,20 @@ public class Publicaciones_Adapter extends BaseAdapter {
         //holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
         holder.fechaviaje.setText(publicaciones.get(position).getFecha());
 
-
+        storageRef.child(publicaciones.get(position).getIdConductor()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                Log.e("caradapter    ", "resultado recivido del estarage " + uri.toString());
+                Picasso.with(contexto).load(uri).into(holder.userImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Picasso.with(contexto).load(DEFAULTIMAGEURI).into(holder.userImage);
+            }
+        });
 
         return convertView;
     }

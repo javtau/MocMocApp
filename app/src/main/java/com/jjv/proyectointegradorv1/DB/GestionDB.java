@@ -33,6 +33,7 @@ public class GestionDB {
     private DatabaseReference dbref;
     private ChildEventListener childEvent;
     private Publicacion publicacion;
+    private boolean esReservada;
     private DataSnapshot userkeyShot;
     public  ArrayList<Publicacion>publicacionesBusqueda;
 
@@ -214,30 +215,30 @@ public class GestionDB {
     public void deletePubsEnTrip_UserTrip() {
         DatabaseReference ref = database.getReference("user-trips");
         ValueEventListener eventUT = new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                   Log.i("UID USER RECUPERADO:",appleSnapshot.getKey());
-                   DatabaseReference ref = database.getReference("user-trips/"+appleSnapshot.getKey());
-                   Query q = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
-                   ValueEventListener vel = new ValueEventListener() {
-                       @Override
-                       public void onDataChange(DataSnapshot dataSnapshot) {
-                           for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                               Log.i("RESERVA RECUPERADA:",appleSnapshot.getKey());
-                               appleSnapshot.getRef().removeValue();
-                           }
-                       }
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    Log.i("UID USER RECUPERADO:",appleSnapshot.getKey());
+                    DatabaseReference ref = database.getReference("user-trips/"+appleSnapshot.getKey());
+                    Query q = ref.orderByChild("keyViaje").equalTo(pub.getKeyViaje());
+                    ValueEventListener vel = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                Log.i("RESERVA RECUPERADA:",appleSnapshot.getKey());
+                                appleSnapshot.getRef().removeValue();
+                            }
+                        }
 
-                       @Override
-                       public void onCancelled(DatabaseError databaseError) {}
-                   };
-                   q.addListenerForSingleValueEvent(vel);
-               }
-           }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    };
+                    q.addListenerForSingleValueEvent(vel);
+                }
+            }
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         };
         ref.addListenerForSingleValueEvent(eventUT);
         DatabaseReference ref1 = database.getReference("Books");
@@ -248,7 +249,7 @@ public class GestionDB {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                   appleSnapshot.getRef().removeValue();
+                    appleSnapshot.getRef().removeValue();
 
                 }
             }
@@ -257,8 +258,8 @@ public class GestionDB {
             public void onCancelled(DatabaseError databaseError) {
             }
         };
-       query1.addListenerForSingleValueEvent(event);
-       query2.addListenerForSingleValueEvent(event);
+        query1.addListenerForSingleValueEvent(event);
+        query2.addListenerForSingleValueEvent(event);
     }
 
     public void deletePubDeUserEnUserTrip() {
@@ -344,7 +345,7 @@ public class GestionDB {
 
     public void comprobarReserva(final Publicacion publi, final ReservarDialog a) {
         //Si el usuario ya ha reservado este viaje , no podra reservar mas
-
+        esReservada=false;
         publicacionesBusqueda = new ArrayList<>();
 
         DatabaseReference ref = database.getReference("user-trips/"+user.getUid());
@@ -366,3 +367,4 @@ public class GestionDB {
         });
     }
 }
+

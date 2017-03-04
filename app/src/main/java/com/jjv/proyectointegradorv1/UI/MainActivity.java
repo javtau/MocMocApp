@@ -1,9 +1,11 @@
 package com.jjv.proyectointegradorv1.UI;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -24,17 +26,24 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.Gravity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.jjv.proyectointegradorv1.Fragments.Buscar_viaje;
 import com.jjv.proyectointegradorv1.Fragments.Chat;
 import com.jjv.proyectointegradorv1.Fragments.Mis_viajes;
 import com.jjv.proyectointegradorv1.Fragments.Publicar_viaje;
 import com.jjv.proyectointegradorv1.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String FB_USER = "fireBaseUsuarioLogueado";
     public static final String FB_EMAIL = "fireBaseEmailLogueado";
+    public static final String FB_AVATAR = "avatar";
+    public static final Uri DEFAULTIMAGEURI = Uri.parse("https://firebasestorage.googleapis.com/v0/b/logginpi.appspot.com/o/Userimage%2Fdefault.png?alt=media&token=3791a8b6-c7d0-45fe-b04b-cd0b90ffb6fd");
+    public static final int EDITPROFILE = 22;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -54,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     //variables usadas para el control de usuario
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private String usuarioLogueado, emailLogueado;
+    private String usuarioLogueado, emailLogueado, uidlogueado;
+    private Uri userimage;
 
     // variables para el panel lateral
     private DrawerLayout mDrawerLayout;
@@ -73,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
     private final List<String> mFragmentTitleList = new ArrayList<>();
     private SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+    /// variables para fireba storage
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReferenceFromUrl("gs://logginpi.appspot.com").child("Userimage");
+    private Uri useruribck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,10 +182,25 @@ public class MainActivity extends AppCompatActivity {
 
             usuarioLogueado = usuario.getDisplayName();
             emailLogueado = usuario.getEmail();
-
-            // TODO: asignar foto de usuario al panel lateral
+            uidlogueado = usuario.getUid();
+            userimage = usuario.getPhotoUrl();
+            storageRef.child(uidlogueado).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    loaduserimage(uri);
+                    userimage = uri;
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    userimage = DEFAULTIMAGEURI;
+                }
+            });
             tvLatUsuario.setText(mAuth.getCurrentUser().getDisplayName());
             tvLatEmail.setText(mAuth.getCurrentUser().getEmail());
+            loaduserimage(userimage);
             //avatar.setImageDrawable();
         }
         // *** esto está por razones de seguridad pero se supone que nunca deberia hacer esto
@@ -186,7 +219,8 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.drawer_perfil:
                         Intent i = new Intent(MainActivity.this, PerfilActivity.class);
-                        startActivity(i);
+                        i.putExtra(FB_AVATAR,userimage.toString());
+                        startActivityForResult(i,EDITPROFILE);
                         break;
                     case R.id.drawer_contacto:
                         Intent j = new Intent(MainActivity.this, ContactoActivity.class);
@@ -228,6 +262,41 @@ public class MainActivity extends AppCompatActivity {
         /*************************************/
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == Activity.RESULT_OK) {
+
+            if (requestCode == EDITPROFILE){
+                Uri uri = Uri.parse(data.getStringExtra(FB_AVATAR));
+                loaduserimage(uri);
+                userimage = uri;
+                }
+        } else{
+            super.onActivityResult(requestCode, resultCode, data);
+            storageRef.child(uidlogueado).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    loaduserimage(uri);
+                    userimage = uri;
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+        }
+    }
+
+    private  void loaduserimage(Uri image) {
+        Picasso.with(this).load(image).into(avatar);
+    }
+
+
+
 
     private Dialog crearDialogo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
