@@ -1,22 +1,14 @@
 package com.jjv.proyectointegradorv1.Fragments;
 
-
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.jjv.proyectointegradorv1.Adapters.ChatAdapter;
 import com.jjv.proyectointegradorv1.Adapters.Publicaciones_Adapter;
-import com.jjv.proyectointegradorv1.Objects.MensajeChat;
 import com.jjv.proyectointegradorv1.Objects.Publicacion;
 import com.jjv.proyectointegradorv1.R;
 import com.jjv.proyectointegradorv1.UI.ConversacionChat;
@@ -40,7 +30,7 @@ import java.util.ArrayList;
  */
 
 public class Chat extends Fragment {
-    private static final String KEY_PUB ="KEY_DE_PUBLICACION";
+    public  static final String KEY_PUB ="KEY_DE_PUBLICACION";
     private FirebaseUser user;
     private ListView listaMisViajes;
     private Publicaciones_Adapter adapter;

@@ -1,6 +1,8 @@
 package com.jjv.proyectointegradorv1.Fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -74,6 +77,11 @@ public class Publicar_viaje extends Fragment {
         txt_fecha.setText(currentDate);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, plazas);
         sp_plazas.setAdapter(adapter);
+
+        setFocuListener(txt_origen);
+        setFocuListener(txt_destino);
+        setFocuListener(txt_precio);
+
         //Atendemos al evento de que se pulse el campo de la fecha
         txt_fecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +99,7 @@ public class Publicar_viaje extends Fragment {
                 if (txt_fecha.isFocused()) {
                     DatepickerFragment newFragment = new DatepickerFragment();
                     newFragment.show(getFragmentManager(), "datePicker");
+                    txt_fecha.clearFocus();
                 }
             }
         });
@@ -111,6 +120,7 @@ public class Publicar_viaje extends Fragment {
                 if (txt_hora.isFocused()) {
                     DialogFragment newFragment = new TimepickerFragment();
                     newFragment.show(getFragmentManager(), "timePicker");
+                    txt_hora.clearFocus();
                 }
             }
         });
@@ -124,6 +134,7 @@ public class Publicar_viaje extends Fragment {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String origen = txt_origen.getText().toString();
                 String destino = txt_destino.getText().toString();
+
                 String fecha = txt_fecha.getText().toString();
                 String hora = txt_hora.getText().toString();
                 int plazas =  sp_plazas.getSelectedItemPosition()+1;
@@ -166,6 +177,22 @@ public class Publicar_viaje extends Fragment {
         rotar= AnimationUtils.loadAnimation(getContext(),R.anim.rotar);
         fab.setAnimation(rotar);
 
+    }
+
+    private void setFocuListener(final TextView tv) {
+        View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                esconderTecladoDe(getContext(), tv);
+            }
+        };
+
+        tv.setOnFocusChangeListener(focusListener);
+    }
+
+    public static void esconderTecladoDe(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

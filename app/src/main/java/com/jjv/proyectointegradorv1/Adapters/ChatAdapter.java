@@ -61,10 +61,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
         // bind
         public void bind(MensajeChat msgChat){
-            tvNombre.setText(msgChat.getMsgEmisor());
-            tvMensaje.setVisibility(View.VISIBLE);
+            tvNombre.setText(String.format("%s: ", msgChat.getMsgEmisor()));
             tvMensaje.setText(msgChat.getMsgTexto());
-            tvHora.setText(msgChat.getMsgHora());
+            tvHora.setText(String.format("(%s)", msgChat.getMsgHora()));
         }
     }
 }
