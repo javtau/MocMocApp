@@ -1,6 +1,7 @@
 package com.jjv.proyectointegradorv1.Adapters;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,13 @@ public class Publicaciones_Adapter extends BaseAdapter {
 
     Context contexto;
     ArrayList<Publicacion> publicaciones;
+    int layout ;
 
 
-    public Publicaciones_Adapter(Context contexto, ArrayList<Publicacion> publicaciones) {
+    public Publicaciones_Adapter(Context contexto, ArrayList<Publicacion> publicaciones,int layout) {
         this.contexto = contexto;
         this.publicaciones = publicaciones;
+        this.layout=layout;
     }
 
     @Override
@@ -43,10 +46,12 @@ public class Publicaciones_Adapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView==null){
-            convertView= LayoutInflater.from(contexto).inflate(R.layout.item_viaje,null);
+            convertView= LayoutInflater.from(contexto).inflate(layout,null);
             holder = new ViewHolder();
-            holder.userImage = (ImageView) convertView.findViewById(R.id.userImage);
-            holder.nombreUsuario= (TextView) convertView.findViewById(R.id.txt_userName);
+            if(layout==R.layout.item_viaje){
+                holder.userImage = (ImageView) convertView.findViewById(R.id.userImage);
+                holder.nombreUsuario= (TextView) convertView.findViewById(R.id.txt_userName);
+            }
             holder.origenViaje= (TextView) convertView.findViewById(R.id.txt_origen_usr);
             holder.destinoViaje= (TextView) convertView.findViewById(R.id.txt_destino_viaje);
             holder.precioViaje= (TextView) convertView.findViewById(R.id.txt_precio_viaje);
@@ -59,7 +64,15 @@ public class Publicaciones_Adapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
+
+        if(layout==R.layout.item_viaje){
+           /* TODO : RECUPERAR LAS IMAGENES
+
+        holder.userImage
+         */
+            holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
+        }
+
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
         holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
@@ -67,10 +80,7 @@ public class Publicaciones_Adapter extends BaseAdapter {
         //holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
         holder.fechaviaje.setText(publicaciones.get(position).getFecha());
 
-        /* TODO : RECUPERAR LAS IMAGENES
 
-        holder.userImage
-         */
 
         return convertView;
     }

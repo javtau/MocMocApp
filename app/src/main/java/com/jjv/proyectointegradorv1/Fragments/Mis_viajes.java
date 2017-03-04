@@ -75,7 +75,7 @@ public class Mis_viajes extends Fragment  {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     publicacion = dataSnapshot.getValue(Publicacion.class);
                     publicaciones.add(publicacion);
-                    adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                    adapter = new Publicaciones_Adapter(view.getContext(), publicaciones,R.layout.item_viaje);
                     listaMisViajes.setAdapter(adapter);
                     publicacionesbckup = publicaciones;
                 }
@@ -88,7 +88,7 @@ public class Mis_viajes extends Fragment  {
                     if(pos>-1){
                         publicaciones.remove(pos);
                         publicaciones.add(pos, publicacion);
-                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones,R.layout.item_viaje);
                         listaMisViajes.setAdapter(adapter);
                         publicacionesbckup = publicaciones;
                     }
@@ -110,7 +110,7 @@ public class Mis_viajes extends Fragment  {
                     int pos = getPosition(publicaciones,publicacion);
                     if(pos>-1){
                         publicaciones.remove(pos);
-                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
+                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones,R.layout.item_viaje);
                         listaMisViajes.setAdapter(adapter);
                         publicacionesbckup = publicaciones;
 
