@@ -18,7 +18,6 @@ import com.jjv.proyectointegradorv1.UI.MainActivity;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: CARGAR IMAGEN DE USUARIO --- IMPLEMENTAR BOTON RESERVAR -- IMPLEMENTAR ESTRELLAS VALORACION
 
 public class ReservarDialog extends Dialog {
 

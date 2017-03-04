@@ -84,5 +84,7 @@
     <string name="nick_chat">Chateando como:</string>
     <string name="chat_hint">Escribe tu mensaje</string>
     <string name="yaReservado">¡VIAJE YA RESERVADO!</string>
+    <string name="mensajeParaEnviarnos">Escribe algún mensaje para mandarnos</string>
+    <string name="mensajeConfirmacion">Mensaje enviado, ¡Gracias!</string>
 
 </resources>

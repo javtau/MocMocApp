@@ -37,8 +37,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-// TODO: CARGAR IMAGEN DE USUARIO --- IMPLEMENTAR BOTON RESERVAR -- IMPLEMENTAR ESTRELLAS VALORACION
-
 public class MisViajesDialog extends Dialog {
 
     Publicacion pub;

@@ -28,8 +28,6 @@ import java.util.TimeZone;
 
 public class ConversacionChat extends AppCompatActivity {
 
-    public static final String TAG = "Chat";
-
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
     private FirebaseUser usuarioLogueado;
@@ -54,18 +52,7 @@ public class ConversacionChat extends AppCompatActivity {
         etMensaje = (EditText) findViewById(R.id.et_msg);
         btnEnviar = (Button) findViewById(R.id.btn_enviar);
         listaMensajes = (RecyclerView) findViewById(R.id.lista_msgs);
-        //btnImagen = (ImageButton) v.findViewById(R.id.btn_imagen);
 
-        // asigna un click listener al btnImagen para permitir al usuario seleccionar una imagen
-        /*btnImagen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.setType("image/jpeg");
-                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(i, SEL_FOTO);
-            }
-        });*/
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override

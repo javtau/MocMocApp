@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.jjv.proyectointegradorv1.R;
 
 public class Loggin extends AppCompatActivity {
-    public static final String TAG = MainActivity.class.getSimpleName();
+
     private static final String ERROR_PWD_INCORRECTA = "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The password is invalid or the user does not have a password.";
     private static final String ERROR_MAIL_NO_EXISTENTE = "com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.";
     private static final String ERROR_USR_INCORRECTO = "com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.";

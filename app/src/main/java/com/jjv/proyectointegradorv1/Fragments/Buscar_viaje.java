@@ -173,10 +173,8 @@ public class Buscar_viaje extends Fragment {
                 ArrayList<Publicacion> publicaciones = new ArrayList<>();
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.i("se ejecutaCC","salta onChildAdded"+dataSnapshot.getKey());
                     publica = dataSnapshot.getValue(Publicacion.class);
                     if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                        Log.i("se ejecuta","salta en ADDed");
                         filtrarPublicaciones(publicaciones);
                         adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
                         adapt.notifyDataSetChanged();
@@ -187,16 +185,12 @@ public class Buscar_viaje extends Fragment {
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.i("se ejecutaCC","salta onChildChanged");
-                    Log.i("se ejecutaCC","salta onChildChanged : KEY:"+dataSnapshot.getKey());
-                    publica = dataSnapshot.getValue(Publicacion.class);
+                  publica = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones,publica);
-                    Log.i("se ejecutaCC","salta onChildChanged : POSICION:"+pos);
                     if(pos!=-1){
                         publicaciones.remove(pos);
 
                             if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                                Log.i("se ejecuta","salta en ADDed");
                                 filtrarPublicaciones(publicaciones);
                                 adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
                                 adapt.notifyDataSetChanged();
@@ -209,7 +203,6 @@ public class Buscar_viaje extends Fragment {
 
                     }else{
                         if (publica.getPlazas() > 0 && !publica.getIdConductor().equals(currentUser.getUid())) {
-                            Log.i("se ejecuta","salta en ADDed");
                             filtrarPublicaciones(publicaciones);
                             adapt = new Publicaciones_RV_adapter(publicaciones, listenerRv);
                             adapt.notifyDataSetChanged();

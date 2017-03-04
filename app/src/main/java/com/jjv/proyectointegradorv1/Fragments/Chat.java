@@ -54,8 +54,6 @@ public class Chat extends Fragment {
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
-            Log.i("NOMBRE USR:", user.getDisplayName());
-            Log.i("UID USR:", user.getUid());
             dbref = database.getReference("user-trips/" + user.getUid());
 
             listaMisViajes = (ListView) view.findViewById(R.id.listMisViajes);
@@ -84,20 +82,11 @@ public class Chat extends Fragment {
                         listaMisViajes.setAdapter(adapter);
                         publicacionesbckup = publicaciones;
                     }
-                    /*publicacion = dataSnapshot.getValue(Publicacion.class);
-                    int pos = getPosition(publicaciones, publicacion);
-                    if (pos !=-1) {
-                        publicaciones.remove(pos);
-                        publicaciones.add(pos, publicacion);
-                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
-                        listaMisViajes.setAdapter(adapter);
-                    }*/
 
                 }
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.i("se ejecutaCC","salta onChildRemoved");
                     publicacion = dataSnapshot.getValue(Publicacion.class);
                     int pos = getPosition(publicaciones,publicacion);
                     if(pos>-1){
@@ -107,13 +96,6 @@ public class Chat extends Fragment {
                         publicacionesbckup = publicaciones;
 
                     }
-                    /*publicacion = dataSnapshot.getValue(Publicacion.class);
-                    int pos = getPosition(publicaciones, publicacion);
-                    if (pos !=-1) {
-                        publicaciones.remove(pos);
-                        adapter = new Publicaciones_Adapter(view.getContext(), publicaciones);
-                        listaMisViajes.setAdapter(adapter);
-                    }*/
 
                 }
 

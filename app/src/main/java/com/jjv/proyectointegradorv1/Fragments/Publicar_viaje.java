@@ -41,7 +41,6 @@ import java.util.Map;
 
 public class Publicar_viaje extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
     String[] plazas = {"1", "2", "3", "4"};
     TextView txt_origen, txt_destino, txt_fecha, txt_hora, txt_precio;
     Spinner sp_plazas;

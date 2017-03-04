@@ -17,7 +17,7 @@ import com.jjv.proyectointegradorv1.R;
 
 public class ContactoActivity extends AppCompatActivity {
 
-    private String EMAIL_SUBJ = "";
+
     private EditText etContacto;
     private FloatingActionButton fab;
 
@@ -51,7 +51,7 @@ public class ContactoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(etContacto.equals("")){
-                    Toast.makeText(ContactoActivity.this, "Escribe algún mensaje para mandarnos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ContactoActivity.this, R.string.mensajeParaEnviarnos, Toast.LENGTH_SHORT).show();
                 }else{
                     Intent mandarEmail = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                             "mailto", "jjvuem@gmail.com", null));
@@ -59,7 +59,7 @@ public class ContactoActivity extends AppCompatActivity {
                     mandarEmail.putExtra(Intent.EXTRA_SUBJECT, "MSG::" + usuarioLogueado + "::" + emailLogueado);
                     mandarEmail.putExtra(Intent.EXTRA_TEXT, etContacto.getText().toString());
                     startActivity(Intent.createChooser(mandarEmail, "Mandar el mail con:"));
-                    Toast.makeText(ContactoActivity.this, "Mensaje enviado, ¡Gracias!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ContactoActivity.this, R.string.mensajeConfirmacion, Toast.LENGTH_SHORT).show();
                     etContacto.setText("");
                     finish();
                 }
