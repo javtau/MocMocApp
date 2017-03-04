@@ -31,12 +31,15 @@
             android:label="@string/activiti3_name"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Splash" />
-        <activity android:name=".UI.PerfilActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/perfil"/>
-        <activity android:name=".UI.ContactoActivity"
+        <activity
+            android:name=".UI.PerfilActivity"
+            android:label="@string/perfil"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.ContactoActivity"
             android:label="@string/contacto"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.ConversacionChat"></activity>
     </application>
 
 </manifest>
