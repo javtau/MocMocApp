@@ -70,6 +70,7 @@ public class Publicar_viaje extends Fragment {
         sp_plazas = (Spinner) view.findViewById(R.id.sp_plazas);
 
 
+
         txt_hora.setText(currentTime);
         txt_fecha.setText(currentDate);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, plazas);

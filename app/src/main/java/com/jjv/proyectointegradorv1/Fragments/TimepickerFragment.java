@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -30,6 +31,7 @@ public class TimepickerFragment extends DialogFragment implements TimePickerDial
         int minute = c.get(Calendar.MINUTE);
 
         // creamos una nueva instancia con la hora actual y la devolvemos
+
         return new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
     }
@@ -41,10 +43,12 @@ public class TimepickerFragment extends DialogFragment implements TimePickerDial
         TextView tv1= (TextView) getActivity().findViewById(R.id.txt_hora);
         String hora = hourOfDay>9 ? ""+hourOfDay:"0"+hourOfDay;
         String minutos = minute>9 ? ""+minute:"0"+minute;
-        tv1.setText(hora+":"+minutos);
-
+        StringBuilder sb = new StringBuilder();
+        sb.append(hora);
+        sb.append(":");
+        sb.append(minutos);
+        tv1.setText(sb);
     }
-
 
 
 

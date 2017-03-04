@@ -40,7 +40,7 @@ import java.util.ArrayList;
  */
 
 public class Chat extends Fragment {
-    private static final String KEY_PUB ="KEY_DE_PUBLICACION";
+    public static final String KEY_PUB ="KEY_DE_PUBLICACION";
     private FirebaseUser user;
     private ListView listaMisViajes;
     private Publicaciones_Adapter adapter;

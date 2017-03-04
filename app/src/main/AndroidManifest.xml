@@ -8,6 +8,8 @@
         android:label="@string/nombre_aplicacion"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
 
         <!-- NoActionBar porque usamos un ToolBar -->
@@ -16,11 +18,7 @@
             android:label="@string/activiti1_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".UI.Loggin"
@@ -30,7 +28,6 @@
             android:name=".UI.register"
             android:label="@string/activiti3_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Splash" />
         <activity
             android:name=".UI.PerfilActivity"
             android:label="@string/perfil"
@@ -39,7 +36,14 @@
             android:name=".UI.ContactoActivity"
             android:label="@string/contacto"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.ConversacionChat"></activity>
+        <activity android:name=".UI.ConversacionChat" />
+        <activity android:name=".UI.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
