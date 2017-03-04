@@ -1,11 +1,5 @@
 package com.jjv.proyectointegradorv1.Objects;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
 /**
  * Created by javi on 19/02/17.
  */
@@ -58,14 +52,5 @@ public class MensajeChat {
     public void setMsgEmail(String msgEmail) {
         this.msgEmail = msgEmail;
     }
-
-    public String formatearHora(long hora){
-        String horaFormateada;
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-        cal.setTimeInMillis(hora);
-
-        horaFormateada = String.format("%02d:%02d", cal.get(Calendar.HOUR_OF_DAY) + 1, cal.get(Calendar.MINUTE));
-        return horaFormateada;
-    }
 }
+
