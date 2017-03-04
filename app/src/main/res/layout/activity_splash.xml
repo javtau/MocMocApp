@@ -5,28 +5,11 @@
     android:id="@+id/activity_main2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_fill">
+    android:background="@color/colorPrimary2">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imgv_division_izquierda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/division_izquierda"
-            android:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/imgv_division_derecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/division_derecha" />
 
         <ImageView
             android:id="@+id/imgv_techo"
@@ -37,120 +20,67 @@
             android:src="@drawable/techo" />
 
         <ImageView
-            android:id="@+id/imgv_luna_frontal"
+            android:id="@+id/imgv_izquierda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/luna_frontal" />
-
+            android:src="@drawable/izquierda"
+            android:visibility="visible" />
 
         <ImageView
-            android:id="@+id/imgv_luna_trasera"
+            android:id="@+id/imgv_derecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/luna_trasera" />
-
-
-
+            android:src="@drawable/derecha" />
 
         <ImageView
-            android:id="@+id/imgv_capo"
+            android:id="@+id/imgv_detantera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/capo" />
+            android:src="@drawable/detantera" />
+
 
         <ImageView
-            android:id="@+id/imgv_maletero"
+            android:id="@+id/imgv_trasera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/maletero" />
+            android:src="@drawable/trasera" />
 
-        <ImageView
-            android:id="@+id/imgv_lateral_derecho"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/lateral_deracho" />
+            android:layout_marginTop="80dp">
 
-        <ImageView
-            android:id="@+id/imgv_lateral_izquierdo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/lateral_izquierdo" />
+            <ImageView
+                android:id="@+id/ivbocina_circulo"
+                android:layout_width="197dp"
+                android:layout_height="178dp"
+                android:src="@drawable/bocina_circulo" />
+            <ImageView
+                android:id="@+id/ivbocina_cono"
+                android:layout_width="match_parent"
+                android:layout_height="301dp"
+                android:layout_marginLeft="6dp"
+                android:src="@drawable/bocina_cono" />
+            <ImageView
+                android:id="@+id/ivparantesis"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:src="@drawable/parentesisp" />
 
-        <ImageView
-            android:id="@+id/imgv_aleta_frontal_derecho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/aleta_frontal_derecho" />
-
-        <ImageView
-            android:id="@+id/imgv_aleta_frontal_izquierda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/aleta_frontal_izquierda" />
-
-        <ImageView
-            android:id="@+id/imgv_aleta_trasera_derecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/aleta_trasera_derecha" />
-
-        <ImageView
-            android:id="@+id/imgv_aleta_trasera_izquierda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/aleta_trasera_izquierda" />
-
-        <ImageView
-            android:id="@+id/imgv_retrovisor_derecho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/retrovisor_derecho" />
-
-        <ImageView
-            android:id="@+id/imgv_retrovisor_izquierdo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/retrovisor_izquierdo" />
-
-        <ImageView
-            android:id="@+id/imgv_luna_derecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/luna_derecha" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/luna_izquierda"
-            android:id="@+id/imgv_luna_izquierda" />
-
-
+            <ImageView
+                android:id="@+id/ivmocs"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/mocsup" />
+        </FrameLayout>
     </FrameLayout>
 
 
