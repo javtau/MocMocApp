@@ -156,9 +156,7 @@ public class PerfilActivity extends AppCompatActivity {
         if (selectedImageUri != null) {
             sendFileFirebase(storageRef, selectedImageUri);
             imgView.setImageURI(selectedImageUri);
-            Log.e("rutasss", "       " + selectedImageUri);
-
-        } else {
+         } else {
             //IS NULL
         }
 
@@ -169,7 +167,6 @@ public class PerfilActivity extends AppCompatActivity {
 
         if (filePathImageCamera != null && filePathImageCamera.exists()) {
             Uri ImageUri = Uri.fromFile(filePathImageCamera);
-            Log.e("rutasss", filePathImageCamera.toString() + "       " + ImageUri);
             imgView.setImageURI(ImageUri);
             sendFileFirebase(storageRef, ImageUri);
         } else {
@@ -184,15 +181,11 @@ public class PerfilActivity extends AppCompatActivity {
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.e(TAG, "onFailure sendFileFirebase " + e.getMessage());
-
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.i(TAG, "onSuccess sendFileFirebase");
                     downlodUrl = taskSnapshot.getDownloadUrl();
-                    Log.d("uploadefd URIIMAGE", downlodUrl.toString());
                     mainactivityIntent.putExtra(MainActivity.FB_AVATAR, downlodUrl.toString());
                     setResult(-1, mainactivityIntent);
                     /*Map<String, Object> map = new HashMap<String, Object>();
@@ -216,7 +209,6 @@ public class PerfilActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //mainactivityIntent.putExtra(MainActivity.FB_AVATAR,downlodUrl.toString());
             //setResult(-1, mainactivityIntent);
-            Log.e(TAG, "resultado a enviarrrrr " + Activity.RESULT_OK + "  " + downlodUrl.toString());
             FirebaseUser user = mAuth.getCurrentUser();
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setPhotoUri(downlodUrl).build();
@@ -228,18 +220,7 @@ public class PerfilActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        //mainactivityIntent.putExtra(MainActivity.FB_AVATAR,downlodUrl.toString());
-        //setResult(-1, mainactivityIntent);
-        Log.e(TAG, "resultado a enviarrrrr "+Activity.RESULT_OK+"  "+downlodUrl.toString());
-        FirebaseUser user = mAuth.getCurrentUser();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setPhotoUri(downlodUrl).build();
-        user.updateProfile(profileUpdates);
 
-    }*/
 
     public static class Utility {
         public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;

@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Uri uri) {
                     // Got the download URL for 'users/me/profile.png'
-                    Log.e(TAG, "resultado recivido del estarage " + uri.toString());
                     loaduserimage(uri);
                     userimage = uri;
                 }
@@ -199,8 +198,6 @@ public class MainActivity extends AppCompatActivity {
                     userimage = DEFAULTIMAGEURI;
                 }
             });
-            Log.e("User imagen ",userimage.toString());
-            // TODO: asignar foto de usuario al panel lateral
             tvLatUsuario.setText(mAuth.getCurrentUser().getDisplayName());
             tvLatEmail.setText(mAuth.getCurrentUser().getEmail());
             loaduserimage(userimage);
@@ -222,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.drawer_perfil:
                         Intent i = new Intent(MainActivity.this, PerfilActivity.class);
-                        Log.e("sedeeee", userimage.toString());
                         i.putExtra(FB_AVATAR,userimage.toString());
                         startActivityForResult(i,EDITPROFILE);
                         break;
@@ -276,16 +272,13 @@ public class MainActivity extends AppCompatActivity {
                 Uri uri = Uri.parse(data.getStringExtra(FB_AVATAR));
                 loaduserimage(uri);
                 userimage = uri;
-                Log.e(TAG, "resultado recivido " + uri.toString());
-            }
+                }
         } else{
-            Log.e(TAG, "resultado recivido resullllllllllllllllllll "+requestCode+"  "+resultCode+"  "+Activity.RESULT_OK);
             super.onActivityResult(requestCode, resultCode, data);
             storageRef.child(uidlogueado).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     // Got the download URL for 'users/me/profile.png'
-                    Log.e(TAG, "resultado recivido del estarage " + uri.toString());
                     loaduserimage(uri);
                     userimage = uri;
                 }
