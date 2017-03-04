@@ -46,27 +46,29 @@ public class PerfilActivity extends AppCompatActivity {
     public static final String FOLDER_STORAGE_IMG = "Userimage";
     private static final int CAPTURE_IMAGE = 10;
     private static final int PICK_IMAGE = 20;
-    private static final String TAG = PerfilActivity.class.getSimpleName() ;
+    private static final String TAG = PerfilActivity.class.getSimpleName();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl(URL_STORAGE_REFERENCE).child(FOLDER_STORAGE_IMG);
     private ActionBar actBar;
     private CircleImageView imgView;
     private FirebaseAuth mAuth;
-    private Uri downlodUrl ;
+    private Uri downlodUrl;
     private Uri userimage;
     private File filePathImageCamera;
     private Intent mainactivityIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        mainactivityIntent =getIntent();
+        mainactivityIntent = getIntent();
         userimage = Uri.parse(mainactivityIntent.getStringExtra(MainActivity.FB_AVATAR));
         downlodUrl = userimage;
-        Log.e("uri recivida:  ",userimage.toString());
+        mAuth = FirebaseAuth.getInstance();
+
         actBar = getSupportActionBar();
-        //getSupportActionBar().setTitle(null);
+        actBar.setDisplayHomeAsUpEnabled(true);
         actBar.setTitle(getString(R.string.perfil));
         imgView = (CircleImageView) findViewById(R.id.rimg_userimage);
         Picasso.with(this).load(userimage).into(imgView);
@@ -76,11 +78,13 @@ public class PerfilActivity extends AppCompatActivity {
                 showImagePicker();
             }
         });
-        mAuth = FirebaseAuth.getInstance();
-        actBar.setDisplayHomeAsUpEnabled(true);
+
 
     }
 
+
+    // Mostramos un dialogo para dara elgir entre seleccionar la imagen de la galeria
+    // o hacer una foto desde la camara
     private void showImagePicker() {
         final Dialog picker = new Dialog(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -114,6 +118,7 @@ public class PerfilActivity extends AppCompatActivity {
         picker.show();
     }
 
+    //Iniciamos un nuevo intent que nos abrira la camara
     private void cameraIntent() {
         String nomeFoto = mAuth.getCurrentUser().getUid();
         filePathImageCamera = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), nomeFoto + ".jpg");
@@ -129,7 +134,6 @@ public class PerfilActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, getString(R.string.selectPicture)), PICK_IMAGE);
     }
-
 
 
     @Override
@@ -152,7 +156,7 @@ public class PerfilActivity extends AppCompatActivity {
         if (selectedImageUri != null) {
             sendFileFirebase(storageRef, selectedImageUri);
             imgView.setImageURI(selectedImageUri);
-            Log.e("rutasss","       "+selectedImageUri);
+            Log.e("rutasss", "       " + selectedImageUri);
 
         } else {
             //IS NULL
@@ -164,8 +168,8 @@ public class PerfilActivity extends AppCompatActivity {
     private void onCaptureImageResult(Intent data) {
 
         if (filePathImageCamera != null && filePathImageCamera.exists()) {
-            Uri ImageUri =  Uri.fromFile(filePathImageCamera);
-            Log.e("rutasss",filePathImageCamera.toString()+"       "+ImageUri);
+            Uri ImageUri = Uri.fromFile(filePathImageCamera);
+            Log.e("rutasss", filePathImageCamera.toString() + "       " + ImageUri);
             imgView.setImageURI(ImageUri);
             sendFileFirebase(storageRef, ImageUri);
         } else {
@@ -173,7 +177,7 @@ public class PerfilActivity extends AppCompatActivity {
         }
     }
 
-    public  void sendFileFirebase(StorageReference storageReference, final Uri file) {
+    public void sendFileFirebase(StorageReference storageReference, final Uri file) {
         if (storageReference != null) {
             final String name = mAuth.getCurrentUser().getUid();
             UploadTask uploadTask = storageReference.child(name).putFile(file);
@@ -189,7 +193,7 @@ public class PerfilActivity extends AppCompatActivity {
                     Log.i(TAG, "onSuccess sendFileFirebase");
                     downlodUrl = taskSnapshot.getDownloadUrl();
                     Log.d("uploadefd URIIMAGE", downlodUrl.toString());
-                    mainactivityIntent.putExtra(MainActivity.FB_AVATAR,downlodUrl.toString());
+                    mainactivityIntent.putExtra(MainActivity.FB_AVATAR, downlodUrl.toString());
                     setResult(-1, mainactivityIntent);
                     /*Map<String, Object> map = new HashMap<String, Object>();
                     temp_key = root.push().getKey();
@@ -212,7 +216,7 @@ public class PerfilActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //mainactivityIntent.putExtra(MainActivity.FB_AVATAR,downlodUrl.toString());
             //setResult(-1, mainactivityIntent);
-            Log.e(TAG, "resultado a enviarrrrr "+Activity.RESULT_OK+"  "+downlodUrl.toString());
+            Log.e(TAG, "resultado a enviarrrrr " + Activity.RESULT_OK + "  " + downlodUrl.toString());
             FirebaseUser user = mAuth.getCurrentUser();
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setPhotoUri(downlodUrl).build();

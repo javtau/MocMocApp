@@ -53,34 +53,7 @@
             android:layout_alignParentTop="true"
             android:src="@drawable/trasera" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp">
 
-            <ImageView
-                android:id="@+id/ivbocina_circulo"
-                android:layout_width="197dp"
-                android:layout_height="178dp"
-                android:src="@drawable/bocina_circulo" />
-            <ImageView
-                android:id="@+id/ivbocina_cono"
-                android:layout_width="match_parent"
-                android:layout_height="301dp"
-                android:layout_marginLeft="6dp"
-                android:src="@drawable/bocina_cono" />
-            <ImageView
-                android:id="@+id/ivparantesis"
-                android:layout_width="match_parent"
-                android:layout_height="74dp"
-                android:src="@drawable/parentesisp" />
-
-            <ImageView
-                android:id="@+id/ivmocs"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/mocsup" />
-        </FrameLayout>
     </FrameLayout>
 
 

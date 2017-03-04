@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jjv.proyectointegradorv1">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -8,6 +9,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/nombre_aplicacion"
+        android:largeHeap="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -18,11 +20,7 @@
             android:label="@string/activiti1_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".UI.Loggin"
@@ -32,15 +30,27 @@
             android:name=".UI.register"
             android:label="@string/activiti3_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Splash" />
-        <activity android:name=".UI.PerfilActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".UI.PerfilActivity"
             android:label="@string/perfil"
-            android:parentActivityName=".UI.MainActivity"/>
-        <activity android:name=".UI.ContactoActivity"
+            android:parentActivityName=".UI.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.ContactoActivity"
             android:label="@string/contacto"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".UI.MainActivity"></activity>
+            android:parentActivityName=".UI.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.SplashActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"
+
+                    android:screenOrientation="portrait"
+                    android:theme="@style/AppTheme.NoActionBar"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

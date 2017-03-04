@@ -1,18 +1,18 @@
 package com.jjv.proyectointegradorv1.UI;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.jjv.proyectointegradorv1.R;
+import com.jjv.proyectointegradorv1.UI.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
-
     private ImageView techo, imgv_derecha, imgv_delantera, imgv_trasera, imgv_izquierda;
     private Animation anim_salir;
     @Override
@@ -101,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashActivity
-                        .this, Loggin.class);
+                        .this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -110,3 +110,4 @@ public class SplashActivity extends AppCompatActivity {
 
 
 }
+

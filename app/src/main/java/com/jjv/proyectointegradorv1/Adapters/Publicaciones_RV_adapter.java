@@ -58,20 +58,8 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
         //holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
         holder.horaViaje.setText(publicaciones.get(position).getHora());
         holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
-        /*storageRef.child(publicaciones.get(position).getIdConductor()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                Log.e("caradapter    ", "resultado recivido del estarage " + uri.toString());
-                Picasso.with().load(uri).into(holder.userImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Picasso.with().load(DEFAULTIMAGEURI).into(holder.userImage);
-            }
-        });*/
+
+
         /* TODO : RECUPERAR LAS IMAGENES
         holder.starsImage
         holder.userImage
@@ -120,5 +108,7 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
     public interface OnItemClickListener {
         void onItemClick(Publicacion item);
     }
+
+
 
 }
