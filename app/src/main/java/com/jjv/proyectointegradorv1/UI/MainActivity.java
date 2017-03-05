@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .setMessage("Versión: " + APP_VERSION +
-                            "\nCreado con amor por: " +
+                            "\nCreado por: " +
                             "\nJavier Martinez" +
                             "\nVictor Muñoz" +
                             "\nJavier Lozano");
