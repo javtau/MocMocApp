@@ -1,6 +1,7 @@
 package com.jjv.proyectointegradorv1.UI;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jjv.proyectointegradorv1.R;
 
@@ -17,6 +19,8 @@ public class Splash extends AppCompatActivity {
     private LinearLayout ly_logo;
     private Animation anim_salir;
     private Animation anim_entrarLogo;
+
+    TextView subtitulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class Splash extends AppCompatActivity {
         imgv_izquierda = (ImageView) findViewById(R.id.imgv_izquierda);
         ly_logo = (LinearLayout) findViewById(R.id.ly_logo);
         ly_logo.setVisibility(View.INVISIBLE);
+
+        subtitulo = (TextView) findViewById(R.id.txt_subtitle);
 
         Animation animTecho = AnimationUtils.loadAnimation(this, R.anim.move_techo);
         Animation anim_top2 = AnimationUtils.loadAnimation(this, R.anim.top_2);
@@ -94,7 +100,13 @@ public class Splash extends AppCompatActivity {
 
             }
         });
+        setTypeFace();
         openApp();
+    }
+
+    private void setTypeFace() {
+        Typeface fuenteSplash = Typeface.createFromAsset(getAssets(), "fonts/Freshman.ttf");
+        subtitulo.setTypeface(fuenteSplash);
     }
 
     private void openApp() {

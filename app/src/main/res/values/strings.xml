@@ -94,4 +94,7 @@
 
     <string name="btn_actualizar_perfil">Actualizar</string>
 
+    <string name="alert_info_title">Informacion</string>
+
+
 </resources>
