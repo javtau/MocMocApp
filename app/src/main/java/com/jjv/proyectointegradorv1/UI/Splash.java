@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.jjv.proyectointegradorv1.R;
 
 public class Splash extends AppCompatActivity {
     private ImageView techo, imgv_derecha, imgv_delantera, imgv_trasera, imgv_izquierda;
+    private LinearLayout ly_logo;
     private Animation anim_salir;
+    private Animation anim_entrarLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +29,8 @@ public class Splash extends AppCompatActivity {
         imgv_trasera = (ImageView) findViewById(R.id.imgv_trasera);
         imgv_derecha = (ImageView) findViewById(R.id.imgv_derecha);
         imgv_izquierda = (ImageView) findViewById(R.id.imgv_izquierda);
-
-
+        ly_logo = (LinearLayout) findViewById(R.id.ly_logo);
+        ly_logo.setVisibility(View.INVISIBLE);
 
         Animation animTecho = AnimationUtils.loadAnimation(this, R.anim.move_techo);
         Animation anim_top2 = AnimationUtils.loadAnimation(this, R.anim.top_2);
@@ -35,7 +38,7 @@ public class Splash extends AppCompatActivity {
         Animation anim_right2 = AnimationUtils.loadAnimation(this, R.anim.right_2);
         Animation anim_left2 = AnimationUtils.loadAnimation(this, R.anim.left_2);
         anim_salir = AnimationUtils.loadAnimation(Splash.this, R.anim.salir);
-
+        anim_entrarLogo= AnimationUtils.loadAnimation(Splash.this, R.anim.entrarlogo);
 
         techo.setAnimation(animTecho);
         imgv_delantera.setAnimation(anim_top2);
@@ -56,14 +59,16 @@ public class Splash extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                techo.setImageResource(R.drawable.cochecompleto);
                 techo.setAnimation(anim_salir);
-
-                imgv_delantera.setAnimation(anim_salir);
-                imgv_trasera.setAnimation(anim_salir);
-                imgv_izquierda.setAnimation(anim_salir);
-                imgv_derecha.setAnimation(anim_salir);
+                ly_logo.setAnimation(anim_entrarLogo);
+                imgv_delantera.setVisibility(View.INVISIBLE);
+                imgv_trasera.setVisibility(View.INVISIBLE);
+                imgv_izquierda.setVisibility(View.INVISIBLE);
+                imgv_derecha.setVisibility(View.INVISIBLE);
                 anim_salir.start();
+                anim_entrarLogo.start();
+                ly_logo.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -80,10 +85,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 techo.setVisibility(View.INVISIBLE);
-                imgv_delantera.setVisibility(View.INVISIBLE);
-                imgv_trasera.setVisibility(View.INVISIBLE);
-                imgv_izquierda.setVisibility(View.INVISIBLE);
-                imgv_derecha.setVisibility(View.INVISIBLE);
+
 
             }
 
@@ -107,3 +109,4 @@ public class Splash extends AppCompatActivity {
         }, 5000);
     }
 }
+

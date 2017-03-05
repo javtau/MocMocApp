@@ -90,15 +90,16 @@ public class PerfilActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogview = inflater.inflate(R.layout.imagepicker_dialog, null);
         picker.setContentView(dialogview);
-        picker.setTitle(getString(R.string.fotoperfil));
         picker.setCancelable(true);
         picker.setCanceledOnTouchOutside(true);
-        final Button btn_camara = (Button) dialogview.findViewById(R.id.btn_camara);
         final boolean result = Utility.checkPermission(PerfilActivity.this);
         if (result) {
+            final Button btn_camara = (Button) dialogview.findViewById(R.id.btn_camara);
+            Log.d("EN show imagepicker: ", "pasamos la parte de permisos");
             btn_camara.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("Pulsado el btn camara: ", "en on click");
                     cameraIntent();
                     picker.dismiss();
                 }
@@ -108,6 +109,7 @@ public class PerfilActivity extends AppCompatActivity {
             btn_galeria.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("Pulsado el btngaleria: ", "en on click");
                     galleryIntent();
                     picker.dismiss();
                 }
@@ -207,8 +209,8 @@ public class PerfilActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //mainactivityIntent.putExtra(MainActivity.FB_AVATAR,downlodUrl.toString());
-            //setResult(-1, mainactivityIntent);
+            mainactivityIntent.putExtra(MainActivity.FB_AVATAR,downlodUrl.toString());
+            setResult(-1, mainactivityIntent);
             FirebaseUser user = mAuth.getCurrentUser();
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setPhotoUri(downlodUrl).build();
