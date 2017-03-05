@@ -38,7 +38,11 @@
             android:label="@string/contacto"
             android:screenOrientation="portrait"
             android:parentActivityName=".UI.MainActivity"/>
-        <activity android:name=".UI.ConversacionChat" />
+
+        <activity android:name=".UI.ConversacionChat"
+                  android:label="MocMoc Chat">
+        </activity>
+
         <activity android:name=".UI.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
