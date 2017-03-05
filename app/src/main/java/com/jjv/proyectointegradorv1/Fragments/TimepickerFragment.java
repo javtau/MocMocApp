@@ -27,7 +27,7 @@ public class TimepickerFragment extends DialogFragment implements TimePickerDial
         int minute = c.get(Calendar.MINUTE);
 
         // creamos una nueva instancia con la hora actual y la devolvemos
-        return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+        return new TimePickerDialog(getActivity(), this, hour, minute, true);
     }
 
     @Override
