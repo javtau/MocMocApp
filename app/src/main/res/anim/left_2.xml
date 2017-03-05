@@ -4,5 +4,5 @@
     android:startOffset="700"
     android:toYDelta="0.0"
     android:toXDelta="0.0"
-    android:fromXDelta="900.0"
+    android:fromXDelta="1100.0"
     android:fromYDelta="000.0"/>

@@ -73,7 +73,10 @@ public class Publicaciones_Adapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
+        if(layout==R.layout.item_viaje) {
+            holder.nombreUsuario.setText(publicaciones.get(position).getUsuario());
+            showUserImage(position, holder);
+        }
         holder.origenViaje.setText(publicaciones.get(position).getOrigen());
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
         holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
@@ -81,11 +84,16 @@ public class Publicaciones_Adapter extends BaseAdapter {
         //holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
         holder.fechaviaje.setText(publicaciones.get(position).getFecha());
 
+
+
+        return convertView;
+    }
+
+    private void showUserImage(int position, final ViewHolder holder) {
         storageRef.child(publicaciones.get(position).getIdConductor()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
-                Log.e("caradapter    ", "resultado recivido del estarage " + uri.toString());
                 Picasso.with(contexto).load(uri).into(holder.userImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -95,9 +103,8 @@ public class Publicaciones_Adapter extends BaseAdapter {
                 Picasso.with(contexto).load(DEFAULTIMAGEURI).into(holder.userImage);
             }
         });
-
-        return convertView;
     }
+
     private class ViewHolder{
         ImageView userImage;
         TextView nombreUsuario,origenViaje,destinoViaje,precioViaje,horaViaje,fechaviaje;

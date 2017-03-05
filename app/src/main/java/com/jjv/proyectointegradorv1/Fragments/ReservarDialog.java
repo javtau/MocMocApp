@@ -130,7 +130,6 @@ public class ReservarDialog extends Dialog {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
-                Log.e("caradapter    ", "resultado recivido del estarage " + uri.toString());
                 Picasso.with(getContext()).load(uri).into(iv_userimage);
             }
         }).addOnFailureListener(new OnFailureListener() {

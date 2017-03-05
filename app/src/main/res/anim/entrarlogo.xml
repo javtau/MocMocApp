@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="700"
-    android:startOffset="700"
-    android:toYDelta="0.0"
+    android:duration="2300"
+    android:startOffset="400"
+    android:toYDelta="0"
     android:toXDelta="0.0"
     android:fromXDelta="0.0"
-    android:fromYDelta="-1100.0"/>
+    android:fromYDelta="2500"/>
