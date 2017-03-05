@@ -45,7 +45,6 @@ public class Mis_viajes extends Fragment  {
     private ChildEventListener childEvent;
     private Publicacion publicacion;
     private ArrayList<Publicacion>publicacionesbckup;
-
     private Dialog customDialog ;
 
 
@@ -124,8 +123,6 @@ public class Mis_viajes extends Fragment  {
                     showDialog(publicacionesbckup.get(position));
                 }
             });
-
-
         }
     }
 

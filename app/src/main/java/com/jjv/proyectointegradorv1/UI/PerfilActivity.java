@@ -23,10 +23,17 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -35,9 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jjv.proyectointegradorv1.R;
 import com.squareup.picasso.Picasso;
-
 import java.io.File;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilActivity extends AppCompatActivity {
@@ -57,10 +62,30 @@ public class PerfilActivity extends AppCompatActivity {
     private File filePathImageCamera;
     private Intent mainactivityIntent;
 
+    private EditText etNombreUsuario, etEmailUsuario;
+    private ImageView ivEditarNombre, ivEditarEmail;
+    private FirebaseUser firebaseUser;
+    private RelativeLayout relativeLayout;
+    private Button btnActualizarPerfil;
+
+    // controla si el usuario ha introducido nuevos valores para su nombre de usuario y el email
+    private boolean nombreChanged = false;
+    private boolean emailChanged = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
+        etNombreUsuario = (EditText) findViewById(R.id.lbl_username);
+        etEmailUsuario = (EditText) findViewById(R.id.lbl_useremail);
+        ivEditarEmail = (ImageView) findViewById(R.id.iv_editar_email);
+        ivEditarNombre = (ImageView) findViewById(R.id.iv_editar_nombre);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_perfil);
+        btnActualizarPerfil = (Button) findViewById(R.id.btn_actualizar);
+
+        etNombreUsuario.setFocusable(false);
+        etEmailUsuario.setFocusable(false);
 
         mainactivityIntent = getIntent();
         userimage = Uri.parse(mainactivityIntent.getStringExtra(MainActivity.FB_AVATAR));
@@ -79,10 +104,100 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etNombreUsuario.setFocusable(false);
+                etEmailUsuario.setFocusable(false);
+                esconderTeclado(PerfilActivity.this);
+            }
+        });
+
+        // los edit text empiezan sin foco, cuando el usuario pincha sobre los iconos, consigue los focos
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser != null){
+            etNombreUsuario.setText(firebaseUser.getDisplayName());
+            etEmailUsuario.setText(firebaseUser.getEmail());
+
+            ivEditarNombre.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    etNombreUsuario.setFocusableInTouchMode(true);
+                    etNombreUsuario.requestFocus();
+                    etNombreUsuario.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus){
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(etNombreUsuario, InputMethodManager.SHOW_IMPLICIT);
+                            }else{
+                                if(firebaseUser.getDisplayName().equals(etNombreUsuario.getText().toString())){
+                                    nombreChanged = true;
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            ivEditarEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    etEmailUsuario.setFocusableInTouchMode(true);
+                    etEmailUsuario.requestFocus();
+                    if(etEmailUsuario.hasFocus()){
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(etEmailUsuario, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                    if(!etEmailUsuario.hasFocus()){
+                        if(firebaseUser.getEmail().equals(etEmailUsuario.getText().toString())){
+                            emailChanged = true;
+                        }
+                    }
+                }
+            });
+        }
+
+        // actualiza el perfil
+        btnActualizarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!nombreChanged && !emailChanged){
+                    Toast.makeText(PerfilActivity.this, "¡Ningún cambio que guardar!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(nombreChanged){
+                        UserProfileChangeRequest perfilUpdate = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(etNombreUsuario.getText().toString())
+                                .build();
+
+                        // TODO: EL NOMBRE SE ACTUALIZA PERO EL USUARIO TIENE QUE SALIR Y VOLVER A LOGUEARSE PARA VER LOS CAMBIOS
+                        firebaseUser.updateProfile(perfilUpdate)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(PerfilActivity.this, "Nombre de perfil actualizado", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+
+                    if(emailChanged){
+                        firebaseUser.updateEmail(etEmailUsuario.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(PerfilActivity.this, "Email actualizado", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
 
     }
-
-
     // Mostramos un dialogo para dara elgir entre seleccionar la imagen de la galeria
     // o hacer una foto desde la camara
     private void showImagePicker() {
@@ -256,5 +371,16 @@ public class PerfilActivity extends AppCompatActivity {
                 return true;
             }
         }
+    }
+
+    public static void esconderTeclado(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

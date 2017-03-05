@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         // selecciona una pestaña por defecto cada vez que se llama a onCreate
         // en este caso buscar
         // TODO: dependiendo del perfil del usuario(conductor o usuario normal) seleccionar una pestaña diferente
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(2);
 
         /** CONFIGURACION DEL PANEL LATERAL **/
 
@@ -248,12 +248,10 @@ public class MainActivity extends AppCompatActivity {
 
             public void OnDrawerClosed(View v){
                 super.onDrawerClosed(v);
-                invalidateOptionsMenu();
             }
 
             public void OnDrawerOpened(View v){
                 super.onDrawerOpened(v);
-                invalidateOptionsMenu();
             }
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);

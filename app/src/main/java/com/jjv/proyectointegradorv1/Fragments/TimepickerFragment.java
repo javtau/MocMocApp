@@ -15,9 +15,6 @@ import com.jjv.proyectointegradorv1.R;
 
 import java.util.Calendar;
 
-/**
- * Created by javi0 on 16/01/2017.
- */
 
 public class TimepickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
 
@@ -30,21 +27,18 @@ public class TimepickerFragment extends DialogFragment implements TimePickerDial
         int minute = c.get(Calendar.MINUTE);
 
         // creamos una nueva instancia con la hora actual y la devolvemos
-        return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
+        return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
     }
-
-
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        TextView tv1= (TextView) getActivity().findViewById(R.id.txt_hora);
-        String hora = hourOfDay>9 ? ""+hourOfDay:"0"+hourOfDay;
-        String minutos = minute>9 ? ""+minute:"0"+minute;
+        TextView tvHora= (TextView) getActivity().findViewById(R.id.txt_hora);
+        String hora = hourOfDay>=10 ? ""+hourOfDay:"0"+hourOfDay;
+        String minutos = minute>=10 ? ""+minute:"0"+minute;
         StringBuilder sb = new StringBuilder();
         sb.append(hora);
         sb.append(":");
         sb.append(minutos);
-        tv1.setText(sb);
+        tvHora.setText(sb);
     }
 }

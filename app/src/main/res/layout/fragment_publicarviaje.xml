@@ -177,12 +177,9 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
-
     </LinearLayout>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
