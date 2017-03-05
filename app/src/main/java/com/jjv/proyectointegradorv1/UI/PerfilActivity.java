@@ -130,10 +130,6 @@ public class PerfilActivity extends AppCompatActivity {
                             if(hasFocus){
                                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                                 imm.showSoftInput(etNombreUsuario, InputMethodManager.SHOW_IMPLICIT);
-                            }else{
-                                if(firebaseUser.getDisplayName().equals(etNombreUsuario.getText().toString())){
-                                    nombreChanged = true;
-                                }
                             }
                         }
                     });
@@ -144,15 +140,15 @@ public class PerfilActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     etEmailUsuario.setFocusableInTouchMode(true);
                     etEmailUsuario.requestFocus();
-                    if(etEmailUsuario.hasFocus()){
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(etEmailUsuario, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                    if(!etEmailUsuario.hasFocus()){
-                        if(firebaseUser.getEmail().equals(etEmailUsuario.getText().toString())){
-                            emailChanged = true;
+                    etEmailUsuario.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus){
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(etEmailUsuario, InputMethodManager.SHOW_IMPLICIT);
+                            }
                         }
-                    }
+                    });
                 }
             });
         }
@@ -161,6 +157,14 @@ public class PerfilActivity extends AppCompatActivity {
         btnActualizarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!firebaseUser.getDisplayName().equals(etNombreUsuario.getText().toString())){
+                    nombreChanged = true;
+                }
+
+                if(!firebaseUser.getEmail().equals(etEmailUsuario.getText().toString())){
+                    emailChanged = true;
+                }
 
                 if(!nombreChanged && !emailChanged){
                     Toast.makeText(PerfilActivity.this, "¡Ningún cambio que guardar!", Toast.LENGTH_SHORT).show();
