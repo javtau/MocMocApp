@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/groupImage"
-                android:src="@drawable/ic_group_white_24px"/>
+                android:src="@drawable/ic_chat_coche"/>
         </android.support.v7.widget.CardView>
 
 
