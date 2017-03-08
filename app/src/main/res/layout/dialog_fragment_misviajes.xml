@@ -43,10 +43,9 @@
                     android:layout_width="@dimen/img_w"
                     android:layout_height="@dimen/img_h"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="37.5dp"
-
-                    >
-                    <ImageView
+                    app:cardCornerRadius="37.5dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:background="@android:color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/iv_usuario_misviajes"

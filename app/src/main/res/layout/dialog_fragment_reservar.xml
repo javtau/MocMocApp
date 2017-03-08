@@ -42,7 +42,8 @@
                     app:cardCornerRadius="37.5dp"
 
                     >
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:background="@android:color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/iv_usuario"

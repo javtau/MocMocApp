@@ -80,6 +80,7 @@ public class MisViajesDialog extends Dialog {
         etViajePrecio.setText(pub.getPrecio() + "€");
         etViajeHora.setText(pub.getHora());
         etViajeFecha.setText(pub.getFecha());
+
         btnCancelaViaje = (Button) findViewById(R.id.btn_cancelar_viaje);
         btnCancelaViaje.setOnClickListener(new View.OnClickListener() {
                 @Override

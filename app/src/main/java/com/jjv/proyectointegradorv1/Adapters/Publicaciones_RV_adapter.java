@@ -57,6 +57,7 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
         holder.destinoViaje.setText(publicaciones.get(position).getDestino());
         //holder.precioViaje.setText(publicaciones.get(position).getPrecio()+"€");
         holder.horaViaje.setText(publicaciones.get(position).getHora());
+        holder.fechaViaje.setText(publicaciones.get(position).getFecha());
         holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
 
 
@@ -81,7 +82,7 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
 
     public static class PublicacionesViewHolder extends RecyclerView.ViewHolder{
         ImageView userImage,starsImage;
-        TextView nombreUsuario,origenViaje,destinoViaje,precioViaje,horaViaje,plazas;
+        TextView nombreUsuario,origenViaje,destinoViaje,fechaViaje,horaViaje,plazas;
 
         public PublicacionesViewHolder(View convertView) {
             super(convertView);
@@ -91,8 +92,9 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
             nombreUsuario= (TextView) convertView.findViewById(R.id.txt_userName);
             origenViaje= (TextView) convertView.findViewById(R.id.txt_origen_usr);
             destinoViaje= (TextView) convertView.findViewById(R.id.txt_destino_viaje);
-            //precioViaje= (TextView) convertView.findViewById(R.id.txt_precio_viaje);
+            fechaViaje= (TextView) convertView.findViewById(R.id.txt_fecha_viaje);
             horaViaje= (TextView) convertView.findViewById(R.id.txt_hora_viaje);
+
             plazas= (TextView) convertView.findViewById(R.id.txt_plazas_viaje);
         }
         public void bind(final Publicacion item, final OnItemClickListener listener) {
