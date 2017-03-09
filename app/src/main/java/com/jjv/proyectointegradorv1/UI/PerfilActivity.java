@@ -174,8 +174,7 @@ public class PerfilActivity extends AppCompatActivity {
                                 .setDisplayName(etNombreUsuario.getText().toString())
                                 .build();
 
-                        // TODO: EL NOMBRE SE ACTUALIZA PERO EL USUARIO TIENE QUE SALIR Y VOLVER A LOGUEARSE PARA VER LOS CAMBIOS
-                        firebaseUser.updateProfile(perfilUpdate)
+                           firebaseUser.updateProfile(perfilUpdate)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

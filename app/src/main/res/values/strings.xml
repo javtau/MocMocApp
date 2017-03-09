@@ -7,8 +7,8 @@
     <string name="fragment2_name">Buscar</string>
     <string name="fragment3_name">Mis Viajes</string>
     <string name="fragment4_name">Chatear</string>
-    <string name="action_closesession">Cerrar sesion</string>
-    <string name="section_format">Estas en: %1$d</string>
+    <string name="action_closesession">Cerrar sesión</string>
+    <string name="section_format">Estás en: %1$d</string>
     <string name="hint_user">Usuario</string>
     <string name="hint_pass">Contraseña</string>
     <string name="hint_newuser">Elige un nombre de usuario</string>
@@ -29,24 +29,21 @@
     <string name="btn_publicar">Publicar</string>
     <string name="auth_failed">Ha ocurrido un fallo</string>
     <string name="mail_failed">El formato del e-mail no es correcto</string>
-    <string name="mail_exist">El mail ya esta registrado</string>
-    <string name="mail_no_existe">Este email no esta registrado</string>
+    <string name="mail_exist">El mail ya está registrado</string>
+    <string name="mail_no_existe">Este email no está registrado</string>
     <string name="auth_incorrect">Contraseña incorrecta</string>
     <string name="toast_sin_login">Iniciar sesión previamente</string>
     <string name="snackbar_sin_implementar">Botón pendiente de implementar</string>
     <string name="toast_campos_vacios">Se deben rellenar todos los campos</string>
-    <string name="toast_usuario_creado">El usuario se a creado correctamente</string>
+    <string name="toast_usuario_creado">El usuario se ha creado correctamente</string>
     <string name="toast_pwd_incorrecta">La contraseña no puede tener menos de 6 caracteres</string>
     <string name="publicacion_enviada">Tu viaje se ha publicado correctamente</string>
     <string name="msg_sin_registro">Si no estas registrado pulsa aquí</string>
     <string name="rellene_los_campos">Por favor, rellena todos los campos</string>
     <string name="info_conductor">Conductor</string>
     <string name="info_cond_nombre">Nombre</string>
-    <string name="info_cond_valoracion">Valoracion</string>
+
     <string name="info_viaje">Viaje</string>
-    <string name="info_vehiculo">Vehículo</string>
-    <string name="info_vehiculo_marca">Marca/Modelo:</string>
-    <string name="info_vehiculo_matricula">Matricula:</string>
     <string name="info_viaje_origen">Origen:</string>
     <string name="info_viaje_destino">Destino:</string>
     <string name="info_viaje_fecha">Fecha:</string>
@@ -65,11 +62,11 @@
     <string name="si">"Sí"</string>
     <string name="Cancelar">Cancelar</string>
     <string name="pregunta_cancelar_alert_dialog">¿Borrar viaje?</string>
-    <string name="cancelar_reserva_alert_dialog_msg">Esta accion puede afectar a más usuarios.\n¿Estás seguro que quieres eliminar el viaje?</string>
+    <string name="cancelar_reserva_alert_dialog_msg">Esta acción puede afectar a más usuarios.\n¿Estás seguro que quieres eliminar el viaje?</string>
     <string name="publicacion_eliminada">Viaje eliminado</string>
 
     <string name="fotoperfil">Foto de Perfil</string>
-    <string name="txt_camara">Camara</string>
+    <string name="txt_camara">Cámara</string>
     <string name="txt_galeria">Galeria</string>
     <string name="selectPicture">Selecione imagen</string>
     <string name="perfil">Perfil</string>
@@ -94,7 +91,14 @@
 
     <string name="btn_actualizar_perfil">Actualizar</string>
 
-    <string name="alert_info_title">Informacion</string>
+    <string name="alert_info_title">Información</string>
+    <string name="chat_enviar">ENVIAR</string>
+    <string name="sala_viaje">Sala de tu viaje</string>
+    <string name="plazas_card">Plazas:</string>
+    <string name="app_version">Versión %s</string>
+    <string name="info_creacion">Creado por:</string>
+    <string name="msg_dialog_salir">¿Seguro que quieres salir?</string>
+    <string name="no">No</string>
 
 
 </resources>

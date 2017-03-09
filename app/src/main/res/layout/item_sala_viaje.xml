@@ -45,7 +45,7 @@
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:id="@+id/txt_sala"
-                    android:text="Sala de tu viaje"
+                    android:text="@string/sala_viaje"
                     android:textSize="15dp"
                     android:gravity="center"
                     android:textColor="@android:color/white"

@@ -127,7 +127,7 @@
                 <TextView
                     android:layout_width="59dp"
                     android:layout_height="match_parent"
-                    android:text="Plazas"
+                    android:text="@string/plazas_card"
                     android:id="@+id/txt_plazas"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"

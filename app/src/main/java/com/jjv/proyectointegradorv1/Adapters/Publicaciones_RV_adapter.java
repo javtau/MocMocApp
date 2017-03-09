@@ -61,12 +61,6 @@ public class Publicaciones_RV_adapter extends RecyclerView.Adapter<Publicaciones
         holder.plazas.setText(publicaciones.get(position).getPlazas()+"");
 
 
-        /* TODO : RECUPERAR LAS IMAGENES
-        holder.starsImage
-        holder.userImage
-         */
-
-
     }
 
 

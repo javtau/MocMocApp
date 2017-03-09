@@ -30,7 +30,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-// TODO: CARGAR IMAGEN DE USUARIO --- IMPLEMENTAR BOTON RESERVAR -- IMPLEMENTAR ESTRELLAS VALORACION
+
 
 public class ReservarDialog extends Dialog {
 
@@ -100,7 +100,6 @@ public class ReservarDialog extends Dialog {
                     childUpdates.put("/user-trips/" + idConductor + "/" + keyViaje, viaje);
                     pub.setPlazas(reservas);
                     viaje = pub.toMap();
-                    childUpdates.put("/Books/" + key, viaje);
                     childUpdates.put("/user-trips/" + userId + "/" + key, viaje);
 
                     mDatabase.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {

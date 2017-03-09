@@ -78,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:text="Enviar"
+                        android:text="@string/chat_enviar"
                         android:layout_weight="1"
                         android:background="@drawable/button_custom"
                         android:textColor="@android:color/white"/>

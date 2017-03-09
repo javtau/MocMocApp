@@ -210,6 +210,14 @@ public class MainActivity extends AppCompatActivity {
             tvLatEmail.setText("");
         }
 
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarEditarPerfil();
+
+            }
+        });
+
         // asigna el listener al navigation view
         // configura acciones segun opcion seleccionada
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -219,9 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 // acciones segun item seleccionado en el panel lateral
                 switch(item.getItemId()){
                     case R.id.drawer_perfil:
-                        Intent i = new Intent(MainActivity.this, PerfilActivity.class);
-                        i.putExtra(FB_AVATAR,userimage.toString());
-                        startActivityForResult(i,EDITPROFILE);
+                        mostrarEditarPerfil();
                         break;
                     case R.id.drawer_contacto:
                         Intent j = new Intent(MainActivity.this, ContactoActivity.class);
@@ -263,6 +269,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void mostrarEditarPerfil() {
+        Intent i = new Intent(getBaseContext(), PerfilActivity.class);
+        i.putExtra(FB_AVATAR,userimage.toString());
+        startActivityForResult(i,EDITPROFILE);
+    }
+
+
     private boolean mostrarInfoAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(getString(R.string.alert_info_title))
@@ -273,8 +286,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 })
-                .setMessage("Versión: " + APP_VERSION +
-                            "\nCreado por: " +
+                .setMessage( getString(R.string.app_version, APP_VERSION) +
+                            "\n"+ getString(R.string.info_creacion) +
                             "\nJavier Martinez" +
                             "\nVictor Muñoz" +
                             "\nJavier Lozano");
@@ -320,14 +333,14 @@ public class MainActivity extends AppCompatActivity {
     private Dialog crearDialogo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setCancelable(false);
-        builder.setMessage("¿Seguro que quieres salir?");
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.msg_dialog_salir));
+        builder.setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseAuth.getInstance().signOut();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

@@ -199,7 +199,7 @@ public class Loggin extends AppCompatActivity {
     }
 
     public void registrar(View v){
-        Intent i = new Intent(this,register.class);
+        Intent i = new Intent(this,Register.class);
         startActivity(i);
 
     }
