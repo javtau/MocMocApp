@@ -48,10 +48,11 @@
                 android:layout_height="74dp"
                 android:src="@drawable/parentesisp" />
             <ImageView
-                app:srcCompat="@drawable/mocsup"
                 android:id="@+id/ivmocs"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="68dp"
                 android:src="@drawable/mocsup" />
         </FrameLayout>
 

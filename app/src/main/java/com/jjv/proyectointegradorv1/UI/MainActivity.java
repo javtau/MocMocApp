@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String FB_AVATAR = "avatar";
     public static final Uri DEFAULTIMAGEURI = Uri.parse("https://firebasestorage.googleapis.com/v0/b/logginpi.appspot.com/o/Userimage%2Fdefault.png?alt=media&token=3791a8b6-c7d0-45fe-b04b-cd0b90ffb6fd");
     public static final int EDITPROFILE = 22;
-    public static final String APP_VERSION = "1.0";
+    public static final String APP_VERSION = "1.01";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public static final String TAG = MainActivity.class.getSimpleName();
